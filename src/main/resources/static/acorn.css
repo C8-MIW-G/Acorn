@@ -1,0 +1,9 @@
+.pantrySelectionWrapper {
+    display: flex;
+    padding: 4rem;
+    gap: 1rem;
+}
+
+.pantryContentsWrapper {
+    padding: 4rem;
+}
