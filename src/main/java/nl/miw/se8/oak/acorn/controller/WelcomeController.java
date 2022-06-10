@@ -22,6 +22,7 @@ public class WelcomeController {
 
     PantryService pantryService;
     PantryProductService pantryProductService;
+
     @Autowired
     public WelcomeController(PantryService pantryService, PantryProductService pantryProductService) {
         this.pantryService = pantryService;
@@ -39,6 +40,8 @@ public class WelcomeController {
         model.addAttribute("pantries", pantries);
         return "pantrySelection";
     }
+
+    // THIS IS A TEST FOR THE TESTBRANCH
 
     @GetMapping("/pantry/{pantryId}")
     protected String pantryContents(@PathVariable("pantryId") Long pantryId, Model model) {
