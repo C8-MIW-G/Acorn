@@ -2,13 +2,13 @@ package nl.miw.se8.oak.acorn.controller;
 
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryProduct;
-import nl.miw.se8.oak.acorn.repository.PantryProductRepository;
-import nl.miw.se8.oak.acorn.repository.PantryRepository;
+import nl.miw.se8.oak.acorn.service.PantryProductService;
+import nl.miw.se8.oak.acorn.service.PantryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
 
 /**
@@ -20,12 +20,12 @@ import java.util.List;
 @Controller
 public class WelcomeController {
 
-    PantryRepository pantryRepository;
-    PantryProductRepository pantryProductRepository;
-
-    public WelcomeController(PantryRepository pantryRepository, PantryProductRepository pantryProductRepository) {
-        this.pantryRepository = pantryRepository;
-        this.pantryProductRepository = pantryProductRepository;
+    PantryService pantryService;
+    PantryProductService pantryProductService;
+    @Autowired
+    public WelcomeController(PantryService pantryService, PantryProductService pantryProductService) {
+        this.pantryService = pantryService;
+        this.pantryProductService = pantryProductService;
     }
 
     @GetMapping("/")
@@ -33,29 +33,18 @@ public class WelcomeController {
         return "home";
     }
 
-    // TODO /error mapping
-
     @GetMapping("/pantrySelection")
     protected String pantrySelection(Model model) {
-        List<Pantry> pantries = pantryRepository.findAll();
-        if (pantries.size() > 0) {
-            model.addAttribute("pantries", pantries);
-            return "pantrySelection";
-        }
-        // TODO "No pantries found" message (else statement)
-        return "redirect:/";
+        List<Pantry> pantries = pantryService.findAll();
+        model.addAttribute("pantries", pantries);
+        return "pantrySelection";
     }
 
     @GetMapping("/pantry/{pantryId}")
     protected String pantryContents(@PathVariable("pantryId") Long pantryId, Model model) {
-
-        List<PantryProduct> products = pantryProductRepository.findAllByPantryId(pantryId);
-        // TODO improve check
-        if (products != null) {
-            model.addAttribute("products", products);
-            return "pantryContents";
-        }
-        return "redirect:/";
+        List<PantryProduct> products = pantryProductService.findAllByPantryId(pantryId);
+        model.addAttribute("products", products);
+        return "pantryContents";
     }
 
 }
