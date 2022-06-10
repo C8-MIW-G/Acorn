@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-<head th:replace="fragments/template :: head">
-</head>
+<head th:replace="fragments/template :: head"></head>
 
 <body>
 
-<nav th:replace="fragments/template :: navbar"></nav>
+    <nav th:replace="fragments/template :: navbar"></nav>
 
-<main>
+    <main>
 
-    <div class="pantryContentsWrapper">
+        <div class="pantryContentsWrapper">
 
-    <h2>Pantry contents</h2>
-    <table>
-        <tr>
-            <th>Product</th>
-        </tr>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.productName}"></td>
-        </tr>
-    </table>
+            <h2>Pantry contents</h2>
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Expiration date</th>
+                </tr>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.productName}"></td>
+                    <td th:text="${product.expirationDate}"></td>
+                </tr>
+            </table>
 
-    </div>
+        </div>
 
-</main>
+    </main>
 
-<footer th:replace="fragments/template :: footer"></footer>
+    <footer th:replace="fragments/template :: footer"></footer>
 
 </body>
 
