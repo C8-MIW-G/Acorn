@@ -50,4 +50,10 @@ public class WelcomeController {
         return "pantryContents";
     }
 
+    @GetMapping("/pantry/{pantryId}/delete")
+    protected String deletePantry(@PathVariable("pantryId") Long pantryId) {
+        pantryService.deleteById(pantryId);
+        return "redirect:/pantrySelection";
+    }
+
 }

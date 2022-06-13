@@ -10,14 +10,26 @@
 
 <main>
     <div class="pantrySelectionWrapper">
-        <ul>
-            <li th:each="pantry : ${pantries}">
-                <a
-                   th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}"
-                   th:text="${pantry.name}">Pantry name
-                </a>
-            </li>
-        </ul>
+
+        <h2>Pantry contents</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th></th>
+            </tr>
+            <tr th:each="pantry : ${pantries}">
+                <td>
+                    <a
+                        th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}"
+                        th:text="${pantry.name}">Pantry name
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantry.id})}">delete</a>
+                </td>
+            </tr>
+        </table>
+
     </div>
 </main>
 

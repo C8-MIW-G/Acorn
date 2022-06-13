@@ -22,4 +22,9 @@ public class PantryServiceImplementation implements PantryService {
     public List<Pantry> findAll() {
         return pantryRepository.findAll();
     }
+
+    @Override
+    public void deleteById(Long pantryId) {
+        pantryRepository.deleteById(pantryId);
+    }
 }
