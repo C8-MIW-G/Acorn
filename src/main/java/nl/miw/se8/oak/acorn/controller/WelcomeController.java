@@ -41,8 +41,6 @@ public class WelcomeController {
         return "pantrySelection";
     }
 
-    // THIS IS A TEST FOR THE TESTBRANCH
-
     @GetMapping("/pantry/{pantryId}")
     protected String pantryContents(@PathVariable("pantryId") Long pantryId, Model model) {
         List<PantryProduct> products = pantryProductService.findAllByPantryId(pantryId);
@@ -54,6 +52,11 @@ public class WelcomeController {
     protected String deletePantry(@PathVariable("pantryId") Long pantryId) {
         pantryService.deleteById(pantryId);
         return "redirect:/pantrySelection";
+    }
+
+    @GetMapping("/productDefinitions")
+    protected String productDefinitions() {
+        return "productDefinitions";
     }
 
 }

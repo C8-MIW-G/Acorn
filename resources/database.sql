@@ -6,9 +6,11 @@ GRANT ALL PRIVILEGES ON acorn.* TO 'userAcorn'@'localhost';
 
 SELECT * FROM acorn.pantry;
 SELECT * FROM acorn.pantry_product;
+SELECT * FROM acorn.product_definition;
 
 DELETE FROM acorn.pantry;
 DELETE FROM acorn.pantry_product;
+DELETE FROM acorn.product_definition;
 
 INSERT INTO acorn.pantry (`id`, `name`) VALUES
 	(-1, "Sylvia's Pantry"),
@@ -32,3 +34,16 @@ INSERT INTO acorn.pantry_product (`id`, `pantry_id`, `product_name`, `expiration
 	(-10, -3, "Pesto", "2022-08-14"),
 	(-11, -3, "Tortellini", "2022-07-19"),
 	(-12, -3, "Onions", "2022-07-20");
+    
+INSERT INTO acorn.product_definition (`id`, `name`) VALUES
+	(-1, "Cornflakes"),
+	(-2, "Couscous"),
+	(-3, "Wine"),
+	(-4, "Onions"),
+	(-5, "Tortellini"),
+	(-6, "Pesto"),
+	(-7, "Feta"),
+	(-8, "Cheese"),
+	(-9, "Cornflakes"),
+	(-10, "Butter");
+    

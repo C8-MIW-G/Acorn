@@ -2,9 +2,7 @@ package nl.miw.se8.oak.acorn.model;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
@@ -19,5 +17,7 @@ public class PantryProduct {
     private Long pantryId;
     private String productName;
     private LocalDate expirationDate;
+    @ManyToOne
+    private ProductDefinition productDefinition;
 
 }
