@@ -36,7 +36,7 @@ INSERT INTO acorn.pantry_product (`id`, `pantry_id`, `product_name`, `expiration
 	(-12, -3, "Onions", "2022-07-20");
     
 INSERT INTO acorn.product_definition (`id`, `name`) VALUES
-	(-1, "Cornflakes"),
+	(-1, "Olives"),
 	(-2, "Couscous"),
 	(-3, "Wine"),
 	(-4, "Onions"),

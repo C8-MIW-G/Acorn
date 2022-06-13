@@ -9,7 +9,19 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
+    <div class="pantryContentsWrapper">
 
+        <h2>Product Definitions</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}"></td>
+            </tr>
+        </table>
+
+    </div>
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>
