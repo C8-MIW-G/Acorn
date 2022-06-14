@@ -8,7 +8,6 @@ import java.util.List;
  * Created on: 10-6-2022
  */
 public interface PantryService {
-
     List <Pantry> findAll();
     void deleteById(Long pantryId);
 }

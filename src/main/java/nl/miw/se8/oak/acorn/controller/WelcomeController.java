@@ -4,6 +4,7 @@ import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryProduct;
 import nl.miw.se8.oak.acorn.service.PantryProductService;
 import nl.miw.se8.oak.acorn.service.PantryService;
+import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +23,16 @@ public class WelcomeController {
 
     PantryService pantryService;
     PantryProductService pantryProductService;
+    ProductDefinitionService productDefinitionService;
 
     @Autowired
-    public WelcomeController(PantryService pantryService, PantryProductService pantryProductService) {
+    public WelcomeController(
+            PantryService pantryService,
+            PantryProductService pantryProductService,
+            ProductDefinitionService productDefinitionService) {
         this.pantryService = pantryService;
         this.pantryProductService = pantryProductService;
+        this.productDefinitionService = productDefinitionService;
     }
 
     @GetMapping("/")
@@ -52,11 +58,6 @@ public class WelcomeController {
     protected String deletePantry(@PathVariable("pantryId") Long pantryId) {
         pantryService.deleteById(pantryId);
         return "redirect:/pantrySelection";
-    }
-
-    @GetMapping("/productDefinitions")
-    protected String productDefinitions() {
-        return "productDefinitions";
     }
 
 }

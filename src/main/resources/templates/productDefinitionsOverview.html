@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/template :: navbar"></nav>
+
+<main>
+    <div class="pantryContentsWrapper">
+
+        <h2>Product Definitions</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}"></td>
+                <td>
+                    <a th:href="@{/products/{productId}/delete(productId=${product.id})}">delete</a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</main>
+
+<footer th:replace="fragments/template :: footer"></footer>
+
+</body>
+
+</html>
