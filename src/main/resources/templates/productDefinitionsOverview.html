@@ -23,6 +23,9 @@
                 <td th:text="${product.id}"></td>
                 <td th:text="${product.name}"></td>
                 <td>
+                    <a th:href="@{/products/{productId}/edit(productId=${product.id})}">edit</a>
+                </td>
+                <td>
                     <a th:href="@{/products/{productId}/delete(productId=${product.id})}">delete</a>
                 </td>
             </tr>

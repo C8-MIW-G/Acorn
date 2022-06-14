@@ -26,6 +26,11 @@ public class ProductDefinitionServiceImplementation implements ProductDefinition
     }
 
     @Override
+    public Optional<ProductDefinition> findById(Long productId) {
+        return productDefinitionRepository.findById(productId);
+    }
+
+    @Override
     public void deleteById(Long id) {
         productDefinitionRepository.deleteById(id);
     }

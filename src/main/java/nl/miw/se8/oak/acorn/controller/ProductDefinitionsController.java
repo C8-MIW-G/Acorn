@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Author: Thijs van Blanken
@@ -43,6 +44,16 @@ public class ProductDefinitionsController {
     protected String createProductDefinition(Model model) {
         model.addAttribute("product", new ProductDefinition());
         return "productDefinitionsCreate";
+    }
+
+    @GetMapping("/products/{productId}/edit")
+    protected String editProductDefinition(@PathVariable("productId") Long productId, Model model) {
+        Optional<ProductDefinition> productDefinition = productDefinitionService.findById(productId);
+        if (productDefinition.isPresent()) {
+            model.addAttribute("product", productDefinition.get());
+            return "productDefinitionsCreate";
+        }
+        return "redirect:/products";
     }
 
     @PostMapping("/products/create")
