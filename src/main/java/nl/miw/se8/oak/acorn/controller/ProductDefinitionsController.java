@@ -34,6 +34,16 @@ public class ProductDefinitionsController {
         return "productDefinitionsOverview";
     }
 
+    @GetMapping("/products/{productId}")
+    protected String productDefinitionsDetails(@PathVariable("productId") Long productId, Model model) {
+        Optional<ProductDefinition> product = productDefinitionService.findById(productId);
+        if (product.isPresent()) {
+            model.addAttribute("product", product.get());
+            return "productDefinitionsDetails";
+        }
+        return "redirect:/products";
+    }
+
     @GetMapping("/products/{productId}/delete")
     protected String deleteProductDefinition(@PathVariable("productId") Long productId) {
         productDefinitionService.deleteById(productId);

@@ -12,7 +12,8 @@
     <div class="pantryContentsWrapper">
 
         <h2>Product Definitions</h2>
-        <a href="/products/create">Add new</a>
+
+        <a href="/products/create"><button type="button" class="btn btn-primary">Add new</button></a>
         <table>
             <tr>
                 <th>Id</th>
@@ -21,7 +22,9 @@
             </tr>
             <tr th:each="product : ${products}">
                 <td th:text="${product.id}"></td>
-                <td th:text="${product.name}"></td>
+                <td>
+                    <a th:href="@{/products/{productId}(productId=${product.id})}" th:text="${product.name}"></a>
+                </td>
                 <td>
                     <a th:href="@{/products/{productId}/edit(productId=${product.id})}">edit</a>
                 </td>
