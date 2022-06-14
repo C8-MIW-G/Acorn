@@ -18,6 +18,9 @@
             </tr>
             <tr th:each="product : ${products}">
                 <td th:text="${product.name}"></td>
+                <td>
+                    <a th:href="@{/products/{productId}/delete(productId=${product.id})}">delete</a>
+                </td>
             </tr>
         </table>
 

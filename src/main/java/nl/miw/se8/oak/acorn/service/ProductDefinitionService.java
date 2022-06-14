@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ProductDefinitionService {
     List<ProductDefinition> findAll();
+    void deleteById(Long pantryId);
 }

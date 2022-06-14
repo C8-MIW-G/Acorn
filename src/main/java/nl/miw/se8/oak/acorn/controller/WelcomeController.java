@@ -2,7 +2,6 @@ package nl.miw.se8.oak.acorn.controller;
 
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryProduct;
-import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.service.PantryProductService;
 import nl.miw.se8.oak.acorn.service.PantryService;
 import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
@@ -59,13 +58,6 @@ public class WelcomeController {
     protected String deletePantry(@PathVariable("pantryId") Long pantryId) {
         pantryService.deleteById(pantryId);
         return "redirect:/pantrySelection";
-    }
-
-    @GetMapping("/productDefinitions")
-    protected String productDefinitions(Model model) {
-        List<ProductDefinition> productDefinitions = productDefinitionService.findAll();
-        model.addAttribute("products", productDefinitions);
-        return "productDefinitions";
     }
 
 }

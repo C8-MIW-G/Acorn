@@ -24,4 +24,11 @@ public class ProductDefinitionServiceImplementation implements ProductDefinition
     public List<ProductDefinition> findAll() {
         return productDefinitionRepository.findAll();
     }
+
+    @Override
+    public void deleteById(Long id) {
+        productDefinitionRepository.deleteById(id);
+    }
+
+
 }
