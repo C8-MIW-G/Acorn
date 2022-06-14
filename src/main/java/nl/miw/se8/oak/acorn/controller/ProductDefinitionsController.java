@@ -4,8 +4,11 @@ import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -33,6 +36,20 @@ public class ProductDefinitionsController {
     @GetMapping("/products/{productId}/delete")
     protected String deleteProductDefinition(@PathVariable("productId") Long productId) {
         productDefinitionService.deleteById(productId);
+        return "redirect:/products";
+    }
+
+    @GetMapping("/products/create")
+    protected String createProductDefinition(Model model) {
+        model.addAttribute("product", new ProductDefinition());
+        return "productDefinitionsCreate";
+    }
+
+    @PostMapping("/products/create")
+    protected String submitProductDefinition(@ModelAttribute("productDefinition") ProductDefinition productDefinition, BindingResult result) {
+        if (!result.hasErrors()) {
+            productDefinitionService.save(productDefinition);
+        }
         return "redirect:/products";
     }
 

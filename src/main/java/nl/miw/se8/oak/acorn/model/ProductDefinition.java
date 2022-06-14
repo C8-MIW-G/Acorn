@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -17,6 +20,8 @@ import java.util.List;
 @Entity @Getter @Setter
 public class ProductDefinition {
 
+    private static final String DEFAULT_NAME = "New Product";
+
     @Id @GeneratedValue
     private Long id;
     private String name;
@@ -24,6 +29,8 @@ public class ProductDefinition {
     private List<PantryProduct> pantryProducts;
 
     public ProductDefinition() {
-
+        this.name = DEFAULT_NAME;
+        this.pantryProducts = new ArrayList<>();
+        // TODO should this be a set?
     }
 }

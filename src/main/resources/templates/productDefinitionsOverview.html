@@ -12,11 +12,15 @@
     <div class="pantryContentsWrapper">
 
         <h2>Product Definitions</h2>
+        <a href="/products/create">Add new</a>
         <table>
             <tr>
+                <th>Id</th>
                 <th>Product</th>
+                <th></th>
             </tr>
             <tr th:each="product : ${products}">
+                <td th:text="${product.id}"></td>
                 <td th:text="${product.name}"></td>
                 <td>
                     <a th:href="@{/products/{productId}/delete(productId=${product.id})}">delete</a>
