@@ -13,32 +13,45 @@
 
         <h2>Product Definitions</h2>
 
-        <a href="/products/create"><button type="button" class="btn btn-primary">Add new</button></a>
+        <div class="tableNavigation">
+            <a href="/products/create"><button type="button" class="btn btn-primary">Add new</button></a>
 
-        <form th:action="@{/products/search}" method="get" class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchString">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+            <form th:action="@{/products/search}" method="get" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchString">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
 
-        <table>
-            <tr>
-                <th class="text-align-right">Id</th>
-                <th>Product</th>
-                <th></th>
-            </tr>
-            <tr th:each="product : ${products}">
-                <td th:text="${product.id}" class="text-align-right"></td>
-                <td>
-                    <a th:href="@{/products/{productId}(productId=${product.id})}" th:text="${product.name}"></a>
-                </td>
-                <td>
-                    <a th:href="@{/products/{productId}/edit(productId=${product.id})}">edit</a>
-                </td>
-                <td>
-                    <a th:href="@{/products/{productId}/delete(productId=${product.id})}">delete</a>
-                </td>
-            </tr>
-        </table>
+        <div class="tableContainer scrollbar-thin">
+            <table th:if="${products.size > 0}" class="table">
+                <thead>
+                    <tr>
+                        <th class="th-fixed-width text-align-right" scope="col">Id</th>
+                        <th scope="col">Product</th>
+                        <th class="th-fixed-width"></th>
+                        <th class="th-fixed-width"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.id}" class="text-align-right"></td>
+                        <td>
+                            <a th:href="@{/products/{productId}(productId=${product.id})}" th:text="${product.name}"></a>
+                        </td>
+                        <td>
+                            <a th:href="@{/products/{productId}/edit(productId=${product.id})}">edit</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/products/{productId}/delete(productId=${product.id})}">delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <p th:unless="${products.size != 0}" class="text-center">No products were found... try a different search term</p>
+
+        </div>
 
     </div>
 </main>

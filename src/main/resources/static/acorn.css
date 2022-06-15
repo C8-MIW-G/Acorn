@@ -7,7 +7,7 @@
 }
 
 td, th {
-    padding-right: 1.6rem;
+    /*padding-right: 1.6rem;*/
 }
 
 .navbar {
@@ -42,4 +42,28 @@ td, th {
 
 .form-inline {
     padding: 1rem 0;
+}
+
+.tableNavigation a {
+    float: left;
+}
+
+.tableNavigation form {
+    float: right;
+}
+
+.tableContainer {
+    height: 70vh;
+    overflow: auto;
+    width: 100%;
+
+}
+
+.scrollbar-thin {
+    scrollbar-color: #a8c7e8 #e9f4ff;
+    scrollbar-width: thin;
+}
+
+.th-fixed-width {
+    width: 3rem;
 }

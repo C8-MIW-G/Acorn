@@ -47,5 +47,24 @@ INSERT INTO acorn.product_definition (`id`, `name`) VALUES
 	(-9, "Tomatoes"),
 	(-10, "Pesto"),
 	(-11, "Tortellini"),
-	(-10, "Onions");
+	(-12, "Jumbo Torpedo Garnalen Snacks 225g"),
+	(-13, "Jumbo Lemon Cheesecake Roomijs 425g"),
+	(-14, "Jumbo Vochtige Lotion Doekjes Normale Huid 3 x 80 Stuks"),
+	(-15, "Chernigivske Bier Pils Blik 6 x 330ML"),
+	(-16, "Jumbo Energy Gel Citroen Smaak 45g"),
+	(-17, "Jumbo Knäckebröd Volkoren 5 x 5 Stuks 375g"),
+	(-18, "Jumbo Ierse Black Angus Biefstuk ca. 90g"),
+	(-19, "Jumbo Ierse Rosbief ca. 90g"),
+	(-20, "Jumbo Wilde Zalm Filet 675g"),
+	(-21, "Mora Vegetarische Kipfingers 240g"),
+	(-22, "Jumbo Wok Garnalen 300g"),
+	(-23, "Jumbo Mayonaise 750ml"),
+	(-24, "Zaanse Mayonaise 750ml"),
+	(-25, "Remia Mayonaise 500ml"),
+	(-26, "Zaanse Yoghurt Mayo 170ml"),
+	(-27, "Oliehoorn Vegan Mayo 465ml"),
+	(-28, "Heinz Tomaten Ketchup 400ml"),
+	(-29, "Heinz Tomaten Ketchup 50% Minder Suikers en Zout 400ml"),
+	(-30, "Jumbo Biologisch Tomaten Ketchup 330g");
+
     

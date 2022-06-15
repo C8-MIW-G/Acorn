@@ -78,7 +78,6 @@ public class ProductDefinitionsController {
     protected String searchProductDefinition(@RequestParam("searchString") String searchString, Model model) {
         List<ProductDefinition> searchResults = productDefinitionService.findByNameContaining(searchString);
         model.addAttribute("products", searchResults);
-        System.out.println(Arrays.toString(searchResults.toArray()));
         return "productDefinitionsOverview";
     }
 
