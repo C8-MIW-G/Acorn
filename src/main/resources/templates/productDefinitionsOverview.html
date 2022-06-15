@@ -14,14 +14,20 @@
         <h2>Product Definitions</h2>
 
         <a href="/products/create"><button type="button" class="btn btn-primary">Add new</button></a>
+
+        <form th:action="@{/products/search}" method="get" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchString">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
         <table>
             <tr>
-                <th>Id</th>
+                <th class="text-align-right">Id</th>
                 <th>Product</th>
                 <th></th>
             </tr>
             <tr th:each="product : ${products}">
-                <td th:text="${product.id}"></td>
+                <td th:text="${product.id}" class="text-align-right"></td>
                 <td>
                     <a th:href="@{/products/{productId}(productId=${product.id})}" th:text="${product.name}"></a>
                 </td>

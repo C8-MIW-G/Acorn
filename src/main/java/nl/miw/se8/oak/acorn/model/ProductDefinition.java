@@ -23,6 +23,7 @@ public class ProductDefinition implements Comparable<ProductDefinition>{
     @Id @GeneratedValue
     private Long id;
     private String name;
+    private String amount;
     @OneToMany(mappedBy = "productDefinition")
     private List<PantryProduct> pantryProducts;
 

@@ -10,4 +10,5 @@ public interface ProductDefinitionService {
     Optional<ProductDefinition> findById(Long productId);
     void deleteById(Long productId);
     void save(ProductDefinition product);
+    List<ProductDefinition> findByNameContaining(String string);
 }

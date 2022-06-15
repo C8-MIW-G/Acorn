@@ -40,4 +40,9 @@ public class ProductDefinitionServiceImplementation implements ProductDefinition
         productDefinitionRepository.save(product);
     }
 
+    @Override
+    public List<ProductDefinition> findByNameContaining(String string) {
+        return productDefinitionRepository.findByNameContaining(string);
+    }
+
 }

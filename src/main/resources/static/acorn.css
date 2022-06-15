@@ -6,21 +6,40 @@
     padding: 4rem;
 }
 
-td {
-    padding-right: 1rem;
+td, th {
+    padding-right: 1.6rem;
 }
 
 .navbar {
-    background-color: #c1dca1;
+    position: sticky;
+    top: 0;
 }
 
 .navbar-brand {
     font-family: 'Lobster', cursive;
     padding: 0;
-    color: brown;
     font-size: 1.6rem;
 }
 
-.btn {
+.btn, .form {
     margin: 1rem 0;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.btn-outline-success {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-success:hover {
+    color: #73b1ff;
+    border-color: #73b1ff;
+    background-color: rgba(115, 177, 255, 0);
+}
+
+.form-inline {
+    padding: 1rem 0;
 }

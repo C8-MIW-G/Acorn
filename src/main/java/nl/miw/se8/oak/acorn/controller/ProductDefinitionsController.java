@@ -5,11 +5,9 @@ import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -74,6 +72,14 @@ public class ProductDefinitionsController {
             productDefinitionService.save(productDefinition);
         }
         return "redirect:/products";
+    }
+
+    @GetMapping("/products/search")
+    protected String searchProductDefinition(@RequestParam("searchString") String searchString, Model model) {
+        List<ProductDefinition> searchResults = productDefinitionService.findByNameContaining(searchString);
+        model.addAttribute("products", searchResults);
+        System.out.println(Arrays.toString(searchResults.toArray()));
+        return "productDefinitionsOverview";
     }
 
 }
