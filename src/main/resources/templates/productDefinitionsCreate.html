@@ -11,7 +11,7 @@
 <main>
     <div class="pantryContentsWrapper">
 
-        <h2>Define a new product</h2>
+        <h2>Create/edit a product</h2>
 
         <form th:action="@{/products/create}" method="post" th:object="${product}">
             <input type="hidden" th:field="*{id}">
