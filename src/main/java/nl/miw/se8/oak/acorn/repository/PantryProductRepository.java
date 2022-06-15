@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface PantryProductRepository extends JpaRepository<PantryProduct, Long> {
     List<PantryProduct> findAllByPantryId (Long pantryId);
-
 }
 
 

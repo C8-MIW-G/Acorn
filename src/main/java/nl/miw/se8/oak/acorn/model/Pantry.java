@@ -1,7 +1,6 @@
 package nl.miw.se8.oak.acorn.model;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,7 +13,6 @@ import static javax.persistence.CascadeType.ALL;
  */
 @Entity @Getter
 public class Pantry {
-
 
     @Id @GeneratedValue
     private Long id;

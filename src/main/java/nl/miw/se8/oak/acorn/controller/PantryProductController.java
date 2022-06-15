@@ -23,7 +23,7 @@ public class PantryProductController {
     }
 
     @GetMapping("/pantry/{pantryId}")
-    protected String pantryContents(@PathVariable("pantryId") Long pantryId,Model model) {
+    protected String pantryContents(@PathVariable("pantryId") Long pantryId, Model model) {
         List<PantryProduct> pantryProducts = pantryProductService.findAllByPantryId(pantryId);
         model.addAttribute("pantryProducts", pantryProducts);
         return "pantryContents";
@@ -37,6 +37,11 @@ public class PantryProductController {
             pantryId = pantryProduct.get().getPantry().getId();
         }
         pantryProductService.deleteById(pantryProductId);
-        return "redirect:/pantry/" + pantryId;
+
+        if (pantryId != null) {
+            return "redirect:/pantry/" + pantryId;
+        } else {
+            return "redirect:/pantrySelection";
+        }
     }
 }
