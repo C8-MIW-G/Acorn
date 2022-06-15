@@ -6,7 +6,7 @@ Systems Admin (sysadmin)<br>
 A sysadmin has full authority on all aspects of the application
 
 Pantry Admin<br>
-A pantry admin can can manage the contents of a pantry as well as the users of that pantry
+A pantry admin can manage the contents of a pantry as well as the users of that pantry
 
 User<br>
 A user can only manage the contents of a pantry
