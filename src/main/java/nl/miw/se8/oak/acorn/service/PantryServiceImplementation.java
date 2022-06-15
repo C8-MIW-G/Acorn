@@ -4,6 +4,7 @@ import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.repository.PantryRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Author: Team Oak
@@ -27,4 +28,20 @@ public class PantryServiceImplementation implements PantryService {
     public void deleteById(Long pantryId) {
         pantryRepository.deleteById(pantryId);
     }
+
+    @Override
+    public Optional<Pantry> findById(Long pantryId) {
+        return pantryRepository.findById(pantryId);
+    }
+
+    @Override
+    public void save(Pantry pantry) {
+        pantryRepository.save(pantry);
+    }
+
+//    public void update(Pantry pantry, String name) {
+//        pantryRepository.
+
+//    }
+
 }

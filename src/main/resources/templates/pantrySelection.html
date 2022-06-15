@@ -12,6 +12,7 @@
     <div class="pantrySelectionWrapper">
 
         <h2>Select a pantry</h2>
+        <a href="/pantry/create"> Add new Pantry</a>
         <table>
             <tr>
                 <th>Name</th>
@@ -26,6 +27,9 @@
                 </td>
                 <td>
                     <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantry.id})}">delete</a>
+                </td>
+                <td>
+                    <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantry.id})}"> edit</a>
                 </td>
             </tr>
         </table>

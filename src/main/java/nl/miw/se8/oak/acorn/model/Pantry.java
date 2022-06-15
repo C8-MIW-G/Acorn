@@ -11,11 +11,14 @@ import javax.persistence.Id;
  * Author: Team Oak
  * Created on: 9-6-2022
  */
-@Entity @Getter
+@Entity @Getter @Setter
 public class Pantry {
 
     @Id @GeneratedValue
     private Long id;
     private String name;
 
+    public Pantry() {
+        this.name= "new name";
+    }
 }
