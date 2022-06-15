@@ -5,29 +5,29 @@
 
 <body>
 
-    <nav th:replace="fragments/template :: navbar"></nav>
+<nav th:replace="fragments/template :: navbar"></nav>
 
-    <main>
+<main>
+    <div class="pantryContentsWrapper">
+        <h2>Pantry contents</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Expiration date</th>
+            </tr>
+            <tr th:each="pantryProduct : ${pantryProducts}">
+                <td th:text="${pantryProduct.productDefinition.name}"></td>
+                <td th:text="${pantryProduct.expirationDate}"></td>
+                <td>
+                    <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-        <div class="pantryContentsWrapper">
+</main>
 
-            <h2>Pantry contents</h2>
-            <table>
-                <tr>
-                    <th>Product</th>
-                    <th>Expiration date</th>
-                </tr>
-                <tr th:each="product : ${products}">
-                    <td th:text="${product.productName}"></td>
-                    <td th:text="${product.expirationDate}"></td>
-                </tr>
-            </table>
-
-        </div>
-
-    </main>
-
-    <footer th:replace="fragments/template :: footer"></footer>
+<footer th:replace="fragments/template :: footer"></footer>
 
 </body>
 
