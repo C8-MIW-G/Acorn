@@ -1,69 +1,98 @@
-.pantrySelectionWrapper {
-    padding: 4rem;
+:root {
+    /*--primary-color: #d17741;*/
+    /*--primary-color-light: #e68f5b;*/
+    /*--primary-color-extralight: #f8e2d5;*/
+
+    --primary-color: #4cac64;
+    --primary-color-light: #78d991;
+    --primary-color-extralight: #d9e8dd;
+
+    --light-grey: #f4f4f4;
+    --opaque: rgba(34, 34, 34, 0);
 }
 
 .pantryContentsWrapper {
-    padding: 4rem;
+    padding: 4rem 10rem;
+    max-width: 1400px;
+    margin: auto;
 }
-
-td, th {
-    /*padding-right: 1.6rem;*/
-}
-
+/* Navbar */
 .navbar {
     position: sticky;
     top: 0;
 }
 
-.navbar-brand {
+.navbar-brand-custom {
     font-family: 'Lobster', cursive;
-    padding: 0;
+    padding: 0 1rem;
     font-size: 1.6rem;
+    color: var(--primary-color);
+    letter-spacing: .1rem;
 }
 
-.btn, .form {
-    margin: 1rem 0;
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
-.text-align-right {
-    text-align: right;
+.btn-primary:hover {
+    border-color: #fff;
+    background-color: var(--primary-color-light);
 }
 
 .btn-outline-success {
-    color: #007bff;
-    border-color: #007bff;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .btn-outline-success:hover {
-    color: #73b1ff;
-    border-color: #73b1ff;
-    background-color: rgba(115, 177, 255, 0);
+    color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    background-color: var(--opaque);
 }
 
-.form-inline {
+/* Tables */
+.tableNavigation {
+    display: flex;
+    gap: 1rem;
+    flex-flow: row wrap;
+    justify-content: space-between;
     padding: 1rem 0;
 }
 
 .tableNavigation a {
-    float: left;
-}
-
-.tableNavigation form {
-    float: right;
+    margin: auto 0;
 }
 
 .tableContainer {
     height: 70vh;
     overflow: auto;
-    width: 100%;
-
-}
-
-.scrollbar-thin {
-    scrollbar-color: #a8c7e8 #e9f4ff;
-    scrollbar-width: thin;
 }
 
 .th-fixed-width {
     width: 3rem;
+}
+
+.table td, .table th {
+    padding: 0.1rem .75rem;
+}
+
+.scrollbar-thin {
+    scrollbar-color: var(--primary-color-extralight) var(--light-grey);
+    scrollbar-width: thin;
+}
+
+/* Other */
+
+a {
+    color: var(--primary-color)
+}
+
+a:hover {
+    color: var(--primary-color-light)
+}
+
+.text-align-right {
+    text-align: right;
 }
