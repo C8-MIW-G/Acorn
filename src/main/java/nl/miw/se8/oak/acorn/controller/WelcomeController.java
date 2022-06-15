@@ -62,17 +62,17 @@ public class WelcomeController {
     @GetMapping("/pantry/create")
     protected String createPantry(Model model) {
         model.addAttribute("pantry", new Pantry());
-        return "pantryCreate.html";
+        return "pantryEdit.html";
     }
 
-    @PostMapping("/pantry/create")
-    protected String submitPantry(@ModelAttribute("pantry") Pantry pantry, BindingResult result) {
-        if (!result.hasErrors()) {
-            pantryService.save(pantry);
-        }
-        return "redirect:/pantrySelection";
-    }
-//@PathVariable("pantryId") Long pantryId, Model model
+//    @PostMapping("/pantry/create")
+//    protected String submitPantry(@ModelAttribute("pantry") Pantry pantry, BindingResult result) {
+//        if (!result.hasErrors()) {
+//            pantryService.save(pantry);
+//        }
+//        return "redirect:/pantrySelection";
+//    }
+
     @GetMapping("/pantry/{pantryId}/edit")
     protected String editPantry(@PathVariable("pantryId") Long pantryId, Model model) {
         Optional<Pantry> pantry = pantryService.findById(pantryId);
