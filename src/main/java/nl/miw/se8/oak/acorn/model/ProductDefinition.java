@@ -8,8 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Author: Thijs van Blanken
@@ -18,6 +18,7 @@ import java.util.List;
 @Entity @Getter @Setter
 public class ProductDefinition implements Comparable<ProductDefinition>{
 
+    public static final long DEFAULT_ID = -1L;
     private static final String DEFAULT_NAME = "New Product";
 
     @Id @GeneratedValue
@@ -25,12 +26,12 @@ public class ProductDefinition implements Comparable<ProductDefinition>{
     private String name;
     private String amount;
     @OneToMany(mappedBy = "productDefinition")
-    private List<PantryProduct> pantryProducts;
+    private Set<PantryProduct> pantryProducts;
 
     public ProductDefinition() {
+        this.id = DEFAULT_ID;
         this.name = DEFAULT_NAME;
-        this.pantryProducts = new ArrayList<>();
-        // TODO should this be a set?
+        this.pantryProducts = new HashSet<>();
     }
 
     // Sort ProductDefinitions by first letter

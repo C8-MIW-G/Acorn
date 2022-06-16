@@ -24,17 +24,13 @@
                         <th class="th-fixed-width text-align-right" scope="col">Id</th>
                         <th scope="col">Product</th>
                         <th class="th-fixed-width"></th>
-                        <th class="th-fixed-width"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="product : ${products}">
                         <td th:text="${product.id}" class="text-align-right"></td>
                         <td>
-                            <a th:href="@{/products/{productId}(productId=${product.id})}" th:text="${product.name}"></a>
-                        </td>
-                        <td>
-                            <a th:href="@{/products/{productId}/edit(productId=${product.id})}">edit</a>
+                            <a th:href="@{/products/{productId}/edit(productId=${product.id})}" th:text="${product.name}"></a>
                         </td>
                         <td>
                             <a th:href="@{/products/{productId}/delete(productId=${product.id})}">delete</a>
