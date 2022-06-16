@@ -39,9 +39,4 @@ public class PantryServiceImplementation implements PantryService {
         pantryRepository.save(pantry);
     }
 
-//    public void update(Pantry pantry, String name) {
-//        pantryRepository.
-
-//    }
-
 }

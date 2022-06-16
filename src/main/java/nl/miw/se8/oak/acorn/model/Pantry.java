@@ -14,11 +14,12 @@ import javax.persistence.Id;
 @Entity @Getter @Setter
 public class Pantry {
 
+    public static final String DEFAULT_NAME = "New pantry";
     @Id @GeneratedValue
     private Long id;
     private String name;
 
     public Pantry() {
-        this.name= "new name";
+        this.name= DEFAULT_NAME;
     }
 }
