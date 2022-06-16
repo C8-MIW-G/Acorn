@@ -74,11 +74,4 @@ public class ProductDefinitionsController {
         return "redirect:/products";
     }
 
-    @GetMapping("/products/search")
-    protected String searchProductDefinition(@RequestParam("searchString") String searchString, Model model) {
-        List<ProductDefinition> searchResults = productDefinitionService.findByNameContaining(searchString);
-        model.addAttribute("products", searchResults);
-        return "productDefinitionsOverview";
-    }
-
 }
