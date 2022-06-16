@@ -34,4 +34,7 @@ public class PantryProductImplementation implements PantryProductService{
         return pantryProductRepository.findById(pantryProductId);
     }
 
+    public void save(PantryProduct pantryProduct) {
+        pantryProductRepository.save(pantryProduct);
+    }
 }

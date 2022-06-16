@@ -15,7 +15,6 @@ import static javax.persistence.CascadeType.ALL;
 @Entity @Getter
 public class Pantry {
 
-
     @Id @GeneratedValue
     private Long id;
     private String name;
@@ -23,4 +22,7 @@ public class Pantry {
     @OneToMany(mappedBy = "pantry",  cascade = ALL)
     private List<PantryProduct> pantryProducts;
 
+    public Pantry() {
+        this.id = -9l;
+    }
 }

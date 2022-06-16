@@ -13,4 +13,5 @@ public interface PantryProductService {
   List<PantryProduct> findAllByPantryId(Long pantryId);
   void deleteById(Long pantryProductId);
   Optional<PantryProduct> findById(Long pantryProductId);
+  void save(PantryProduct pantryProduct);
 }

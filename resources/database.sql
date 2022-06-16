@@ -1,4 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS acorn;
+CCREATE SCHEMA IF NOT EXISTS acorn;
 USE acorn;
 
 CREATE USER IF NOT EXISTS 'userAcorn'@'localhost' IDENTIFIED BY 'passwordAcorn';
@@ -8,42 +8,34 @@ SELECT * FROM acorn.pantry;
 SELECT * FROM acorn.pantry_product;
 SELECT * FROM acorn.product_definition;
 
-DELETE FROM acorn.pantry;
-DELETE FROM acorn.pantry_product;
-DELETE FROM acorn.product_definition;
+-- DELETE FROM acorn.pantry;
+-- DELETE FROM acorn.pantry_product;
+-- DELETE FROM acorn.product_definition;
 
 INSERT INTO acorn.pantry (`id`, `name`) VALUES
-	(-1, "Sylvia's Pantry"),
-	(-2, "FC Oost-Groningen"),
-	(-3, "Rugby Club Groningen");
-    
-CREATE TABLE acorn.pantryproducts (
-	pantryId Long,
-	productName varchar(300));
+    (-1,"Sylvia's Pantry"),
+    (-2,"FC Oost-Groningen"),
+    (-3,"Rugby Club Groningen");
 
-INSERT INTO acorn.pantry_product (`id`, `pantry_id`, `product_name`, `expiration_date`) VALUES
-	(-1, -1, "Butter", "2022-07-18"),
-	(-2, -1, "Cornflakes", "2022-07-12"),
-	(-3, -1, "Cheese", "2022-08-30"),
-	(-4, -1, "Feta", "2022-07-14"),
-	(-5, -2, "Couscous", "2022-07-14"),
-	(-6, -2, "Olives", "2022-09-08"),
-	(-7, -2, "Wine", "2022-10-01"),
-	(-8, -2, "Oranges", "2022-12-09"),
-	(-9, -3, "Tomatoes", "2022-03-10"),
-	(-10, -3, "Pesto", "2022-08-14"),
-	(-11, -3, "Tortellini", "2022-07-19"),
-	(-12, -3, "Onions", "2022-07-20");
-    
 INSERT INTO acorn.product_definition (`id`, `name`) VALUES
-	(-1, "Olives"),
-	(-2, "Couscous"),
-	(-3, "Wine"),
-	(-4, "Onions"),
-	(-5, "Tortellini"),
-	(-6, "Pesto"),
-	(-7, "Feta"),
-	(-8, "Cheese"),
-	(-9, "Cornflakes"),
-	(-10, "Butter");
-    
+    (-1, "Cornflakes"),
+    (-2, "Couscous"),
+    (-3, "Wine"),
+    (-4, "Onions"),
+    (-5, "Tortellini"),
+    (-6, "Pesto"),
+    (-7, "Feta"),
+    (-8, "Cheese"),
+    (-9, "Cornflakes"),
+    (-10, "Butter");
+
+INSERT INTO acorn.pantry_product (`id`, `expiration_date`, `pantry_id`, `product_definition_id`) VALUES
+     (-1, "2022-07-18", -3, -1),
+     (-2, "2022-07-18", -3, -3),
+     (-3, "2022-07-18", -1, -2),
+     (-4, "2022-07-18", -2, -3),
+     (-5, "2022-07-18", -3, -5),
+     (-6, "2022-07-18", -1, -7),
+     (-7, "2022-07-18", -1, -4),
+     (-8, "2022-07-18", -1, -2),
+     (-9, "2022-07-18", -2, -8);

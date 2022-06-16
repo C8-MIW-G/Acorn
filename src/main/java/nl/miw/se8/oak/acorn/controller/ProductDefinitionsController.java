@@ -35,5 +35,4 @@ public class ProductDefinitionsController {
         productDefinitionService.deleteById(productId);
         return "redirect:/products";
     }
-
 }

@@ -5,6 +5,7 @@ import nl.miw.se8.oak.acorn.repository.ProductDefinitionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Author: Thijs van Blanken
@@ -30,5 +31,8 @@ public class ProductDefinitionServiceImplementation implements ProductDefinition
         productDefinitionRepository.deleteById(id);
     }
 
-
+    @Override
+    public Optional<ProductDefinition> findById(Long productDefinitionId) {
+        return productDefinitionRepository.findById(productDefinitionId);
+    }
 }

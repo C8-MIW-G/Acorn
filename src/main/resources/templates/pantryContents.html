@@ -10,6 +10,7 @@
 <main>
     <div class="pantryContentsWrapper">
         <h2>Pantry contents</h2>
+        <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryProducts.get(0).pantry.id})}"><button type="button" class="btn btn-primary">Add new</button></a>
         <table>
             <tr>
                 <th>Product</th>

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.security.cert.PolicyNode;
 import java.time.LocalDate;
 
 /**
@@ -20,5 +21,10 @@ public class PantryProduct {
     private ProductDefinition productDefinition;
     @ManyToOne
     private Pantry pantry;
+
+    public PantryProduct() {
+        this.id = -1L;
+    }
+
 
 }
