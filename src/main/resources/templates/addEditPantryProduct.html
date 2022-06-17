@@ -19,16 +19,25 @@
                 <div class="col-sm-10">
                     <input type="hidden" th:field="*{id}">
                     <input type="hidden" th:field="*{pantry}">
-                    <input type="date" th:field="*{expirationDate}">
+                    <input th:if="${pantryProduct.id != -1}" type="hidden" th:field="*{productDefinition}">
+
+
+                    <label for="name" class="col-sm-2 col-form-label">Expiration date</label>
+                    <input id="name" type="date" th:field="*{expirationDate}">
                 </div>
             </div>
 
-            <div th:each="product : ${productDefinitions}">
-                <input th:value = "${product.id}"
-                       th:text="${product.name}"
-                       th:field="*{productDefinition}"
-                       type="radio">
-            </div>
+            <fieldset th:if="${pantryProduct.id == -1}">
+                <legend>Products:</legend>
+                <div th:each="product : ${productDefinitions}">
+                    <input th:value = "${product.id}"
+                           th:text="${product.name}"
+                           th:field="*{productDefinition}"
+                           type="submit">
+                </div>
+            </fieldset>
+
+
             <input type="submit" value="Submit">
         </form>
 

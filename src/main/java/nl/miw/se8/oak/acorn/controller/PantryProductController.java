@@ -58,30 +58,36 @@ public class PantryProductController {
     @GetMapping("/pantry/{pantryId}/add")
     protected String addNewItemInPantry(@PathVariable("pantryId") Long pantryId, Model model) {
         PantryProduct pantryProduct = new PantryProduct();
-
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isPresent()){
             pantryProduct.setPantry(pantry.get());
         }
         model.addAttribute("pantryProduct", pantryProduct);
-        model.addAttribute("pantryId", pantryId);
 
         List<ProductDefinition> products = productDefinitionService.findAll();
         model.addAttribute("productDefinitions", products);
-
         return "addEditPantryProduct";
     }
 
     @PostMapping("/pantry/{pantryId}/add")
     protected String savePantryProduct(@ModelAttribute("pantryProduct") PantryProduct pantryProduct, BindingResult result) {
         if (!result.hasErrors()) {
-//            if (pantryProduct.getProductDefinition() == null) {
-//                System.out.println("THIS PANTRYPRODUCT DID NOT HAVE A PRODUCTDEFINITION");
-//                return "redirect:/pantry/{pantryId}";
-//            }
             pantryProductService.save(pantryProduct);
         }
         return "redirect:/pantry/{pantryId}";
+    }
+
+    @GetMapping("/pantry/{pantryId}/edit/{pantryProductId}")
+    protected String editItemInPantry(@PathVariable("pantryId") Long pantryId,
+                                      @PathVariable("pantryProductId") Long pantryProductId,
+                                      Model model) {
+
+        Optional<PantryProduct> pantryProduct = pantryProductService.findById(pantryProductId);
+        if (pantryProduct.isPresent()) {
+            model.addAttribute("pantryProduct", pantryProduct.get());
+            return "addEditPantryProduct";
+        }
+        return "redirect:/pantry/" + pantryId;
     }
 
 }

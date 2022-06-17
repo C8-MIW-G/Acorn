@@ -18,7 +18,9 @@
                 <th></th>
             </tr>
             <tr th:each="pantryProduct : ${pantryProducts}">
-                <td th:text="${pantryProduct.productDefinition.name}"></td>
+                <td>
+                    <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
+                </td>
                 <td th:text="${pantryProduct.expirationDate}"></td>
                 <td>
                     <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">delete</a>
