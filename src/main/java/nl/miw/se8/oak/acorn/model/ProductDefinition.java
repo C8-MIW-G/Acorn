@@ -11,6 +11,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.ALL;
+
 /**
  * Author: Thijs van Blanken
  * Created on: 13-6-2022
@@ -24,7 +26,7 @@ public class ProductDefinition implements Comparable<ProductDefinition>{
     @Id @GeneratedValue
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "productDefinition")
+    @OneToMany(mappedBy = "productDefinition", cascade = ALL)
     private Set<PantryProduct> pantryProducts;
 
     public ProductDefinition() {
@@ -43,5 +45,11 @@ public class ProductDefinition implements Comparable<ProductDefinition>{
         } else {
             return 0;
         }
+    }
+
+    public ProductDefinition(Long id, String name, Set<PantryProduct> pantryProducts) {
+        this.id = id;
+        this.name = name;
+        this.pantryProducts = pantryProducts;
     }
 }
