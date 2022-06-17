@@ -2,6 +2,7 @@ package nl.miw.se8.oak.acorn.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.security.cert.PolicyNode;
@@ -16,6 +17,7 @@ public class PantryProduct {
 
     @Id @GeneratedValue
     private Long id;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate expirationDate;
     @ManyToOne
     private ProductDefinition productDefinition;

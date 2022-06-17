@@ -11,16 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author Sylvia Kazakou
  * Deal with contents of a pantry
  */
-
 @Controller
 public class PantryProductController {
     PantryProductService pantryProductService;
@@ -65,23 +64,25 @@ public class PantryProductController {
             pantryProduct.setPantry(pantry.get());
         }
         model.addAttribute("pantryProduct", pantryProduct);
+        model.addAttribute("pantryId", pantryId);
+
+        List<ProductDefinition> products = productDefinitionService.findAll();
+        model.addAttribute("productDefinitions", products);
+
         return "addEditPantryProduct";
     }
 
     @PostMapping("/pantry/{pantryId}/add")
-    protected String savePantryProduct(@PathVariable ("pantryId") Long pantryId, @ModelAttribute("pantryProduct") PantryProduct pantryProduct, BindingResult result) {
+    protected String savePantryProduct(@ModelAttribute("pantryProduct") PantryProduct pantryProduct, BindingResult result) {
         if (!result.hasErrors()) {
-
-            pantryProduct.setExpirationDate(LocalDate.now());
-
-            Optional<ProductDefinition> productDefinition = productDefinitionService.findById(-2L);
-            if (productDefinition.isPresent()) {
-                pantryProduct.setProductDefinition(productDefinition.get());
-            }
-
+//            if (pantryProduct.getProductDefinition() == null) {
+//                System.out.println("THIS PANTRYPRODUCT DID NOT HAVE A PRODUCTDEFINITION");
+//                return "redirect:/pantry/{pantryId}";
+//            }
             pantryProductService.save(pantryProduct);
         }
         return "redirect:/pantry/{pantryId}";
     }
+
 }
 
