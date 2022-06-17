@@ -19,7 +19,11 @@
                     <input type ="hidden" id="ID" th:field="*{id}">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Edit this pantry</button>         <!-- de submit hier regelt dat het allemaal goed komt?-->
+            <button type="submit" class="btn btn-primary">Edit this pantry</button>
+        </form>
+
+        <form th:action="@{/pantry/edit}" method="delete" th:object="${pantry}">
+            <button type="submit" class="btn btn-primary"> Remove this pantry</button>
         </form>
 
 

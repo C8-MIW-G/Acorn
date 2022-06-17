@@ -54,8 +54,8 @@ public class WelcomeController {
     }
 
     @GetMapping("/pantry/{pantryId}/delete")
-    protected String deletePantry(@PathVariable("pantryId") Long pantryId) {    // @path variabel etc is 1 variabele
-        pantryService.deleteById(pantryId);     // delete by id is gewoon bestaande method
+    protected String deletePantry(@PathVariable("pantryId") Long pantryId) {
+        pantryService.deleteById(pantryId);
         return "redirect:/pantrySelection";
     }
 
