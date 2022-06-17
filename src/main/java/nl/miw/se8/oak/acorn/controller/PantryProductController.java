@@ -66,15 +66,18 @@ public class PantryProductController {
 
         List<ProductDefinition> products = productDefinitionService.findAll();
         model.addAttribute("productDefinitions", products);
+
         return "addEditPantryProduct";
     }
 
     @PostMapping("/pantry/{pantryId}/add")
-    protected String savePantryProduct(@ModelAttribute("pantryProduct") PantryProduct pantryProduct, BindingResult result) {
+    protected String savePantryProduct(
+            @ModelAttribute("pantryProduct") PantryProduct pantryProduct,
+            BindingResult result) {
         if (!result.hasErrors()) {
             pantryProductService.save(pantryProduct);
         }
-        return "redirect:/pantry/{pantryId}";
+        return "redirect:/pantry/" + pantryProduct.getPantry().getId();
     }
 
     @GetMapping("/pantry/{pantryId}/edit/{pantryProductId}")

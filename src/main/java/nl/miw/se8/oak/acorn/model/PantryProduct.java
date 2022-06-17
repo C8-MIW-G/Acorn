@@ -28,5 +28,4 @@ public class PantryProduct {
         this.id = -1L;
     }
 
-
 }

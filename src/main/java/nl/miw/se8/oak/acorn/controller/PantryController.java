@@ -37,13 +37,6 @@ public class PantryController {
         return "pantrySelection";
     }
 
-    @GetMapping("/pantry/{pantryId}")
-    protected String pantryContents(@PathVariable("pantryId") Long pantryId, Model model) {
-        List<PantryProduct> products = pantryProductService.findAllByPantryId(pantryId);
-        model.addAttribute("products", products);
-        return "pantryContents";
-    }
-
     @GetMapping("/pantry/{pantryId}/delete")
     protected String deletePantry(@PathVariable("pantryId") Long pantryId) {
         pantryService.deleteById(pantryId);
