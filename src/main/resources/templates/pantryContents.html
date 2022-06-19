@@ -9,25 +9,33 @@
 
 <main>
     <div class="pantryContentsWrapper">
+
         <h2>Pantry contents</h2>
-        <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}"><button type="button" class="btn btn-primary">Add new</button></a>
-        <table>
+        <div class="tableNavigation">
+            <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}"><button type="button" class="btn btn-primary">Add new</button></a>
+        </div>
+
+        <div class="tableContainer scrollbar-thin">
+            <table th:if="${pantryProducts.size > 0}" class="table">
             <tr>
-                <th>Product</th>
-                <th>Expiration date</th>
-                <th></th>
+                <th scope="col">Product</th>
+                <th scope="col" class="th-fixed-width-med text-center">Expiration date</th>
+                <th class="th-fixed-width text-center"></th>
             </tr>
             <tr th:each="pantryProduct : ${pantryProducts}">
-                <td>
+                <td >
                     <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
                 </td>
-                <td th:text="${pantryProduct.expirationDate}"></td>
-                <td>
+                <td class="text-center" th:text="${pantryProduct.expirationDate}"></td>
+                <td class="text-center">
                     <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">delete</a>
                 </td>
             </tr>
-        </table>
-    </div>
+            </table>
+
+            <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
+
+        </div>
 
 </main>
 

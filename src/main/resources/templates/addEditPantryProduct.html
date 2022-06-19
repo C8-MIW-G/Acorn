@@ -29,15 +29,19 @@
 
             <fieldset th:if="${pantryProduct.id == -1}">
                 <legend>Products:</legend>
-                <div th:each="product : ${productDefinitions}">
-                    <input th:value = "${product.id}"
-                           th:text="${product.name}"
-                           th:field="*{productDefinition}"
-                           type="radio">
+                <div class="tableContainer scrollbar-thin">
+                    <div th:each="product : ${productDefinitions}" class="radioDiv">
+                        <label name="productRadio" class="productRadioLabel">
+                            <input th:value = "${product.id}"
+                                   th:field="*{productDefinition}"
+                                   type="radio">
+                            <span th:text="${product.name}"></span>
+                        </label>
+                    </div>
                 </div>
             </fieldset>
 
-            <input type="submit" value="Submit">
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
     </div>

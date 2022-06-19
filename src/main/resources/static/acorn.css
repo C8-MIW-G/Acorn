@@ -71,6 +71,10 @@
     width: 3rem;
 }
 
+.th-fixed-width-med {
+    width: 10rem;
+}
+
 .table td, .table th {
     padding: 0.1rem .75rem;
 }
@@ -78,6 +82,7 @@
 .scrollbar-thin {
     scrollbar-color: var(--primary-color-extralight) var(--light-grey);
     scrollbar-width: thin;
+    max-height: 30rem;
 }
 
 /* Other */
@@ -92,4 +97,30 @@ a:hover {
 
 .text-align-right {
     text-align: right;
+}
+
+
+
+
+h2 {
+    margin-bottom: 1rem;
+}
+
+input[type="date"] {
+    color: var(--gray-dark);
+    padding: .2rem .8rem;
+}
+
+.radioDiv:hover {
+    background-color: var(--primary-color-extralight);
+}
+
+.radioLabel {
+    margin: 0;
+    padding: .4rem;
+    width: 100%;
+}
+
+.productRadioLabel {
+    width: 100%;
 }
