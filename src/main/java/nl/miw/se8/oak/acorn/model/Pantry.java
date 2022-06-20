@@ -25,6 +25,9 @@ public class Pantry {
     @OneToMany(mappedBy = "pantry",  cascade = ALL)
     private List<PantryProduct> pantryProducts;
 
+    @OneToMany(mappedBy = "pantry",  cascade = ALL)
+    private List<PantryUser> pantryUsers;
+
     public Pantry() {
         this.id = DEFAULT_ID;
         this.name = DEFAULT_NAME;
