@@ -29,6 +29,10 @@ public class ProductDefinition implements Comparable<ProductDefinition>{
     @OneToMany(mappedBy = "productDefinition", cascade = ALL)
     private Set<PantryProduct> pantryProducts;
 
+    public ProductDefinition(String name) {
+        this.name = name;
+    }
+
     public ProductDefinition() {
         this.id = DEFAULT_ID;
         this.name = DEFAULT_NAME;
@@ -47,9 +51,4 @@ public class ProductDefinition implements Comparable<ProductDefinition>{
         }
     }
 
-    public ProductDefinition(Long id, String name, Set<PantryProduct> pantryProducts) {
-        this.id = id;
-        this.name = name;
-        this.pantryProducts = pantryProducts;
-    }
 }
