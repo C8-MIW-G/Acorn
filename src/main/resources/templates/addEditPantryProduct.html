@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" >
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head">
+</head>
+
+<body>
+<nav th:replace="fragments/template :: navbar"></nav>
+
+<main>
+    <div class="pantryContentsWrapper">
+
+        <h2 th:if="${pantryProduct.id == -1}">Add a product to the pantry</h2>
+        <h2 th:unless="${pantryProduct.id == -1}">Edit a product</h2>
+
+        <form th:action="@{/pantry/{pantryId}/add(pantryId=${pantryProduct.pantry.id})}" method="post" th:object="${pantryProduct}">
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{pantry}">
+                    <input th:if="${pantryProduct.id != -1}" type="hidden" th:field="*{productDefinition}">
+
+
+                    <label for="name" class="col-sm-2 col-form-label">Expiration date</label>
+                    <input id="name" type="date" th:field="*{expirationDate}">
+                </div>
+            </div>
+
+            <fieldset th:if="${pantryProduct.id == -1}">
+                <legend>Products:</legend>
+                <div class="tableContainer scrollbar-thin">
+                    <div th:each="product : ${productDefinitions}" class="radioDiv">
+                        <label name="productRadio" class="productRadioLabel">
+                            <input th:value = "${product.id}"
+                                   th:field="*{productDefinition}"
+                                   type="radio">
+                            <span th:text="${product.name}"></span>
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+    </div>
+</main>
+
+<footer th:replace="fragments/template :: footer"></footer>
+</body>
+</html>

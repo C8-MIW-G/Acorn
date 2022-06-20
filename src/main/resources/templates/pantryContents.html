@@ -5,29 +5,41 @@
 
 <body>
 
-    <nav th:replace="fragments/template :: navbar"></nav>
+<nav th:replace="fragments/template :: navbar"></nav>
 
-    <main>
+<main>
+    <div class="pantryContentsWrapper">
 
-        <div class="pantryContentsWrapper">
+        <h2>Pantry contents</h2>
+        <div class="tableNavigation">
+            <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}"><button type="button" class="btn btn-primary">Add new</button></a>
+        </div>
 
-            <h2>Pantry contents</h2>
-            <table>
-                <tr>
-                    <th>Product</th>
-                    <th>Expiration date</th>
-                </tr>
-                <tr th:each="product : ${products}">
-                    <td th:text="${product.productName}"></td>
-                    <td th:text="${product.expirationDate}"></td>
-                </tr>
+        <div class="tableContainer scrollbar-thin">
+            <table th:if="${pantryProducts.size > 0}" class="table">
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col" class="th-fixed-width-med text-center">Expiration date</th>
+                <th class="th-fixed-width text-center"></th>
+            </tr>
+            <tr th:each="pantryProduct : ${pantryProducts}">
+                <td >
+                    <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
+                </td>
+                <td class="text-center" th:text="${pantryProduct.expirationDate}"></td>
+                <td class="text-center">
+                    <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">delete</a>
+                </td>
+            </tr>
             </table>
+
+            <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
 
         </div>
 
-    </main>
+</main>
 
-    <footer th:replace="fragments/template :: footer"></footer>
+<footer th:replace="fragments/template :: footer"></footer>
 
 </body>
 
