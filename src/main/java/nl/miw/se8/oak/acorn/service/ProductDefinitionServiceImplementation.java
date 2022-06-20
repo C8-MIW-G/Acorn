@@ -39,5 +39,4 @@ public class ProductDefinitionServiceImplementation implements ProductDefinition
     public void save(ProductDefinition product) {
         productDefinitionRepository.save(product);
     }
-
 }
