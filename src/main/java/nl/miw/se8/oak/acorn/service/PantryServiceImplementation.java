@@ -39,4 +39,9 @@ public class PantryServiceImplementation implements PantryService {
         pantryRepository.save(pantry);
     }
 
+    @Override
+    public Optional<Pantry> findByName(String name) {
+        return pantryRepository.findByName(name);
+    }
+
 }

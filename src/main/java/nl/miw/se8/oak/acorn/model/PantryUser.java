@@ -19,17 +19,23 @@ import javax.persistence.ManyToOne;
 public class PantryUser {
 
 
+        public static final long DEFAULT_ID = -1L;
+
         @Id @GeneratedValue
         private Long id;
-
         @ManyToOne
         private AcornUser user;
-
         @ManyToOne
         private Pantry pantry;
 
+        public PantryUser(AcornUser user, Pantry pantry) {
+                this.id = DEFAULT_ID;
+                this.user = user;
+                this.pantry = pantry;
+        }
+
         public PantryUser() {
-            this.id = -1L;
+            this(new AcornUser(), new Pantry());
         }
 
 }

@@ -1,13 +1,10 @@
 package nl.miw.se8.oak.acorn;
 
-import nl.miw.se8.oak.acorn.model.Pantry;
-import nl.miw.se8.oak.acorn.model.PantryProduct;
-import nl.miw.se8.oak.acorn.model.ProductDefinition;
-import nl.miw.se8.oak.acorn.service.PantryProductService;
-import nl.miw.se8.oak.acorn.service.PantryService;
-import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
+import nl.miw.se8.oak.acorn.model.*;
+import nl.miw.se8.oak.acorn.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,30 +18,52 @@ import java.util.List;
 @SpringBootApplication
 public class AcornKickstarter implements CommandLineRunner {
 
+    private final AcornUserService acornUserService;
     private final PantryService pantryService;
+    private final PantryUserService pantryUserService;
     private final PantryProductService pantryProductService;
     private final ProductDefinitionService productDefinitionService;
+    private final PasswordEncoder passwordEncoder;
 
-    public AcornKickstarter(PantryService pantryService,
+    public AcornKickstarter(AcornUserService acornUserService,
+                            PantryService pantryService,
+                            PantryUserService pantryUserService,
                             PantryProductService pantryProductService,
-                            ProductDefinitionService productDefinitionService) {
+                            ProductDefinitionService productDefinitionService,
+                            PasswordEncoder passwordEncoder) {
+        this.acornUserService = acornUserService;
         this.pantryService = pantryService;
+        this.pantryUserService = pantryUserService;
         this.pantryProductService = pantryProductService;
         this.productDefinitionService = productDefinitionService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        seedUsers();
         seedPantries();
+        seedPantryUsers();
         seedPantryProducts();
     }
 
-    private void seedPantries() {
-        pantryService.save(new Pantry("Pantry A"));
-        pantryService.save(new Pantry("Pantry B"));
-        pantryService.save(new Pantry("Pantry C"));
+    private void seedUsers() {
+        acornUserService.save(new AcornUser("Sylvia", passwordEncoder.encode("1234")));
+        acornUserService.save(new AcornUser("Wicher", passwordEncoder.encode("1234")));
+        acornUserService.save(new AcornUser("Thijs", passwordEncoder.encode("1234")));
     }
 
+    private void seedPantries() {
+        pantryService.save(new Pantry("Sylvia's Pantry"));
+        pantryService.save(new Pantry("Wicher's Pantry"));
+        pantryService.save(new Pantry("Thijs' Pantry"));
+    }
+
+    private void seedPantryUsers() {
+        pantryUserService.save(new PantryUser(acornUserService.findByUsername("Sylvia").get(), pantryService.findByName("Sylvia's Pantry").get()));
+        pantryUserService.save(new PantryUser(acornUserService.findByUsername("Wicher").get(), pantryService.findByName("Wicher's Pantry").get()));
+        pantryUserService.save(new PantryUser(acornUserService.findByUsername("Thijs").get(), pantryService.findByName("Thijs' Pantry").get()));
+    }
 
     private void seedPantryProducts() {
         List<Pantry> pantries = pantryService.findAll();
