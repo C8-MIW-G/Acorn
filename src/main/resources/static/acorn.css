@@ -50,8 +50,25 @@
 }
 
 .btn-delete {
-    color: red;
+    color: var(--white);
+    background-color: var(--danger);
 }
+
+.btn-delete:hover {
+    background-color: #fd6a79;
+}
+
+
+.btn-secondary {
+    color: var(--gray-dark);
+    background-color: var(--white);
+}
+
+.btn-secondary:hover {
+    color: var(--gray);
+    background-color: var(--white);
+}
+
 /* Tables */
 .tableNavigation {
     display: flex;
