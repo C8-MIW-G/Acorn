@@ -2,6 +2,7 @@ package nl.miw.se8.oak.acorn.controller;
 
 import nl.miw.se8.oak.acorn.model.User;
 import nl.miw.se8.oak.acorn.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
 
     UserService userService;
+    PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/register")
@@ -26,10 +29,12 @@ public class UserController {
 
     @PostMapping("/register")
     protected String registerPost(@ModelAttribute("user") User user, BindingResult result) {
-        if (!result.hasErrors()) {
-            user.setDisplayName(user.getUsername());
-            userService.save(user);
+        if (result.hasErrors()) {
+            return "register";
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.save(user);
+        
         // TODO redirect to users' pantry overview
         return "redirect:/";
     }
