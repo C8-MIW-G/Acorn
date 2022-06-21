@@ -15,17 +15,26 @@ import java.time.LocalDate;
 @Entity @Getter @Setter
 public class PantryProduct {
 
+    public static final long DEFAULT_ID = -1L;
+
     @Id @GeneratedValue
     private Long id;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate expirationDate;
     @ManyToOne
     private ProductDefinition productDefinition;
     @ManyToOne
     private Pantry pantry;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate expirationDate;
+
+    public PantryProduct(Pantry pantry, ProductDefinition productDefinition, LocalDate expirationDate) {
+        this.id = DEFAULT_ID;
+        this.pantry = pantry;
+        this.productDefinition = productDefinition;
+        this.expirationDate = expirationDate;
+    }
 
     public PantryProduct() {
-        this.id = -1L;
+        this.id = DEFAULT_ID;
     }
 
 }

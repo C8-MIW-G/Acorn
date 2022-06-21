@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
@@ -21,16 +22,20 @@ public class Pantry {
     @Id @GeneratedValue
     private Long id;
     private String name;
-
     @OneToMany(mappedBy = "pantry",  cascade = ALL)
     private List<PantryProduct> pantryProducts;
-
     @OneToMany(mappedBy = "pantry",  cascade = ALL)
     private List<PantryUser> pantryUsers;
 
-    public Pantry() {
+    public Pantry(String name) {
         this.id = DEFAULT_ID;
-        this.name = DEFAULT_NAME;
+        this.name = name;
+        pantryProducts = new ArrayList<>();
+        pantryUsers = new ArrayList<>();
+    }
+
+    public Pantry() {
+        this(DEFAULT_NAME);
     }
 
 }
