@@ -4,6 +4,7 @@ import nl.miw.se8.oak.acorn.model.User;
 import nl.miw.se8.oak.acorn.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +25,11 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    protected String registerPost(@ModelAttribute("user") User user) {
-        user.setDisplayName(user.getUsername());
-        userService.save(user);
+    protected String registerPost(@ModelAttribute("user") User user, BindingResult result) {
+        if (!result.hasErrors()) {
+            user.setDisplayName(user.getUsername());
+            userService.save(user);
+        }
         // TODO redirect to users' pantry overview
         return "redirect:/";
     }
