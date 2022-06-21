@@ -27,6 +27,7 @@ public class AcornUser implements UserDetails {
 
     @Column(unique = true, nullable = false)
     private String username;
+
     private String displayName;
     private String password;
 
