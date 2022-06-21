@@ -9,6 +9,11 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
+    <link rel="acorn.css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <div class="pantryContentsWrapper">
 
         <h2>Select a pantry</h2>
@@ -36,14 +41,35 @@
                         <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantry.id})}"> edit</a>
                     </td>
                     <td>
-                        <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantry.id})}">delete</a>
+<!--                         Button trigger modal-->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            Delete
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="myModalLongTitle">Are you sure you want to delete this pantry?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        This pantry will no longer be retrievable!
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantry.id})}"><button type="submit" class="btn btn-delete" data-pantry-id="${pantry.id}">Delete</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
 
         <p th:unless="${pantries.size != 0}" class="text-center">You do not seem to have any pantries...</p>
-
     </div>
 </main>
 

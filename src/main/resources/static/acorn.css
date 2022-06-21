@@ -49,6 +49,9 @@
     background-color: var(--opaque);
 }
 
+.btn-delete {
+    color: red;
+}
 /* Tables */
 .tableNavigation {
     display: flex;
