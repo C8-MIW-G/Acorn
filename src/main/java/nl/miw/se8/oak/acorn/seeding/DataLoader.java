@@ -6,6 +6,7 @@ import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
 import nl.miw.se8.oak.acorn.service.UserService;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,10 +19,15 @@ public class DataLoader {
 
     private final ProductDefinitionService productDefinitionService;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    public DataLoader(ProductDefinitionService productDefinitionService, UserService userService) {
+    public DataLoader(
+            ProductDefinitionService productDefinitionService,
+            UserService userService,
+            PasswordEncoder passwordEncoder) {
         this.productDefinitionService = productDefinitionService;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @EventListener
@@ -32,7 +38,9 @@ public class DataLoader {
 
     private void seedUsers() {
             if(userService.findAll().size() == 0) {
-                userService.save(new AcornUser("test", "1234"));
+                AcornUser acornUser = new AcornUser("admin", "admin");
+                acornUser.setPassword(passwordEncoder.encode(acornUser.getPassword()));
+                userService.save(acornUser);
             }
     }
 
