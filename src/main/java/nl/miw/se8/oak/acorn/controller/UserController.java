@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 @Controller
 public class UserController {
 
@@ -29,13 +31,33 @@ public class UserController {
 
     @PostMapping("/register")
     protected String registerPost(@ModelAttribute("user") User user, BindingResult result) {
+
+        // TODO - Clean up
         if (result.hasErrors()) {
-            return "register";
+            System.out.println("Result has errors");
+            return "userRegister";
+        } else if (user.getUsername().length() < User.MINIMAL_USERNAME_LENGTH) {
+            System.out.println("Username too short.");
+            return "userRegister";
+        } else if (user.getPassword().length() < User.MINIMAL_PASSWORD_LENGTH) {
+            System.out.println("Password too short.");
+            return "userRegister";
+        } else if (usernameInDatabase(user.getUsername())) {
+            System.out.println("Username already in use");
+            return "userRegister";
         }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setDisplayName(user.getUsername());
         userService.save(user);
-        
+
         // TODO redirect to users' pantry overview
         return "redirect:/";
     }
+
+    private boolean usernameInDatabase(String username) {
+        Optional<User> user = userService.findByUsername(username);
+        return user.isPresent();
+    }
+
 }
