@@ -19,11 +19,12 @@
                 <div class="col-sm-10">
                     <input type="hidden" th:field="*{id}">
                     <input type="hidden" th:field="*{pantry}">
-                    <input th:if="${pantryProduct.id != -1}" type="hidden" th:field="*{productDefinition}">
+                    <input th:if="${pantryProduct.id != -1}"
+                           type="hidden"
+                           th:field="*{productDefinition.id}">
 
-
-                    <label for="name" class="col-sm-2 col-form-label">Expiration date</label>
-                    <input id="name" type="date" th:field="*{expirationDate}">
+                    <label for="date" class="col-sm-2 col-form-label">Expiration date</label>
+                    <input id="date" type="date" th:field="*{expirationDate}">
                 </div>
             </div>
 

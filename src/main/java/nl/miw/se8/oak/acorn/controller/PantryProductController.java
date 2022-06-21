@@ -75,7 +75,9 @@ public class PantryProductController {
             @ModelAttribute("pantryProduct") PantryProduct pantryProduct,
             BindingResult result) {
         if (!result.hasErrors()) {
-            pantryProductService.save(pantryProduct);
+            if (pantryProduct.getProductDefinition() != null) {
+                pantryProductService.save(pantryProduct);
+            }
         }
         return "redirect:/pantry/" + pantryProduct.getPantry().getId();
     }
@@ -84,7 +86,6 @@ public class PantryProductController {
     protected String editItemInPantry(@PathVariable("pantryId") Long pantryId,
                                       @PathVariable("pantryProductId") Long pantryProductId,
                                       Model model) {
-
         Optional<PantryProduct> pantryProduct = pantryProductService.findById(pantryProductId);
         if (pantryProduct.isPresent()) {
             model.addAttribute("pantryProduct", pantryProduct.get());
