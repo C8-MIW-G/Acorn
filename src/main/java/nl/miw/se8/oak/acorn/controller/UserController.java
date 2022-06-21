@@ -30,20 +30,20 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    protected String registerPost(@ModelAttribute("user") AcornUser user, BindingResult result) {
+    protected String registerPost(@ModelAttribute("user") AcornUser user, BindingResult result, Model model) {
 
-        // TODO - Clean up
+        // TODO - Refactor magic strings (store in seperate class?)
         if (result.hasErrors()) {
-            System.out.println("Result has errors");
+            model.addAttribute("errorMessage", "Something went wrong, try again.");
             return "userRegister";
         } else if (user.getUsername().length() < AcornUser.MINIMAL_USERNAME_LENGTH) {
-            System.out.println("Username too short.");
+            model.addAttribute("errorMessage", "The username you chose is too short.");
             return "userRegister";
         } else if (user.getPassword().length() < AcornUser.MINIMAL_PASSWORD_LENGTH) {
-            System.out.println("Password too short.");
+            model.addAttribute("errorMessage", "The password you entered is too short.");
             return "userRegister";
         } else if (usernameInDatabase(user.getUsername())) {
-            System.out.println("Username already in use");
+            model.addAttribute("errorMessage", "That username is already in use.");
             return "userRegister";
         }
 
@@ -51,8 +51,7 @@ public class UserController {
         user.setDisplayName(user.getUsername());
         userService.save(user);
 
-        // TODO redirect to users' pantry overview
-        return "redirect:/";
+        return "redirect:/pantrySelection";
     }
 
     private boolean usernameInDatabase(String username) {

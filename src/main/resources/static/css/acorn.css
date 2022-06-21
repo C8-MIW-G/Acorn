@@ -135,8 +135,6 @@ input[type="date"] {
 /* -------------------------------- REGISTER FORM */
 
 .registerForm {
-    display: flex;
-    justify-content: center;
     width: 40rem;
 }
 
