@@ -1,6 +1,6 @@
 package nl.miw.se8.oak.acorn.controller;
 
-import nl.miw.se8.oak.acorn.model.User;
+import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,12 +23,12 @@ public class UserController {
 
     @GetMapping("/register")
     protected String registerGet(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new AcornUser());
         return "userRegister";
     }
 
     @PostMapping("/register")
-    protected String registerPost(@ModelAttribute("user") User user, BindingResult result) {
+    protected String registerPost(@ModelAttribute("user") AcornUser user, BindingResult result) {
         if (result.hasErrors()) {
             return "register";
         }
