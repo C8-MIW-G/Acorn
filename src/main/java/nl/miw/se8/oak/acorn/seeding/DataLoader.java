@@ -1,7 +1,9 @@
 package nl.miw.se8.oak.acorn.seeding;
 
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
+import nl.miw.se8.oak.acorn.model.User;
 import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
+import nl.miw.se8.oak.acorn.service.UserService;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -15,14 +17,23 @@ import org.springframework.stereotype.Component;
 public class DataLoader {
 
     private final ProductDefinitionService productDefinitionService;
+    private final UserService userService;
 
-    public DataLoader(ProductDefinitionService productDefinitionService) {
+    public DataLoader(ProductDefinitionService productDefinitionService, UserService userService) {
         this.productDefinitionService = productDefinitionService;
+        this.userService = userService;
     }
 
     @EventListener
     public void seed(ContextRefreshedEvent event) {
+        seedUsers();
         seedProductDefinitions();
+    }
+
+    private void seedUsers() {
+            if(userService.findAll().size() == 0) {
+                userService.save(new User("test", "1234"));
+            }
     }
 
     private void seedProductDefinitions() {

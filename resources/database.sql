@@ -5,8 +5,11 @@ CREATE USER IF NOT EXISTS 'userAcorn'@'localhost' IDENTIFIED BY 'passwordAcorn';
 GRANT ALL PRIVILEGES ON acorn.* TO 'userAcorn'@'localhost';
 
 SELECT * FROM acorn.pantry;
-SELECT * FROM acorn.pantry_product;
 SELECT * FROM acorn.product_definition;
+SELECT * FROM acorn.pantry_product;
+SELECT * FROM acorn.`user`;
+SELECT * FROM acorn.pantry_user;
+
 
 DELETE FROM acorn.pantry;
 DELETE FROM acorn.pantry_product;
@@ -49,7 +52,6 @@ INSERT INTO acorn.product_definition (`id`, `name`) VALUES
 	(-30, "Jumbo Biologisch Tomaten Ketchup 330g"),
 	(-31, "Butter");
 
-    
 INSERT INTO acorn.pantry_product (`id`, `expiration_date`, `pantry_id`, `product_definition_id`) VALUES
      (-10, "2022-07-18", -3, -31),
      (-2, "2022-07-18", -3, -3),
