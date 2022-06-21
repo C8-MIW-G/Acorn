@@ -5,10 +5,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AcornUserService {
     void save(AcornUser acornUser);
     List<AcornUser> findAll();
 
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
+    Optional<AcornUser> findByUsername(String username);
 }

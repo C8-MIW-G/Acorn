@@ -128,3 +128,24 @@ input[type="date"] {
 .productRadioLabel {
     width: 100%;
 }
+
+
+
+
+/* -------------------------------- REGISTER FORM */
+
+.registerForm {
+    width: 40rem;
+}
+
+.registerForm input, button {
+    width: 100%;
+}
+
+.registerForm button {
+    margin: 1rem auto;
+}
+
+.alert {
+    margin-top: 1rem;
+}

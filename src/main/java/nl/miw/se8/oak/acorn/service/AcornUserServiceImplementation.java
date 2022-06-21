@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AcornUserServiceImplementation implements AcornUserService, UserDetailsService {
@@ -33,5 +34,10 @@ public class AcornUserServiceImplementation implements AcornUserService, UserDet
         return acornUserRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User with name " + username + " was not found.")
         );
+    }
+
+    @Override
+    public Optional<AcornUser> findByUsername(String username) {
+        return acornUserRepository.findByUsername(username);
     }
 }

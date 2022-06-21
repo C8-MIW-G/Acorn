@@ -18,20 +18,20 @@ import static javax.persistence.CascadeType.ALL;
  * User model
  *
  */
-
 @Entity @Getter @Setter
 public class AcornUser implements UserDetails {
 
+    public static final int MINIMAL_USERNAME_LENGTH = 4;
+    public static final int MINIMAL_PASSWORD_LENGTH = 6;
+
     @Id @GeneratedValue
     private Long id;
-
     @Column(unique = true, nullable = false)
     private String username;
-
     private String displayName;
     private String password;
 
-    @OneToMany(mappedBy = "acornUser",  cascade = ALL)
+    @OneToMany(mappedBy = "user",  cascade = ALL)
     private List<PantryUser> pantryUsers;
 
     public AcornUser() {

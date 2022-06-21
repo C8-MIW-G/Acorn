@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 @Controller
 public class UserController {
 
@@ -28,14 +30,33 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    protected String registerPost(@ModelAttribute("user") AcornUser user, BindingResult result) {
+    protected String registerPost(@ModelAttribute("user") AcornUser user, BindingResult result, Model model) {
+
+        // TODO - Refactor magic strings (store in seperate class?)
         if (result.hasErrors()) {
-            return "register";
+            model.addAttribute("errorMessage", "Something went wrong, try again.");
+            return "userRegister";
+        } else if (user.getUsername().length() < AcornUser.MINIMAL_USERNAME_LENGTH) {
+            model.addAttribute("errorMessage", "The username you chose is too short.");
+            return "userRegister";
+        } else if (user.getPassword().length() < AcornUser.MINIMAL_PASSWORD_LENGTH) {
+            model.addAttribute("errorMessage", "The password you entered is too short.");
+            return "userRegister";
+        } else if (usernameInDatabase(user.getUsername())) {
+            model.addAttribute("errorMessage", "That username is already in use.");
+            return "userRegister";
         }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setDisplayName(user.getUsername());
         userService.save(user);
-        
-        // TODO redirect to users' pantry overview
-        return "redirect:/";
+
+        return "redirect:/pantrySelection";
     }
+
+    private boolean usernameInDatabase(String username) {
+        Optional<AcornUser> user = userService.findByUsername(username);
+        return user.isPresent();
+    }
+
 }

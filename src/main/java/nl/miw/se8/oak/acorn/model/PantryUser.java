@@ -23,7 +23,7 @@ public class PantryUser {
         private Long id;
 
         @ManyToOne
-        private AcornUser acornUser;
+        private AcornUser user;
 
         @ManyToOne
         private Pantry pantry;
