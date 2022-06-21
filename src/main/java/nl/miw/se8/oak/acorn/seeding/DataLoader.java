@@ -3,7 +3,7 @@ package nl.miw.se8.oak.acorn.seeding;
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
-import nl.miw.se8.oak.acorn.service.UserService;
+import nl.miw.se8.oak.acorn.service.AcornUserService;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -17,9 +17,9 @@ import org.springframework.stereotype.Component;
 public class DataLoader {
 
     private final ProductDefinitionService productDefinitionService;
-    private final UserService userService;
+    private final AcornUserService userService;
 
-    public DataLoader(ProductDefinitionService productDefinitionService, UserService userService) {
+    public DataLoader(ProductDefinitionService productDefinitionService, AcornUserService userService) {
         this.productDefinitionService = productDefinitionService;
         this.userService = userService;
     }
