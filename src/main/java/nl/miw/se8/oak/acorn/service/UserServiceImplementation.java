@@ -1,6 +1,6 @@
 package nl.miw.se8.oak.acorn.service;
 
-import nl.miw.se8.oak.acorn.model.User;
+import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +16,12 @@ public class UserServiceImplementation implements UserService{
     }
 
     @Override
-    public void save(User user) {
-        userRepository.save(user);
+    public void save(AcornUser acornUser) {
+        userRepository.save(acornUser);
     }
 
     @Override
-    public List<User> findAll() {
+    public List<AcornUser> findAll() {
         return userRepository.findAll();
     }
 }
