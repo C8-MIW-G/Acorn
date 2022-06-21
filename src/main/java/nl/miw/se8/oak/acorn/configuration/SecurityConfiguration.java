@@ -19,7 +19,7 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests((authorize) -> authorize
                         .antMatchers("/css/**", "/webjars/**").permitAll()
-                        .antMatchers("/").permitAll()
+                        .antMatchers("/", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin().and()

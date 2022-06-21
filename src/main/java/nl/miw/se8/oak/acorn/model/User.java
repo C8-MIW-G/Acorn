@@ -19,12 +19,9 @@ public class User {
 
     @Id @GeneratedValue
     private Long id;
-
     @Column(unique = true, nullable = false)
     private String username;
-
     private String displayName;
-
     private String password;
 
     @OneToMany(mappedBy = "user",  cascade = ALL)
