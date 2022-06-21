@@ -1,7 +1,7 @@
 package nl.miw.se8.oak.acorn.seeding;
 
+import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
-import nl.miw.se8.oak.acorn.model.User;
 import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
 import nl.miw.se8.oak.acorn.service.UserService;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -32,7 +32,7 @@ public class DataLoader {
 
     private void seedUsers() {
             if(userService.findAll().size() == 0) {
-                userService.save(new User("test", "1234"));
+                userService.save(new AcornUser("test", "1234"));
             }
     }
 

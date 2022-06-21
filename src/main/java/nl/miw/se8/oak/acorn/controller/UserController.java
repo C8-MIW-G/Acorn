@@ -1,6 +1,6 @@
 package nl.miw.se8.oak.acorn.controller;
 
-import nl.miw.se8.oak.acorn.model.User;
+import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,21 +25,21 @@ public class UserController {
 
     @GetMapping("/register")
     protected String registerGet(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new AcornUser());
         return "userRegister";
     }
 
     @PostMapping("/register")
-    protected String registerPost(@ModelAttribute("user") User user, BindingResult result) {
+    protected String registerPost(@ModelAttribute("user") AcornUser user, BindingResult result) {
 
         // TODO - Clean up
         if (result.hasErrors()) {
             System.out.println("Result has errors");
             return "userRegister";
-        } else if (user.getUsername().length() < User.MINIMAL_USERNAME_LENGTH) {
+        } else if (user.getUsername().length() < AcornUser.MINIMAL_USERNAME_LENGTH) {
             System.out.println("Username too short.");
             return "userRegister";
-        } else if (user.getPassword().length() < User.MINIMAL_PASSWORD_LENGTH) {
+        } else if (user.getPassword().length() < AcornUser.MINIMAL_PASSWORD_LENGTH) {
             System.out.println("Password too short.");
             return "userRegister";
         } else if (usernameInDatabase(user.getUsername())) {
@@ -56,7 +56,7 @@ public class UserController {
     }
 
     private boolean usernameInDatabase(String username) {
-        Optional<User> user = userService.findByUsername(username);
+        Optional<AcornUser> user = userService.findByUsername(username);
         return user.isPresent();
     }
 

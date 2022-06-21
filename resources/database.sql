@@ -7,7 +7,7 @@ GRANT ALL PRIVILEGES ON acorn.* TO 'userAcorn'@'localhost';
 SELECT * FROM acorn.pantry;
 SELECT * FROM acorn.product_definition;
 SELECT * FROM acorn.pantry_product;
-SELECT * FROM acorn.`user`;
+SELECT * FROM acorn.`acornUser`;
 SELECT * FROM acorn.pantry_user;
 
 
