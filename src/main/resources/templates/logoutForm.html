@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/template :: navbar"></nav>
+
+<main>
+
+    <a href="#" onclick="document.getElementById('logout-form').submit();"> Logout </a>
+
+    <form id="logout-form" th:action="@{/logout/}" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+
+    <form>
+        <a th:action="@{/logout}" method="post"> Logout</a>
+    </form>
+</main>
+
+<footer th:replace="fragments/template :: footer"></footer>
+
+</body>
+
+</html>

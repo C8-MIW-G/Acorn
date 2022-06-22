@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,8 +37,8 @@ public class SecurityConfiguration {
                         .antMatchers("/", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin().and()
-                .logout().logoutSuccessUrl("/");
+                .formLogin(form -> form.loginPage("/login").permitAll().and())
+                .logout(logout -> logout.logoutUrl("/logout").permitAll());
         return http.build();
     }
 
