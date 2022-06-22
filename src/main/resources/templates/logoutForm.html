@@ -10,15 +10,10 @@
 
 <main>
 
-    <a href="#" onclick="document.getElementById('logout-form').submit();"> Logout </a>
-
-    <form id="logout-form" th:action="@{/logout/}" method="post">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logoutblie" />
     </form>
 
-    <form>
-        <a th:action="@{/logout}" method="post"> Logout</a>
-    </form>
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>

@@ -21,7 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 
 @Configuration
-public class SecurityConfiguration {
+public class SecurityConfiguration{
 
     final AcornUserServiceImplementation acornUserServiceImplementation;
 
@@ -38,7 +38,9 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.loginPage("/login").permitAll().and())
-                .logout(logout -> logout.logoutUrl("/logout").permitAll());
+                //.logout(logout -> logout.logoutUrl("/logout").permitAll());
+                .logout(logout -> logout.logoutUrl("/logout").permitAll().invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"));
         return http.build();
     }
 
