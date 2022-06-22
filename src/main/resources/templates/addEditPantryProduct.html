@@ -9,7 +9,7 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <div class="pantryContentsWrapper">
+    <div class="content-large">
 
         <h2 th:if="${pantryProduct.id == -1}">Add a product to the pantry</h2>
         <h2 th:unless="${pantryProduct.id == -1}">Edit a product</h2>
@@ -23,14 +23,14 @@
                            type="hidden"
                            th:field="*{productDefinition.id}">
 
-                    <label for="date" class="col-sm-2 col-form-label">Expiration date</label>
-                    <input id="date" type="date" th:field="*{expirationDate}">
+                    <label for="date" class="col-form-label">Expiration date</label>
+                    <input id="date" type="date" th:field="*{expirationDate}" class="input-text bordered">
                 </div>
             </div>
 
             <fieldset th:if="${pantryProduct.id == -1}">
                 <legend>Products:</legend>
-                <div class="tableContainer scrollbar-thin">
+                <div class="table-container scrollbar-thin">
                     <div th:each="product : ${productDefinitions}" class="radioDiv">
                         <label name="productRadio" class="productRadioLabel">
                             <input th:value = "${product.id}"
@@ -42,7 +42,7 @@
                 </div>
             </fieldset>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary float-right">Submit</button>
         </form>
 
     </div>

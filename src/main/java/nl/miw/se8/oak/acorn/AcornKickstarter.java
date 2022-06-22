@@ -73,7 +73,7 @@ public class AcornKickstarter implements CommandLineRunner {
         List<ProductDefinition> productDefinitions = productDefinitionService.findAll();
 
         for (Pantry pantry : pantries) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 20; i++) {
                 int randomProduct = (int) (Math.random() * productDefinitions.size());
                 int randomDate = (int) (Math.random() * 31);
                 PantryProduct pantryProduct = new PantryProduct(

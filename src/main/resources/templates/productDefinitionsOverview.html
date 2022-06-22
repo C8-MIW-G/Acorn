@@ -9,21 +9,21 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <div class="pantryContentsWrapper">
+    <div class="content-large">
 
-        <h2>Product Definitions</h2>
+        <h2>Products</h2>
 
-        <div class="tableNavigation">
-            <a href="/products/create"><button type="button" class="btn btn-primary">Add new</button></a>
+        <div class="d-flex flex-row my-4">
+            <a href="/products/create"><button type="button" class="btn btn-primary">Add product</button></a>
         </div>
 
-        <div class="tableContainer scrollbar-thin">
+        <div class="table-container scrollbar-thin">
             <table th:if="${products.size > 0}" class="table">
                 <thead>
                     <tr>
-                        <th class="th-fixed-width text-align-right" scope="col">Id</th>
+                        <th class="th-fixed-width-small text-align-right" scope="col">Id</th>
                         <th scope="col">Product</th>
-                        <th class="th-fixed-width"></th>
+                        <th class="th-fixed-width-small"></th>
                     </tr>
                 </thead>
                 <tbody>

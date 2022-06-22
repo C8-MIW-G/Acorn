@@ -10,35 +10,35 @@
 
 <main>
 
-        <div class="maxWidthMedium">
+        <div class="content-medium">
 
-            <div class="p-4 mb-4">
+            <div class="ml-4">
                 <span>Your profile</span>
                 <h2 th:text="${user.username}">userName</h2>
             </div>
 
-            <div class="border p-4 mb-4">
+            <div class="basket form-group overflow-auto">
                 <h3>Change your display name</h3>
                 <form th:action="@{/profile/edit}" method="post">
                     <div>
                         <label for="displayName">Display name: </label>
                         <div>
                             <input type ="hidden" id="id" th:field="*{user.id}">
-                            <input type="text" id="displayName" th:field="*{user.displayName}" th:placeholder="${user.displayName}">
+                            <input type="text" id="displayName" th:field="*{user.displayName}" th:placeholder="${user.displayName}" class="input-text">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
                 </form>
             </div>
 
-            <div class="border p-4 mb-4">
+            <div class="basket form-group overflow-auto">
                 <h3>Change your password</h3>
                 <form th:action="@{/profile/edit}" method="post">
                     <div>
                         <input type ="hidden" id="id" th:field="*{user.id}">
-                        <label for="password">Your new password:</label>
+                        <label for="password">Enter your new password:</label>
                         <div>
-                            <input type="password" id="password" th:field="*{user.password}">
+                            <input type="password" id="password" th:field="*{user.password}" class="input-text">
                         </div>
                     </div>
                     <div>

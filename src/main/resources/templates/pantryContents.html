@@ -8,22 +8,38 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <link rel="acorn.css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <div class="pantryContentsWrapper">
+    <div class="content-large">
 
         <div>
             <span>Pantry</span>
             <h2 th:text="${pantryName}"></h2>
         </div>
 
-        <div class="tableNavigation">
+        <div class="d-flex flex-row my-4">
             <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}"><button type="button" class="btn btn-primary">Add new product</button></a>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Delete pantry</button>
+            <button type="button" class="btn btn-delete ml-auto" data-toggle="modal" data-target="#myModal">Delete pantry</button>
+        </div>
+
+        <div class="table-container scrollbar-thin">
+            <table th:if="${pantryProducts.size > 0}" class="table">
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col" class="th-fixed-width-med text-center">Expiration date</th>
+                <th class="th-fixed-width-small text-center"></th>
+            </tr>
+            <tr th:each="pantryProduct : ${pantryProducts}">
+                <td >
+                    <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
+                </td>
+                <td class="text-center" th:text="${pantryProduct.expirationDate}"></td>
+                <td class="text-center">
+                    <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">remove</a>
+                </td>
+            </tr>
+            </table>
+
+            <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
         </div>
 
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
@@ -47,30 +63,13 @@
             </div>
         </div>
 
-        <div class="tableContainer scrollbar-thin">
-            <table th:if="${pantryProducts.size > 0}" class="table">
-            <tr>
-                <th scope="col">Product</th>
-                <th scope="col" class="th-fixed-width-med text-center">Expiration date</th>
-                <th class="th-fixed-width text-center"></th>
-            </tr>
-            <tr th:each="pantryProduct : ${pantryProducts}">
-                <td >
-                    <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
-                </td>
-                <td class="text-center" th:text="${pantryProduct.expirationDate}"></td>
-                <td class="text-center">
-                    <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">delete</a>
-                </td>
-            </tr>
-            </table>
+    </div>
 
-            <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
-
-        </div>
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>
+
+<div th:replace="fragments/template :: bodyScripts"></div>
 
 </body>
 

@@ -9,10 +9,10 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <div class="pantryContentsWrapper">
+    <div class="content-large">
 
-        <h2>Select a pantry</h2>
-        <div class="tableNavigation">
+        <h2>Pantries</h2>
+        <div class="d-flex flex-row my-4">
             <a href="/pantry/create"><button type="button" class="btn btn-primary">Create a new pantry</button></a>
         </div>
 
@@ -20,7 +20,7 @@
             <thead>
                 <tr>
                     <th scope="col">Name</th>
-                    <th class="th-fixed-width"></th>
+                    <th class="th-fixed-width-small"></th>
                 </tr>
             </thead>
             <tbody>
