@@ -36,14 +36,11 @@
                         <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantry.id})}"> edit</a>
                     </td>
                     <td>
-                        <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantry.id})}">delete</a>
-                    </td>
                 </tr>
             </tbody>
         </table>
 
         <p th:unless="${pantries.size != 0}" class="text-center">You do not seem to have any pantries...</p>
-
     </div>
 </main>
 
