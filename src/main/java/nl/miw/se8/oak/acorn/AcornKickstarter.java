@@ -41,7 +41,7 @@ public class AcornKickstarter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        boolean runThis = false;
+        boolean runThis = true;
         if (runThis) {
             seedUsers();
             seedPantries();
