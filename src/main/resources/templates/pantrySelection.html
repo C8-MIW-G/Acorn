@@ -21,21 +21,16 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th class="th-fixed-width"></th>
-                    <th class="th-fixed-width"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="pantry : ${pantries}">
                     <td>
-                        <a
-                            th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}"
-                            th:text="${pantry.name}">Pantry name
-                        </a>
+                        <a th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}" th:text="${pantry.name}">pantryName</a>
                     </td>
                     <td>
-                        <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantry.id})}"> edit</a>
+                        <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantry.id})}">edit</a>
                     </td>
-                    <td>
                 </tr>
             </tbody>
         </table>

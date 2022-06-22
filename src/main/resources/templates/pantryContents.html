@@ -13,41 +13,40 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     <div class="pantryContentsWrapper">
 
-        <span>Pantry</span>
-        <h2 th:text="${pantryName}"></h2>
+        <div>
+            <span>Pantry</span>
+            <h2 th:text="${pantryName}"></h2>
+        </div>
 
         <div class="tableNavigation">
             <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}"><button type="button" class="btn btn-primary">Add new product</button></a>
-        <td>
-<!--                         Button trigger modal-->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Delete pantry
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLongTitle">Are you sure you want to delete this pantry?</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            You are about to remove pantry <span th:text="${pantryName}"></span> that has <span th:text="${pantryProducts.size}"></span> product(s)!
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantryId})}"><button type="submit" class="btn btn-delete" data-pantry-id="${pantry.id}">Delete pantry</button></a>
-                        </div>
-                        </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Delete pantry</button>
+        </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationTitle">Are you sure?</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            You are about to remove pantry <span th:block th:text="${pantryName}"></span>
+                            that has <span th:block th:text="${pantryProducts.size}"></span> product(s) in it.
+                            This action cannot be undone!
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantryId})}"><button type="submit" class="btn btn-delete" data-pantry-id="${pantry.id}">Delete pantry</button></a>
                     </div>
                 </div>
             </div>
-        </td>
         </div>
+
         <div class="tableContainer scrollbar-thin">
             <table th:if="${pantryProducts.size > 0}" class="table">
             <tr>

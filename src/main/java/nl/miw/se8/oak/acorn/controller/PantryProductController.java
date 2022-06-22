@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
 /**
  * @author Sylvia Kazakou
  * Deal with contents of a pantry
@@ -32,12 +31,14 @@ public class PantryProductController {
     }
 
     @GetMapping("/pantry/{pantryId}")
-    protected String pantryContents(@PathVariable("pantryId") Long pantryId,
-                                    Model model) {
+    protected String pantryContents(@PathVariable("pantryId") Long pantryId, Model model) {
         List<PantryProduct> pantryProducts = pantryProductService.findAllByPantryId(pantryId);
         model.addAttribute("pantryProducts", pantryProducts);
+
         Optional<Pantry> pantry = pantryService.findById(pantryId);
-        model.addAttribute("pantryName", pantry.get().getName());
+        if (pantry.isPresent()) {
+            model.addAttribute("pantryName", pantry.get().getName());
+        }
         return "pantryContents";
     }
 
