@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class AcornUser implements UserDetails {
     public AcornUser(String username, String password) {
         this.username = username;
         this.password = password;
+        this.displayName = username;
     }
 
     @Override

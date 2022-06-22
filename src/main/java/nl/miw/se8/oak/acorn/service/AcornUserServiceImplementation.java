@@ -20,6 +20,11 @@ public class AcornUserServiceImplementation implements AcornUserService, UserDet
     }
 
     @Override
+    public Optional<AcornUser> findById(Long id) {
+        return acornUserRepository.findById(id);
+    }
+
+    @Override
     public void save(AcornUser acornUser) {
         acornUserRepository.save(acornUser);
     }
@@ -30,14 +35,12 @@ public class AcornUserServiceImplementation implements AcornUserService, UserDet
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return acornUserRepository.findByUsername(username).orElseThrow(
-                () -> new UsernameNotFoundException("User with name " + username + " was not found.")
-        );
+    public Optional<AcornUser> findByUsername(String username) {
+        return acornUserRepository.findByUsername(username);
     }
 
     @Override
-    public Optional<AcornUser> findByUsername(String username) {
-        return acornUserRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }

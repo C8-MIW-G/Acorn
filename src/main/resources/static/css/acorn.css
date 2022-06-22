@@ -149,3 +149,15 @@ input[type="date"] {
 .alert {
     margin-top: 1rem;
 }
+
+
+
+
+.maxWidthMedium {
+    max-width: 30rem;
+    margin: 0 auto;
+}
+
+.btn-small {
+    width: 6rem;
+}
