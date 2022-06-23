@@ -23,20 +23,20 @@
 
         <div class="table-container scrollbar-thin">
             <table th:if="${pantryProducts.size > 0}" class="table">
-            <tr>
-                <th scope="col">Product</th>
-                <th scope="col" class="th-fixed-width-med text-center">Expiration date</th>
-                <th class="th-fixed-width-small text-center"></th>
-            </tr>
-            <tr th:each="pantryProduct : ${pantryProducts}">
-                <td >
-                    <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
-                </td>
-                <td class="text-center" th:text="${pantryProduct.expirationDate}"></td>
-                <td class="text-center">
-                    <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">remove</a>
-                </td>
-            </tr>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col" class="th-fixed-width-med text-center">Expiration date</th>
+                    <th class="th-fixed-width-small text-center"></th>
+                </tr>
+                <tr th:each="pantryProduct : ${pantryProducts}">
+                    <td >
+                        <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
+                    </td>
+                    <td class="text-center" th:text="${pantryProduct.expirationDate}"></td>
+                    <td class="text-center">
+                        <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">remove</a>
+                    </td>
+                </tr>
             </table>
 
             <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
