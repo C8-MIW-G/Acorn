@@ -39,7 +39,7 @@ public class SecurityConfiguration{
                 )
                 .formLogin(form -> form.loginPage("/login").permitAll().and())
                 //.logout(logout -> logout.logoutUrl("/logout").permitAll());
-                .logout(logout -> logout.logoutUrl("/logout").permitAll().invalidateHttpSession(true)
+                .logout(logout -> logout.logoutUrl("/logout").permitAll().logoutSuccessUrl("/").invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID"));
         return http.build();
     }
