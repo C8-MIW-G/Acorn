@@ -3,7 +3,6 @@ package nl.miw.se8.oak.acorn.controller;
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.service.AcornUserService;
 import nl.miw.se8.oak.acorn.viewmodel.UserEditView;
-import nl.miw.se8.oak.acorn.viewmodel.UserRegisterView;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,9 +15,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 public class UserController {
+
+    public static final String ERROR_RESULT_HAS_ERRORS = "Something went wrong, try again.";
+    public static final String ERROR_EMAIL_INVALID = "The e-mailadres you entered is not valid.";
+    public static final String ERROR_EMAIL_IN_USE = "That e-mailadres is already in use.";
+    public static final String ERROR_PASSWORD_INCORRECT = "You entered an incorrect password";
+    public static final String ERROR_PASSWORD_INVALID = "The password you entered is not valid.";
+    public static final String ERROR_PASSWORDS_NO_MATCH = "The passwords you entered are not an exact match.";
+    public static final String INFO_EMAIL_UPDATE_SUCCESS = "Successfully updated your email!";
+    public static final String INFO_PASSWORD_UPDATE_SUCCESS = "Successfully changed your password!";
 
     AcornUserService userService;
     PasswordEncoder passwordEncoder;
@@ -30,44 +40,30 @@ public class UserController {
 
     @GetMapping("/register")
     protected String registerGet(Model model) {
-        model.addAttribute("userRegisterView", new UserRegisterView());
+        model.addAttribute("userEditView", new UserEditView());
         return "userRegister";
     }
 
     @PostMapping("/register")
-    protected String registerPost(@ModelAttribute("user") UserRegisterView registerUser,
+    protected String registerPost(@ModelAttribute("user") UserEditView userEditView,
                                   BindingResult result,
                                   Model model) {
-
-        // TODO - Refactor magic strings (store in seperate class?)
-        // This code is messy, find a better way
         if (result.hasErrors()) {
-            model.addAttribute("errorMessage", "Something went wrong, try again.");
-            model.addAttribute("userRegisterView", new UserRegisterView());
-            return "userRegister";
-        } else if (!validEmail(registerUser.getEmail())) {
-            model.addAttribute("errorMessage", "The email you entered is not valid.");
-            model.addAttribute("userRegisterView", registerUser);
-            return "userRegister";
-        } else if (!validPassword(registerUser.getPassword())) {
-            registerUser.resetPasswords();
-            model.addAttribute("errorMessage", "The password you entered is not valid.");
-            model.addAttribute("userRegisterView", registerUser);
-            return "userRegister";
-        } else if (!AcornUser.passwordsMatch(registerUser.getPassword(), registerUser.getPasswordCheck())) {
-            registerUser.resetPasswords();
-            model.addAttribute("errorMessage", "The passwords you entered do not match.");
-            model.addAttribute("userRegisterView", registerUser);
-            return "userRegister";
-        } else if (emailAlreadyUsed(registerUser.getEmail())) {
-            model.addAttribute("errorMessage", "That email is already in use.");
-            model.addAttribute("userRegisterView", registerUser);
+            model.addAttribute("errorMessage", ERROR_RESULT_HAS_ERRORS);
+            model.addAttribute("userEditView", new UserEditView());
             return "userRegister";
         }
 
-        AcornUser acornUser = new AcornUser(registerUser);
-        acornUser.setPassword(passwordEncoder.encode(acornUser.getPassword()));
+        if (!validEmail(userEditView, model)) {
+            model.addAttribute("userEditView", userEditView);
+            return "userRegister";
+        } else if (!validPassword(userEditView, model)) {
+            model.addAttribute("userEditView", userEditView);
+            return "userRegister";
+        }
 
+        userEditView.setNewPassword(passwordEncoder.encode(userEditView.getNewPassword()));
+        AcornUser acornUser = new AcornUser(userEditView);
         userService.save(acornUser);
         return "redirect:/pantrySelection";
     }
@@ -80,7 +76,7 @@ public class UserController {
     }
 
     @PostMapping("/profile/edit")
-    protected String editProfile(@ModelAttribute("userRegisterView") UserEditView userEditView,
+    protected String editProfile(@ModelAttribute("userEditView") UserEditView userEditView,
                                  BindingResult result,
                                  Model model) {
         if (!result.hasErrors()) {
@@ -88,12 +84,27 @@ public class UserController {
             if (optionalAcornUser.isPresent()) {
                 AcornUser acornUser = optionalAcornUser.get();
 
+                // EMAIL
                 if (userEditView.getEmail() != null) {
-                    updateEmail(userEditView, acornUser, model);
+                    if (!userEditView.getEmail().equals(acornUser.getEmail())) {
+                        if (!validEmail(userEditView, model)) {
+                            model.addAttribute("userEditView", userEditView);
+                            return "userProfile";
+                        }
+                        updateEmail(userEditView, acornUser, model);
+                    }
                 }
 
-                if (userEditView.getOldPassword() != null) {
-                    updatePassword(userEditView, acornUser);
+                // PASSWORD
+                if (userEditView.getOldPassword() != null &&
+                    userEditView.getNewPassword() != null &&
+                    userEditView.getNewPasswordCheck() != null) {
+                    if (!validPassword(userEditView, model)) {
+                        userEditView.clearPasswords();
+                        model.addAttribute("userEditView", userEditView);
+                        return "userProfile";
+                    }
+                    updatePassword(userEditView, acornUser, model);
                 }
 
                 userService.save(acornUser);
@@ -101,39 +112,65 @@ public class UserController {
             }
         }
 
-        model.addAttribute(userEditView);
-        return "/userProfile";
+        // Do not redirect in order to show user feedback on success
+        userEditView.clearPasswords();
+        model.addAttribute("userEditView", userEditView);
+        return "userProfile";
+    }
+
+    private boolean validEmail(UserEditView userEditView, Model model) {
+        if (!emailLongEnough(userEditView.getEmail())) {
+            model.addAttribute("errorMessage", ERROR_EMAIL_INVALID);
+            return false;
+        } else if (!stringAnEmailAddress(userEditView.getEmail())) {
+            model.addAttribute("errorMessage", ERROR_EMAIL_INVALID);
+            return false;
+        } else if (emailAlreadyUsed(userEditView.getEmail())) {
+            model.addAttribute("errorMessage", ERROR_EMAIL_IN_USE);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validPassword(UserEditView userEditView, Model model) {
+        if (!passwordLongEnough(userEditView.getNewPassword())) {
+            model.addAttribute("errorMessage", ERROR_PASSWORD_INVALID);
+            return false;
+        } else if (!newPasswordsMatch(userEditView)) {
+            model.addAttribute("errorMessage", ERROR_PASSWORDS_NO_MATCH);
+            return false;
+        }
+        return true;
     }
 
     private void updateEmail(UserEditView userEditView, AcornUser user, Model model) {
         if (!userEditView.getEmail().equals(user.getEmail())) {
-            if (!emailAlreadyUsed(userEditView.getEmail())) {
-                user.setEmail(userEditView.getEmail());
-                model.addAttribute("emailErrorMessage", "Succesfully updated your email!");
-            } else {
-                model.addAttribute("emailErrorMessage", "That email is already in use!");
-            }
+            user.setEmail(userEditView.getEmail());
+            model.addAttribute("successMessage", INFO_EMAIL_UPDATE_SUCCESS);
         }
     }
 
-    private void updatePassword(UserEditView userEditView, AcornUser acornUser) {
+    private void updatePassword(UserEditView userEditView, AcornUser acornUser, Model model) {
         if (oldPasswordsMatch(userEditView, acornUser)) {
             if (newPasswordsMatch(userEditView)) {
-                if (validPassword(userEditView.getNewPassword())) {
-                    acornUser.setPassword(passwordEncoder.encode(userEditView.getNewPassword()));
-                } else {
-                    System.out.println("Your new password is not valid");
-                }
-            } else {
-                System.out.println("The new passwords you entered do not match");
+                acornUser.setPassword(passwordEncoder.encode(userEditView.getNewPassword()));
+                model.addAttribute("successMessage", INFO_PASSWORD_UPDATE_SUCCESS);
             }
         } else {
-            System.out.println("Wrong password");
+            model.addAttribute("errorMessage", ERROR_PASSWORD_INCORRECT);
         }
     }
 
-    public static boolean validEmail(String email) {
+    public static boolean emailLongEnough(String email) {
         return email.length() > AcornUser.MINIMAL_EMAIL_LENGTH;
+    }
+
+    // TODO - Fix magic string, add to separate class?
+    public static boolean stringAnEmailAddress(String email) {
+        String emailPattern = "^(.+)@(\\S+)$";
+        Pattern pattern = Pattern.compile(emailPattern);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     private boolean emailAlreadyUsed(String email) {
@@ -148,7 +185,7 @@ public class UserController {
         return userEditView.getNewPassword().equals(userEditView.getNewPasswordCheck());
     }
 
-    public static boolean validPassword(String password) {
+    public static boolean passwordLongEnough(String password) {
         return password.length() > AcornUser.MINIMAL_PASSWORD_LENGTH;
     }
 

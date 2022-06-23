@@ -3,7 +3,6 @@ package nl.miw.se8.oak.acorn.model;
 import lombok.Getter;
 import lombok.Setter;
 import nl.miw.se8.oak.acorn.viewmodel.UserEditView;
-import nl.miw.se8.oak.acorn.viewmodel.UserRegisterView;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,10 +44,10 @@ public class AcornUser implements UserDetails {
         this.password = password;
     }
 
-    public AcornUser(UserRegisterView userRegisterView) {
-        this.email = userRegisterView.getEmail();
+    public AcornUser(UserEditView userEditView) {
+        this.email = userEditView.getEmail();
         this.name = this.email;
-        this.password = userRegisterView.getPassword();
+        this.password = userEditView.getNewPassword();
     }
 
     @Override
@@ -56,10 +55,6 @@ public class AcornUser implements UserDetails {
         List<GrantedAuthority> authorityList = new ArrayList<>();
         authorityList.add(new SimpleGrantedAuthority("ROLE_USER")); // Dit is een Spring ding. ROLE_ is een beschermde tekst. dit is een simple autority. iedereen die is ingelogd heeft iig de rol user.
         return authorityList;
-    }
-
-    public static boolean passwordsMatch(String password, String passwordCheck) {
-        return password.equals(passwordCheck);
     }
 
     @Override

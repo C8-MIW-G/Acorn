@@ -27,4 +27,10 @@ public class UserEditView {
         this.email = acornUser.getEmail();
         this.name = acornUser.getName();
     }
+
+    public void clearPasswords() {
+        this.oldPassword = null;
+        this.newPassword = null;
+        this.newPasswordCheck = null;
+    }
 }
