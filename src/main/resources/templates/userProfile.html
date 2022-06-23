@@ -14,18 +14,21 @@
 
             <div class="ml-4">
                 <span>Your profile</span>
-                <h2 th:text="${user.username}">userName</h2>
+                <h2 th:text="${name}">name</h2>
             </div>
 
             <div class="basket form-group overflow-auto">
-                <h3>Change your display name</h3>
-                <form th:action="@{/profile/edit}" method="post">
-                    <div>
-                        <label for="displayName">Display name: </label>
+                <h3>Change your email</h3>
+                <form th:action="@{/profile/edit}" method="post" th:object="${userEditView}">
+                    <div class="form-group">
+                        <label for="displayName">E-mail: </label>
                         <div>
-                            <input type ="hidden" id="id" th:field="*{user.id}">
-                            <input type="text" id="displayName" th:field="*{user.displayName}" th:placeholder="${user.displayName}" class="input-text">
+                            <input type ="hidden" id="id" th:field="*{id}">
+                            <input type="text" id="displayName" th:field="*{email}" th:placeholder="${email}" class="input-text">
                         </div>
+                    </div>
+                    <div th:if="${emailErrorMessage}" class="alert alert-info" role="alert">
+                        <span th:text="${emailErrorMessage}">Error message</span>
                     </div>
                     <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
                 </form>
@@ -33,12 +36,20 @@
 
             <div class="basket form-group overflow-auto">
                 <h3>Change your password</h3>
-                <form th:action="@{/profile/edit}" method="post">
+                <form th:action="@{/profile/edit}" method="post" th:object="${userEditView}">
                     <div>
-                        <input type ="hidden" id="id" th:field="*{user.id}">
-                        <label for="password">Enter your new password:</label>
+                        <input type ="hidden" id="id" th:field="*{id}">
+                        <label for="password">Your current password:</label>
                         <div>
-                            <input type="password" id="password" th:field="*{user.password}" class="input-text">
+                            <input type="password" id="password" th:field="*{oldPassword}" class="input-text">
+                        </div>
+                        <label for="password">Your new password:</label>
+                        <div>
+                            <input type="password" id="password" th:field="*{newPassword}" class="input-text">
+                        </div>
+                        <label for="password">Your new password again:</label>
+                        <div>
+                            <input type="password" id="password" th:field="*{newPasswordCheck}" class="input-text">
                         </div>
                     </div>
                     <div>

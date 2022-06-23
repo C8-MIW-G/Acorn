@@ -2,6 +2,7 @@ package nl.miw.se8.oak.acorn.controller;
 
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.service.AcornUserService;
+import nl.miw.se8.oak.acorn.viewmodel.UserEditView;
 import nl.miw.se8.oak.acorn.viewmodel.UserRegisterView;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,28 +35,33 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    protected String registerPost(@ModelAttribute("user") UserRegisterView registerUser, BindingResult result, Model model) {
+    protected String registerPost(@ModelAttribute("user") UserRegisterView registerUser,
+                                  BindingResult result,
+                                  Model model) {
 
         // TODO - Refactor magic strings (store in seperate class?)
+        // This code is messy, find a better way
         if (result.hasErrors()) {
             model.addAttribute("errorMessage", "Something went wrong, try again.");
             model.addAttribute("userRegisterView", new UserRegisterView());
             return "userRegister";
-        } else if (!registerUser.validEmail()) {
+        } else if (!validEmail(registerUser.getEmail())) {
             model.addAttribute("errorMessage", "The email you entered is not valid.");
-            model.addAttribute("userRegisterView", new UserRegisterView());
+            model.addAttribute("userRegisterView", registerUser);
             return "userRegister";
-        } else if (!registerUser.validPassword()) {
+        } else if (!validPassword(registerUser.getPassword())) {
+            registerUser.resetPasswords();
             model.addAttribute("errorMessage", "The password you entered is not valid.");
-            model.addAttribute("userRegisterView", new UserRegisterView());
+            model.addAttribute("userRegisterView", registerUser);
             return "userRegister";
-        } else if (!registerUser.passwordsMatch()) {
+        } else if (!AcornUser.passwordsMatch(registerUser.getPassword(), registerUser.getPasswordCheck())) {
+            registerUser.resetPasswords();
             model.addAttribute("errorMessage", "The passwords you entered do not match.");
-            model.addAttribute("userRegisterView", new UserRegisterView());
+            model.addAttribute("userRegisterView", registerUser);
             return "userRegister";
         } else if (emailAlreadyUsed(registerUser.getEmail())) {
             model.addAttribute("errorMessage", "That email is already in use.");
-            model.addAttribute("userRegisterView", new UserRegisterView());
+            model.addAttribute("userRegisterView", registerUser);
             return "userRegister";
         }
 
@@ -67,31 +73,83 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    protected String currentUser(@AuthenticationPrincipal AcornUser acornUser, Model model) {
-        model.addAttribute("user", acornUser);
+    protected String profile(@AuthenticationPrincipal AcornUser acornUser, Model model) {
+        UserEditView userEditView = new UserEditView(acornUser);
+        model.addAttribute("userEditView", userEditView);
         return "/userProfile";
     }
 
     @PostMapping("/profile/edit")
-    protected String editDisplayName(@ModelAttribute("user") AcornUser returnedUser, BindingResult result) {
+    protected String editProfile(@ModelAttribute("userRegisterView") UserEditView userEditView,
+                                 BindingResult result,
+                                 Model model) {
         if (!result.hasErrors()) {
-            Optional<AcornUser> databaseUser = userService.findById(returnedUser.getId());
-            if (databaseUser.isPresent()) {
-                AcornUser user = databaseUser.get();
+            Optional<AcornUser> optionalAcornUser = userService.findById(userEditView.getId());
+            if (optionalAcornUser.isPresent()) {
+                AcornUser acornUser = optionalAcornUser.get();
 
-                if (returnedUser.getEmail() != null) {
-                    user.setEmail(returnedUser.getEmail());
-                }
-                if (returnedUser.getPassword() != null) {
-                    // TODO - Ask user for old password as well and compare
-                    user.setPassword(passwordEncoder.encode(returnedUser.getPassword()));
+                if (userEditView.getEmail() != null) {
+                    updateEmail(userEditView, acornUser, model);
                 }
 
-                userService.save(user);
-                updatePrincipal(user);
+                if (userEditView.getOldPassword() != null) {
+                    updatePassword(userEditView, acornUser);
+                }
+
+                userService.save(acornUser);
+                updatePrincipal(acornUser);
             }
         }
-        return "redirect:/profile";
+
+        model.addAttribute(userEditView);
+        return "/userProfile";
+    }
+
+    private void updateEmail(UserEditView userEditView, AcornUser user, Model model) {
+        if (!userEditView.getEmail().equals(user.getEmail())) {
+            if (!emailAlreadyUsed(userEditView.getEmail())) {
+                user.setEmail(userEditView.getEmail());
+                model.addAttribute("emailErrorMessage", "Succesfully updated your email!");
+            } else {
+                model.addAttribute("emailErrorMessage", "That email is already in use!");
+            }
+        }
+    }
+
+    private void updatePassword(UserEditView userEditView, AcornUser acornUser) {
+        if (oldPasswordsMatch(userEditView, acornUser)) {
+            if (newPasswordsMatch(userEditView)) {
+                if (validPassword(userEditView.getNewPassword())) {
+                    acornUser.setPassword(passwordEncoder.encode(userEditView.getNewPassword()));
+                } else {
+                    System.out.println("Your new password is not valid");
+                }
+            } else {
+                System.out.println("The new passwords you entered do not match");
+            }
+        } else {
+            System.out.println("Wrong password");
+        }
+    }
+
+    public static boolean validEmail(String email) {
+        return email.length() > AcornUser.MINIMAL_EMAIL_LENGTH;
+    }
+
+    private boolean emailAlreadyUsed(String email) {
+        return userService.findByEmail(email).isPresent();
+    }
+
+    private boolean oldPasswordsMatch(UserEditView userEditView, AcornUser acornUser) {
+        return passwordEncoder.matches(userEditView.getOldPassword(), acornUser.getPassword());
+    }
+
+    private boolean newPasswordsMatch(UserEditView userEditView) {
+        return userEditView.getNewPassword().equals(userEditView.getNewPasswordCheck());
+    }
+
+    public static boolean validPassword(String password) {
+        return password.length() > AcornUser.MINIMAL_PASSWORD_LENGTH;
     }
 
     // TODO - Is this good practice?
@@ -101,10 +159,6 @@ public class UserController {
                 acornUser.getPassword(),
                 acornUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
-
-    private boolean emailAlreadyUsed(String email) {
-        return userService.findByEmail(email).isPresent();
     }
 
 }

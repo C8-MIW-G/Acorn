@@ -39,6 +39,11 @@ public class DataLoader {
                 admin.setPassword(passwordEncoder.encode(admin.getPassword()));
                 admin.setName("admin");
                 userService.save(admin);
+
+                AcornUser test = new AcornUser("test@test.com", "test");
+                test.setPassword(passwordEncoder.encode(test.getPassword()));
+                test.setName("test");
+                userService.save(test);
             }
     }
 

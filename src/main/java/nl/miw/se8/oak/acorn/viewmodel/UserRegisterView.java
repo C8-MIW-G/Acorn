@@ -2,7 +2,6 @@ package nl.miw.se8.oak.acorn.viewmodel;
 
 import lombok.Getter;
 import lombok.Setter;
-import nl.miw.se8.oak.acorn.model.AcornUser;
 
 /**
  * Auteur: Thijs van Blanken
@@ -20,17 +19,9 @@ public class UserRegisterView {
 
     }
 
-    // TODO - expand validating email
-    public boolean validEmail() {
-        return email.length() > AcornUser.MINIMAL_EMAIL_LENGTH;
-    }
-
-    public boolean validPassword() {
-        return password.length() > AcornUser.MINIMAL_PASSWORD_LENGTH;
-    }
-
-    public boolean passwordsMatch() {
-        return password.equals(passwordCheck);
+    public void resetPasswords() {
+        this.password = null;
+        this.passwordCheck = null;
     }
 
 }
