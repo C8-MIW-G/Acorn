@@ -24,9 +24,10 @@
 
         <div class="basket form-group overflow-auto">
             <h3>Change your e-mailaddress</h3>
-            <form th:action="@{/profile/edit}" method="post" th:object="${userEditView}">
+            <form th:action="@{/profile}" method="post" th:object="${userEditView}">
                 <input type ="hidden" th:field="*{id}">
                 <input type ="hidden" th:field="*{name}">
+                <input type ="hidden" th:field="*{newName}">
                 <div class="form-group">
                     <label for="email">Your e-mailaddress</label>
                     <div>
@@ -41,13 +42,14 @@
 
         <div class="basket form-group overflow-auto">
             <h3>Change your profile name</h3>
-            <form th:action="@{/profile/edit}" method="post" th:object="${userEditView}">
+            <form th:action="@{/profile}" method="post" th:object="${userEditView}">
                 <input type ="hidden" th:field="*{id}">
+                <input type ="hidden" th:field="*{name}">
                 <input type ="hidden" th:field="*{email}">
                 <div class="form-group">
                     <label for="name">Your profile name</label>
                     <div>
-                        <input type="text" id="name" th:field="*{name}" th:placeholder="${name}" class="input-text">
+                        <input type="text" id="name" th:field="*{newName}" th:placeholder="${newName}" class="input-text">
                     </div>
                 </div>
                 <div>
@@ -58,9 +60,10 @@
 
         <div class="basket form-group overflow-auto">
             <h3>Change your password</h3>
-            <form th:action="@{/profile/edit}" method="post" th:object="${userEditView}">
+            <form th:action="@{/profile}" method="post" th:object="${userEditView}">
                 <input type ="hidden" th:field="*{id}">
                 <input type ="hidden" th:field="*{name}">
+                <input type ="hidden" th:field="*{newName}">
                 <input type ="hidden" th:field="*{email}">
                 <div>
                     <label for="password">Your current password</label>

@@ -18,6 +18,7 @@ public class UserEditView {
     private String newPassword;
     private String newPasswordCheck;
     private String name;
+    private String newName;
 
     public UserEditView() {
     }
@@ -26,6 +27,7 @@ public class UserEditView {
         this.id = acornUser.getId();
         this.email = acornUser.getEmail();
         this.name = acornUser.getName();
+        this.newName = this.name;
     }
 
     public void clearPasswords() {

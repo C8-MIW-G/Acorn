@@ -22,13 +22,15 @@ import java.util.regex.Pattern;
 public class UserController {
 
     public static final String ERROR_RESULT_HAS_ERRORS = "Something went wrong, try again.";
-    public static final String ERROR_EMAIL_INVALID = "The e-mailadres you entered is not valid.";
-    public static final String ERROR_EMAIL_IN_USE = "That e-mailadres is already in use.";
+    public static final String ERROR_EMAIL_INVALID = "The e-mailaddress you entered is not valid.";
+    public static final String ERROR_EMAIL_IN_USE = "That e-mailaddress is already in use.";
     public static final String ERROR_PASSWORD_INCORRECT = "You entered an incorrect password";
     public static final String ERROR_PASSWORD_INVALID = "The password you entered is not valid.";
     public static final String ERROR_PASSWORDS_NO_MATCH = "The passwords you entered are not an exact match.";
-    public static final String INFO_EMAIL_UPDATE_SUCCESS = "Successfully updated your email!";
+    public static final String INFO_EMAIL_UPDATE_SUCCESS = "Successfully changed your email!";
     public static final String INFO_PASSWORD_UPDATE_SUCCESS = "Successfully changed your password!";
+    public static final String INFO_NAME_UPDATE_SUCCESS = "Successfully changed your username!";
+    public static final String ERROR_NAME_TOO_SHORT = "The username you entered is too short!";
 
     AcornUserService userService;
     PasswordEncoder passwordEncoder;
@@ -80,7 +82,7 @@ public class UserController {
         return "/userProfile";
     }
 
-    @PostMapping("/profile/edit")
+    @PostMapping("/profile")
     protected String editProfile(@ModelAttribute("userEditView") UserEditView userEditView,
                                  BindingResult result,
                                  Model model) {
@@ -100,12 +102,13 @@ public class UserController {
                     }
                 }
 
-                if (userEditView.getName() != null) {
+                // PROFILE NAME
+                if (userEditView.getNewName() != null) {
                     if (!validName(userEditView, model)) {
                         model.addAttribute("userEditView", userEditView);
                         return "userProfile";
                     }
-                    updateName(userEditView, acornUser);
+                    updateName(userEditView, acornUser, model);
                 }
 
                 // PASSWORD
@@ -157,7 +160,8 @@ public class UserController {
     }
 
     private boolean validName(UserEditView userEditView, Model model) {
-        if (userEditView.getName().length() < AcornUser.MINIMAL_NAME_LENGTH) {
+        if (userEditView.getNewName().length() < AcornUser.MINIMAL_NAME_LENGTH) {
+            model.addAttribute("errorMessage", ERROR_NAME_TOO_SHORT);
             return false;
         }
         return true;
@@ -181,8 +185,12 @@ public class UserController {
         }
     }
 
-    private void updateName(UserEditView userEditView, AcornUser acornUser) {
-        acornUser.setName(userEditView.getName());
+    private void updateName(UserEditView userEditView, AcornUser acornUser, Model model) {
+        if (!userEditView.getNewName().equals(acornUser.getName())) {
+            acornUser.setName(userEditView.getNewName());
+            userEditView.setName(userEditView.getNewName());
+            model.addAttribute("successMessage", INFO_NAME_UPDATE_SUCCESS);
+        }
     }
 
     public static boolean emailLongEnough(String email) {

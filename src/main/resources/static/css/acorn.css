@@ -2,7 +2,7 @@
     --body: #ffffff;
     --primary-color: #4cac64;
     --primary-color-light: #78d991;
-    --primary-color-matte: #c4dbca;
+    --primary-color-matte: #72d28b;
     --primary-color-extralight: #d9e8dd;
     --light-grey: #f4f4f4;
     --opaque: rgba(34, 34, 34, 0);
@@ -166,8 +166,8 @@ input[type="date"] {
 .basket {
     background-color: var(--primary-color-matte);
     border-left: .4rem solid var(--primary-color) !important;
-    border-top-right-radius: 1rem !important;
-    border-bottom-right-radius: 1rem !important;
+    border-top-right-radius: .3rem !important;
+    border-bottom-right-radius: .3rem !important;
     padding: 2rem;
 }
 
