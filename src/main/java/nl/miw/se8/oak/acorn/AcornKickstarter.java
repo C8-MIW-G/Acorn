@@ -41,11 +41,11 @@ public class AcornKickstarter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        boolean runThis = false;
+        boolean runThis = true;
         if (runThis) {
-            seedUsers();
+//            seedUsers();
             seedPantries();
-            seedPantryUsers();
+//            seedPantryUsers();
             seedPantryProducts();
         }
     }
@@ -63,9 +63,9 @@ public class AcornKickstarter implements CommandLineRunner {
     }
 
     private void seedPantryUsers() {
-//        pantryUserService.save(new PantryUser(acornUserService.findByUsername("Sylvia").get(), pantryService.findByEmail("Sylvia's Pantry").get()));
-//        pantryUserService.save(new PantryUser(acornUserService.findByUsername("Wicher").get(), pantryService.findByEmail("Wicher's Pantry").get()));
-//        pantryUserService.save(new PantryUser(acornUserService.findByUsername("Thijs").get(), pantryService.findByEmail("Thijs' Pantry").get()));
+        pantryUserService.save(new PantryUser(acornUserService.findByEmail("Sylvia").get(), pantryService.findByName("Sylvia's Pantry").get()));
+        pantryUserService.save(new PantryUser(acornUserService.findByEmail("Wicher").get(), pantryService.findByName("Wicher's Pantry").get()));
+        pantryUserService.save(new PantryUser(acornUserService.findByEmail("Thijs").get(), pantryService.findByName("Thijs' Pantry").get()));
     }
 
     private void seedPantryProducts() {
