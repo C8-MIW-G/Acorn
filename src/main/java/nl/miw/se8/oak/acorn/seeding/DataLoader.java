@@ -35,9 +35,15 @@ public class DataLoader {
 
     private void seedUsers() {
             if(userService.findAll().size() == 0) {
-                AcornUser admin = new AcornUser("admin", "admin");
+                AcornUser admin = new AcornUser("admin@admin.com", "admin");
                 admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+                admin.setName("admin");
                 userService.save(admin);
+
+                AcornUser test = new AcornUser("test@test.com", "test");
+                test.setPassword(passwordEncoder.encode(test.getPassword()));
+                test.setName("test");
+                userService.save(test);
             }
     }
 

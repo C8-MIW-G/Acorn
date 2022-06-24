@@ -11,7 +11,7 @@ public interface AcornUserService {
     Optional<AcornUser> findById(Long id);
     void save(AcornUser acornUser);
     List<AcornUser> findAll();
-    Optional<AcornUser> findByUsername(String username);
+    Optional<AcornUser> findByEmail(String email);
 
     // Important for logging in
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
