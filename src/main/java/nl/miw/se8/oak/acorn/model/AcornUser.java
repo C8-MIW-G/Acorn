@@ -23,6 +23,7 @@ public class AcornUser implements UserDetails {
 
     public static final int MINIMAL_EMAIL_LENGTH = 5;
     public static final int MINIMAL_PASSWORD_LENGTH = 5;
+    public static final int MINIMAL_NAME_LENGTH = 4;
 
     @Id @GeneratedValue
     private Long id;
@@ -46,7 +47,7 @@ public class AcornUser implements UserDetails {
 
     public AcornUser(UserEditView userEditView) {
         this.email = userEditView.getEmail();
-        this.name = this.email;
+        this.name = userEditView.getName();
         this.password = userEditView.getNewPassword();
     }
 

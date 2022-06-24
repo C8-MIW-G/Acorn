@@ -14,10 +14,17 @@
         <h2>Sign up</h2>
         <form th:action="@{/register}" method="post" th:object="${userEditView}">
             <div class="form-group">
-                <label for="name">What is your e-mailaddress?</label>
+                <label for="email">What is your e-mailaddress?</label>
                 <div class="form-group">
-                    <input type="text" id="name" th:field="*{email}" class="input-text" placeholder="Enter your e-mailaddress.">
+                    <input type="text" id="email" th:field="*{email}" class="input-text" placeholder="Enter your e-mailaddress.">
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="name">What can we call you?</label>
+                <div class="form-group">
+                    <input type="text" id="name" th:field="*{name}" class="input-text" placeholder="Enter your profile name.">
+                </div>
+                <label>This is how others will see you.</label>
             </div>
             <div class="form-group">
                 <label for="password">Create a password</label>

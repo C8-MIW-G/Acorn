@@ -100,6 +100,14 @@ public class UserController {
                     }
                 }
 
+                if (userEditView.getName() != null) {
+                    if (!validName(userEditView, model)) {
+                        model.addAttribute("userEditView", userEditView);
+                        return "userProfile";
+                    }
+                    updateName(userEditView, acornUser);
+                }
+
                 // PASSWORD
                 if (userEditView.getOldPassword() != null &&
                     userEditView.getNewPassword() != null &&
@@ -148,6 +156,13 @@ public class UserController {
         return true;
     }
 
+    private boolean validName(UserEditView userEditView, Model model) {
+        if (userEditView.getName().length() < AcornUser.MINIMAL_NAME_LENGTH) {
+            return false;
+        }
+        return true;
+    }
+
     private void updateEmail(UserEditView userEditView, AcornUser user, Model model) {
         if (!userEditView.getEmail().equals(user.getEmail())) {
             user.setEmail(userEditView.getEmail());
@@ -164,6 +179,10 @@ public class UserController {
         } else {
             model.addAttribute("errorMessage", ERROR_PASSWORD_INCORRECT);
         }
+    }
+
+    private void updateName(UserEditView userEditView, AcornUser acornUser) {
+        acornUser.setName(userEditView.getName());
     }
 
     public static boolean emailLongEnough(String email) {
