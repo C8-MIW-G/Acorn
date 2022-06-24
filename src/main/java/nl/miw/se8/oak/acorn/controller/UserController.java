@@ -105,4 +105,28 @@ public class UserController {
         return userService.findByUsername(user.getUsername()).isPresent();
     }
 
-}
+    @Controller
+    class LoginController {
+        @GetMapping("/login")
+        String login() {
+            return "login";
+        }
+    }
+//
+//    @Controller
+//    class LogoutController {
+        @GetMapping("/logoutForm")
+        String logout() {
+            return "logoutForm";
+        }
+    }
+
+    @Controller
+    class LogoutController {
+        @PostMapping("/logout")
+        String logout() {
+            return "logoutForm";
+        }
+    }
+
+
