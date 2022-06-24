@@ -17,7 +17,7 @@ import static javax.persistence.CascadeType.ALL;
 public class Pantry {
 
     public static final long DEFAULT_ID = -1L;
-    public static final String DEFAULT_NAME = "New pantry";
+    public static final String DEFAULT_NAME = "";
 
     @Id @GeneratedValue
     private Long id;

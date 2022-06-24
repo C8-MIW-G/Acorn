@@ -21,7 +21,7 @@ import static javax.persistence.CascadeType.ALL;
 public class ProductDefinition implements Comparable<ProductDefinition>{
 
     public static final long DEFAULT_ID = -1L;
-    private static final String DEFAULT_NAME = "New Product";
+    private static final String DEFAULT_NAME = "";
 
     @Id @GeneratedValue
     private Long id;
