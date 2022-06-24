@@ -26,6 +26,11 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @GetMapping("/login")
+    protected String login() {
+        return "login";
+    }
+
     @GetMapping("/register")
     protected String registerGet(Model model) {
         model.addAttribute("user", new AcornUser());
@@ -105,28 +110,4 @@ public class UserController {
         return userService.findByUsername(user.getUsername()).isPresent();
     }
 
-    @Controller
-    class LoginController {
-        @GetMapping("/login")
-        String login() {
-            return "login";
-        }
-    }
-//
-//    @Controller
-//    class LogoutController {
-        @GetMapping("/logoutForm")
-        String logout() {
-            return "logoutForm";
-        }
-    }
-
-    @Controller
-    class LogoutController {
-        @PostMapping("/logout")
-        String logout() {
-            return "logoutForm";
-        }
-    }
-
-
+}
