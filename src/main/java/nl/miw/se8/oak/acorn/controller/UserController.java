@@ -64,14 +64,20 @@ public class UserController {
         if (!validEmail(userEditView, model)) {
             model.addAttribute("userEditView", userEditView);
             return "userRegister";
+        } else if (!validName(userEditView, model)) {
+            model.addAttribute("userEditView", userEditView);
+            return "userRegister";
         } else if (!validPassword(userEditView, model)) {
             model.addAttribute("userEditView", userEditView);
             return "userRegister";
         }
 
         userEditView.setNewPassword(passwordEncoder.encode(userEditView.getNewPassword()));
+        userEditView.setName(userEditView.getNewName());
         AcornUser acornUser = new AcornUser(userEditView);
         userService.save(acornUser);
+
+        // TODO - auto login
         return "redirect:/pantrySelection";
     }
 
