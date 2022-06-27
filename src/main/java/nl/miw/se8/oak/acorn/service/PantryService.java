@@ -14,7 +14,7 @@ public interface PantryService {
     List <Pantry> findAll();
     void deleteById(Long pantryId);
     Optional<Pantry> findById(Long pantryId);
-    void save(Pantry pantry);
+    Pantry save(Pantry pantry);
     Optional<Pantry> findByName(String name);
 
 }

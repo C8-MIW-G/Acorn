@@ -1,9 +1,13 @@
 package nl.miw.se8.oak.acorn.controller;
 
+import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryProduct;
+import nl.miw.se8.oak.acorn.model.PantryUser;
 import nl.miw.se8.oak.acorn.service.PantryProductService;
 import nl.miw.se8.oak.acorn.service.PantryService;
+import nl.miw.se8.oak.acorn.service.PantryUserService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,10 +28,14 @@ public class PantryController {
 
     PantryService pantryService;
     PantryProductService pantryProductService;
+    PantryUserService pantryUserService;
 
-    public PantryController(PantryService pantryService, PantryProductService pantryProductService) {
+    public PantryController(PantryService pantryService,
+                            PantryProductService pantryProductService,
+                            PantryUserService pantryUserService) {
         this.pantryService = pantryService;
         this.pantryProductService = pantryProductService;
+        this.pantryUserService = pantryUserService;
     }
 
     @GetMapping("/pantrySelection")
@@ -59,9 +67,20 @@ public class PantryController {
     }
 
     @PostMapping("/pantry/edit")
-    protected String renamePantry(@ModelAttribute("pantry") Pantry pantry, BindingResult result) {
+    protected String renamePantry(@ModelAttribute("pantry") Pantry pantry,
+                                  BindingResult result,
+                                  @AuthenticationPrincipal AcornUser acornUser) {
+        // Check if a new pantry is created, or an existing pantry is edited.
+        boolean newPantry = pantry.getId() == -1;
+
         if (!result.hasErrors()) {
-            pantryService.save(pantry);
+            Pantry savedPantry = pantryService.save(pantry);
+
+            // Sets current user as pantry administrator of newly created pantry
+            if (newPantry) {
+                PantryUser pantryUser = new PantryUser(acornUser, savedPantry, true);
+                pantryUserService.save(pantryUser);
+            }
         }
         return "redirect:/pantrySelection";
     }

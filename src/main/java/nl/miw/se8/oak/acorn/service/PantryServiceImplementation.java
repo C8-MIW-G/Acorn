@@ -35,8 +35,8 @@ public class PantryServiceImplementation implements PantryService {
     }
 
     @Override
-    public void save(Pantry pantry) {
-        pantryRepository.save(pantry);
+    public Pantry save(Pantry pantry) {
+        return pantryRepository.save(pantry);
     }
 
     @Override
