@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-/**
+/*
  * @Author Wicher Vos
  * security config
  */
@@ -43,7 +43,7 @@ public class SecurityConfiguration{
     }
 
 
-    @Bean           // in memory user voor logging testing purposes, gestolen van Vincent. TODO remove later maybe?
+    @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(acornUserServiceImplementation);

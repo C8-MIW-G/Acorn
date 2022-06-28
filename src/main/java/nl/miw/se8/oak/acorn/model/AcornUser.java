@@ -37,13 +37,10 @@ public class AcornUser implements UserDetails {
     @OneToMany(mappedBy = "user",  cascade = ALL)
     private List<PantryUser> pantryUsers;
 
-    // TODO - FetchType EAGER is bad practice! Ask Joost!
     @ManyToMany(fetch = FetchType.EAGER) @JoinTable(
             name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
     public AcornUser() {
@@ -63,9 +60,6 @@ public class AcornUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getGrantedAuthorities(getPrivileges(roles));
-//        List<GrantedAuthority> authorityList = new ArrayList<>();
-//        authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
-//        return authorityList;
     }
 
     private List<String> getPrivileges(Collection<Role> roles) {
@@ -91,7 +85,7 @@ public class AcornUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return name;
     }
 
     @Override
