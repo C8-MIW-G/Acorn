@@ -33,9 +33,16 @@ public class AcornUser implements UserDetails {
     private String name;
     @Column(nullable = false)
     private String password;
-
     @OneToMany(mappedBy = "user",  cascade = ALL)
     private List<PantryUser> pantryUsers;
+
+    @ManyToMany @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
     public AcornUser() {
     }
