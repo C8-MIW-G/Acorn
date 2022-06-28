@@ -41,9 +41,11 @@ public class AcornUserServiceImplementation implements AcornUserService, UserDet
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return acornUserRepository.findByEmail(username).orElseThrow(
-                () -> new UsernameNotFoundException("User with name " + username + " was not found.")
-        );
+        Optional<AcornUser> optionalAcornUser = acornUserRepository.findByEmail(username);
+        if (optionalAcornUser.isEmpty()) {
+            throw new UsernameNotFoundException("User with name " + username + " was not found.");
+        }
+        return optionalAcornUser.get();
     }
 
 }

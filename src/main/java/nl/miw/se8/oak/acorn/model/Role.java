@@ -26,8 +26,20 @@ public class Role {
                     name = "privilege_id", referencedColumnName = "id"))
     private Collection<Privilege> privileges;
 
+    public Role() {
+
+    }
+
     public Role(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Collection<Privilege> getPrivileges() {
+        return privileges;
     }
 
     public void setPrivileges(Collection<Privilege> privileges) {

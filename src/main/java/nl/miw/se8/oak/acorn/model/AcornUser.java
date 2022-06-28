@@ -33,10 +33,12 @@ public class AcornUser implements UserDetails {
     private String name;
     @Column(nullable = false)
     private String password;
+
     @OneToMany(mappedBy = "user",  cascade = ALL)
     private List<PantryUser> pantryUsers;
 
-    @ManyToMany @JoinTable(
+    // TODO - FetchType EAGER is bad practice! Ask Joost!
+    @ManyToMany(fetch = FetchType.EAGER) @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"),
@@ -60,9 +62,31 @@ public class AcornUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorityList = new ArrayList<>();
-        authorityList.add(new SimpleGrantedAuthority("ROLE_USER")); // Dit is een Spring ding. ROLE_ is een beschermde tekst. dit is een simple autority. iedereen die is ingelogd heeft iig de rol user.
-        return authorityList;
+        return getGrantedAuthorities(getPrivileges(roles));
+//        List<GrantedAuthority> authorityList = new ArrayList<>();
+//        authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
+//        return authorityList;
+    }
+
+    private List<String> getPrivileges(Collection<Role> roles) {
+        List<String> privileges = new ArrayList<>();
+        List<Privilege> collection = new ArrayList<>();
+        for (Role role : roles) {
+            privileges.add(role.getName());
+            collection.addAll(role.getPrivileges());
+        }
+        for (Privilege item : collection) {
+            privileges.add(item.getName());
+        }
+        return privileges;
+    }
+
+    private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (String privilege : privileges) {
+            authorities.add(new SimpleGrantedAuthority(privilege));
+        }
+        return authorities;
     }
 
     @Override
