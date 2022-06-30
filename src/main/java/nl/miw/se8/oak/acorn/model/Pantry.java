@@ -2,6 +2,7 @@ package nl.miw.se8.oak.acorn.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import nl.miw.se8.oak.acorn.viewmodel.PantryEditModelView;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -36,6 +37,11 @@ public class Pantry {
 
     public Pantry() {
         this(DEFAULT_NAME);
+    }
+
+    public  Pantry(PantryEditModelView pantryEditModelView) {
+        this.id = pantryEditModelView.getId();
+        this.name = pantryEditModelView.getName();
     }
 
 }
