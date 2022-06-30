@@ -11,6 +11,8 @@ import java.util.Collection;
 @Entity
 public class Role {
 
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+
     @Id @GeneratedValue
     private Long id;
     private String name;

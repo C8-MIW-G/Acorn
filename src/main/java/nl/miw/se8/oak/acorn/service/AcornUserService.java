@@ -18,4 +18,6 @@ public interface AcornUserService {
 
     // Important for logging in
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
+    boolean moreThanOneSysAdmin();
 }

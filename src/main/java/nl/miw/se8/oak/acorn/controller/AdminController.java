@@ -1,7 +1,6 @@
 package nl.miw.se8.oak.acorn.controller;
 
 import nl.miw.se8.oak.acorn.model.AcornUser;
-import nl.miw.se8.oak.acorn.model.Role;
 import nl.miw.se8.oak.acorn.service.AcornUserService;
 import nl.miw.se8.oak.acorn.service.RoleService;
 import nl.miw.se8.oak.acorn.viewmodel.UserManagementViewModel;
@@ -49,13 +48,13 @@ public class AdminController {
 
             // There must always be at least one sysadmin
             if (optionalAcornUser.get().getEmail().equals(getCurrentUser().getEmail())) {
-                if (currentUserIsOnlySysAdmin()) {
-                    redirectAttributes.addFlashAttribute("errorMessage", "Cannot remove: there must be at least one systems administrator.");
-                    return "redirect:/users";
-                } else {
+                if (acornUserService.moreThanOneSysAdmin()) {
                     acornUserService.deleteById(userId);
                     SecurityContextHolder.clearContext();
                     return "redirect:/";
+                } else {
+                    redirectAttributes.addFlashAttribute("errorMessage", "Cannot remove: there must be at least one systems administrator.");
+                    return "redirect:/users";
                 }
             }
             acornUserService.deleteById(userId);
@@ -68,12 +67,6 @@ public class AdminController {
 
     private AcornUser getCurrentUser() {
         return (AcornUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
-
-    private boolean currentUserIsOnlySysAdmin() {
-        Role adminRole = roleService.findByName("ROLE_ADMIN").get();
-        List<AcornUser> sysAdmins = acornUserService.findByRolesContains(adminRole);
-        return sysAdmins.size() <= 1;
     }
 
 }

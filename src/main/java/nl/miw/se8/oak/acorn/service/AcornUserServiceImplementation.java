@@ -15,9 +15,11 @@ import java.util.Optional;
 public class AcornUserServiceImplementation implements AcornUserService, UserDetailsService {
 
     AcornUserRepository acornUserRepository;
+    RoleService roleService;
 
-    public AcornUserServiceImplementation(AcornUserRepository acornUserRepository) {
+    public AcornUserServiceImplementation(AcornUserRepository acornUserRepository, RoleService roleService) {
         this.acornUserRepository = acornUserRepository;
+        this.roleService = roleService;
     }
 
     @Override
@@ -57,6 +59,16 @@ public class AcornUserServiceImplementation implements AcornUserService, UserDet
             throw new UsernameNotFoundException("User with name " + username + " was not found.");
         }
         return optionalAcornUser.get();
+    }
+
+    @Override
+    public boolean moreThanOneSysAdmin() {
+        Optional<Role> optionalAdminRole = roleService.findByName(Role.ROLE_ADMIN);
+        if (optionalAdminRole.isPresent()) {
+            List<AcornUser> sysAdmins = findByRolesContains(optionalAdminRole.get());
+            return sysAdmins.size() <= 1;
+        }
+        return false;
     }
 
 }
