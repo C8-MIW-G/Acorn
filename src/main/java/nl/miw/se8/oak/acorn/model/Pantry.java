@@ -2,7 +2,7 @@ package nl.miw.se8.oak.acorn.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import nl.miw.se8.oak.acorn.viewmodel.PantryEditModelView;
+import nl.miw.se8.oak.acorn.viewmodel.PantryEditDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import static javax.persistence.CascadeType.ALL;
 @Entity @Getter @Setter
 public class Pantry {
 
-    public static final long DEFAULT_ID = -1L;
+    public static final long DEFAULT_ID = -1;
     public static final String DEFAULT_NAME = "";
 
     @Id @GeneratedValue
@@ -39,9 +39,9 @@ public class Pantry {
         this(DEFAULT_NAME);
     }
 
-    public  Pantry(PantryEditModelView pantryEditModelView) {
-        this.id = pantryEditModelView.getId();
-        this.name = pantryEditModelView.getName();
+    public  Pantry(PantryEditDto pantryEditDto) {
+        this.id = pantryEditDto.getId();
+        this.name = pantryEditDto.getName();
     }
 
 }

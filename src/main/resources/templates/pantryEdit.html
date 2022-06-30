@@ -11,9 +11,9 @@
 <main>
     <div class="content-large">
         <div class="basket form-group overflow-auto">
-            <h2 th:if="${pantry.id == -1}">Create a pantry</h2>
-            <h2 th:unless="${pantry.id == -1}">Edit a pantry</h2>
-            <form th:action="@{/pantry/edit}" method="post" th:object="${pantry}">
+            <h2 th:if="${pantryEditDto.id == -1}">Create a pantry</h2>
+            <h2 th:unless="${pantryEditDto.id == -1}">Edit a pantry</h2>
+            <form th:action="@{/pantry/edit}" method="post" th:object="${pantryEditDto}">
                 <div class ="form-group row">
                     <label for="name" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
