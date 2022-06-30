@@ -59,6 +59,13 @@ public class DataLoader {
                 admin.setRoles(List.of(adminRole));
                 userService.save(admin);
 
+                AcornUser admin2 = new AcornUser();
+                admin2.setEmail("admin2@admin.com");
+                admin2.setPassword(passwordEncoder.encode("admin2"));
+                admin2.setName("admin2");
+                admin2.setRoles(List.of(adminRole));
+                userService.save(admin2);
+
                 AcornUser user = new AcornUser();
                 user.setEmail("user@user.com");
                 user.setPassword(passwordEncoder.encode("user"));

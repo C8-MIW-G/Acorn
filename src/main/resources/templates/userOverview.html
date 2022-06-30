@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head"></head>
+
+<body>
+
+    <nav th:replace="fragments/template :: navbar"></nav>
+
+    <main>
+        <div class="content-large">
+
+            <h2>Manage users</h2>
+
+            <div th:if="${errorMessage}" class="alert alert-info" role="alert">
+                <span th:text="${errorMessage}">Error message</span>
+            </div>
+            <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                <span th:text="${successMessage}">Success message</span>
+            </div>
+
+            <div>
+                <table class="table">
+                    <tr>
+                        <th scope="col">Email</th>
+                        <th scope="col" class="th-fixed-width-small"></th>
+                    </tr>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.email}"></td>
+                        <td class="text-center">
+                            <a th:href="@{/users/{userId}/delete(userId=${user.id})}">remove</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </main>
+
+    <footer th:replace="fragments/template :: footer"></footer>
+
+</body>
+
+</html>

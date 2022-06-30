@@ -1,6 +1,7 @@
 package nl.miw.se8.oak.acorn.service;
 
 import nl.miw.se8.oak.acorn.model.AcornUser;
+import nl.miw.se8.oak.acorn.model.Role;
 import nl.miw.se8.oak.acorn.repository.AcornUserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -37,6 +38,16 @@ public class AcornUserServiceImplementation implements AcornUserService, UserDet
     @Override
     public Optional<AcornUser> findByEmail(String username) {
         return acornUserRepository.findByEmail(username);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        acornUserRepository.deleteById(id);
+    }
+
+    @Override
+    public List<AcornUser> findByRolesContains(Role role) {
+        return acornUserRepository.findByRolesContains(role);
     }
 
     @Override

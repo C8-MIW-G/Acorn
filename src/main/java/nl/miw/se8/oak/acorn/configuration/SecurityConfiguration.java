@@ -29,6 +29,7 @@ public class SecurityConfiguration{
                 .authorizeHttpRequests((authorize) -> authorize
                         .antMatchers("/css/**", "/webjars/**").permitAll()
                         .antMatchers("/", "/register").permitAll()
+                        .antMatchers("/users").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.loginPage("/login").permitAll().and())
