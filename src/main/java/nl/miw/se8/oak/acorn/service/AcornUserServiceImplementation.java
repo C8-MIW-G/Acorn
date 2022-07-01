@@ -66,7 +66,7 @@ public class AcornUserServiceImplementation implements AcornUserService, UserDet
         Optional<Role> optionalAdminRole = roleService.findByName(Role.ROLE_ADMIN);
         if (optionalAdminRole.isPresent()) {
             List<AcornUser> sysAdmins = findByRolesContains(optionalAdminRole.get());
-            return sysAdmins.size() <= 1;
+            return sysAdmins.size() > 1;
         }
         return false;
     }
