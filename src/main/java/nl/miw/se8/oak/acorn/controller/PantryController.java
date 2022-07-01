@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +53,7 @@ public class PantryController {
     }
 
     @GetMapping("/pantry/create")                       // DTO CHECK
-    protected String createPantry(Model model) {
+    protected String createPantry(@Valid Model model) {
         Mapper mapper = new Mapper();
         Pantry pantry = new Pantry();
         model.addAttribute("pantryToPantryEditViewmodel",mapper.pantryToPantryEditViewmodel(pantry));
@@ -70,7 +71,7 @@ public class PantryController {
     }
 
     @PostMapping("/pantry/edit")
-    protected String renamePantry(@ModelAttribute("pantry") Pantry pantry,
+    protected String renamePantry(@Valid @ModelAttribute("pantry") Pantry pantry,
                                   BindingResult result,
                                   @AuthenticationPrincipal AcornUser acornUser) {
         // Check if a new pantry is created, or an existing pantry is edited.
