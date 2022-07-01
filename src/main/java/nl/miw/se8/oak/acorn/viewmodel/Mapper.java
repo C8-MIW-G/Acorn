@@ -36,4 +36,11 @@ public class Mapper {
         return userOverviewVM;
     }
 
+    public AcornUser userOverviewVMToUser(UserOverviewVM userOverviewVM) {
+        AcornUser acornUser = new AcornUser();
+        acornUser.setEmail(userOverviewVM.getEmail());
+        acornUser.setName(userOverviewVM.getName());
+        return acornUser;
+    }
+
 }

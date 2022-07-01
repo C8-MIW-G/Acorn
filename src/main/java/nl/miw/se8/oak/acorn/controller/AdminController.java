@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -85,33 +84,18 @@ public class AdminController {
         return "redirect:/users";
     }
 
-    // TODO - Fields should autofill after validation messages are shown.
+    // TODO - Fields should re-autofill after error messages are shown.
     @PostMapping("users/{userId}/update")
-    protected String userUpdate(@Valid @ModelAttribute("user") UserOverviewVM acornUser,
-                                BindingResult result, RedirectAttributes redirectAttributes) {
+    protected String userUpdate(@Valid @ModelAttribute("user") UserOverviewVM userOverviewVM, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            return "userDetails";
+        } else if (acornUserService.emailInUseBySomeoneElse(userOverviewVM)) {
+            result.addError(new FieldError("user", "email", UserController.ERROR_EMAIL_IN_USE));
             return "userDetails";
         }
 
-        // TODO - Refactor into separate method
-        // Is email already in use?
-        Optional<AcornUser> dbAcornUser = acornUserService.findByEmail(acornUser.getEmail());
-        if (dbAcornUser.isPresent()) {
-            if (!Objects.equals(dbAcornUser.get().getId(), acornUser.getId())) {
-                FieldError error = new FieldError("user", "email", UserController.ERROR_EMAIL_IN_USE);
-                result.addError(error);
-                return "userDetails";
-            }
-        }
-
-        // TODO - Refactor into separate method
-        // Update user in database
-        AcornUser acornUser2 = acornUserService.findById(acornUser.getId()).get();
-        acornUser2.setEmail(acornUser.getEmail());
-        acornUser2.setName(acornUser.getName());
-        acornUserService.save(acornUser2);
-        SecurityController.updatePrincipal(acornUser2);
-
+        AcornUser updatedUser = acornUserService.updateCurrentUser(userOverviewVM);
+        SecurityController.updatePrincipal(updatedUser);
         return "redirect:/users";
     }
 
