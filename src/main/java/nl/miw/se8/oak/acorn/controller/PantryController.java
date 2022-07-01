@@ -2,10 +2,10 @@ package nl.miw.se8.oak.acorn.controller;
 
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
-import nl.miw.se8.oak.acorn.model.PantryProduct;
 import nl.miw.se8.oak.acorn.model.PantryUser;
 import nl.miw.se8.oak.acorn.service.PantryProductService;
 import nl.miw.se8.oak.acorn.service.PantryService;
+import nl.miw.se8.oak.acorn.viewmodel.Mapper;
 import nl.miw.se8.oak.acorn.service.PantryUserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -38,30 +38,33 @@ public class PantryController {
         this.pantryUserService = pantryUserService;
     }
 
-    @GetMapping("/pantrySelection")
+    @GetMapping("/pantrySelection")                         // DTO need only names and id's I guess. does this need a DTO?
     protected String pantrySelection(Model model) {
-        List<Pantry> pantries = pantryService.findAll();
+        List<Pantry> pantries = pantryService.findAll();        // maak deze lijst en dan een -for each-loop voor elke pantry
         model.addAttribute("pantries", pantries);
         return "pantrySelection";
     }
 
-    @GetMapping("/pantry/{pantryId}/delete")
+    @GetMapping("/pantry/{pantryId}/delete")                // Does not need DTO
     protected String deletePantry(@PathVariable("pantryId") Long pantryId) {
         pantryService.deleteById(pantryId);
         return "redirect:/pantrySelection";
     }
 
-    @GetMapping("/pantry/create")
+    @GetMapping("/pantry/create")                       // DTO CHECK
     protected String createPantry(Model model) {
-        model.addAttribute("pantry", new Pantry());
+        Mapper mapper = new Mapper();
+        Pantry pantry = new Pantry();
+        model.addAttribute("pantryToPantryEditViewmodel",mapper.pantryToPantryEditViewmodel(pantry));
         return "pantryEdit.html";
     }
 
-    @GetMapping("/pantry/{pantryId}/edit")
+    @GetMapping("/pantry/{pantryId}/edit")              // DTO CHECK
     protected String editPantry(@PathVariable("pantryId") Long pantryId, Model model) {
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isPresent()) {
-            model.addAttribute("pantry", pantry.get());
+            Mapper mapper = new Mapper();
+            model.addAttribute("pantryToPantryEditViewmodel", mapper.pantryToPantryEditViewmodel(pantry.get()));
         }
         return "pantryEdit.html";
     }
