@@ -2,7 +2,6 @@ package nl.miw.se8.oak.acorn.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import nl.miw.se8.oak.acorn.viewmodel.PantryEditViewmodel;
 
 import javax.persistence.*;
 import java.util.ArrayList;

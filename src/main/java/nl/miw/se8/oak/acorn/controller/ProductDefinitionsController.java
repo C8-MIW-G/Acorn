@@ -34,7 +34,7 @@ public class ProductDefinitionsController {
         return "productDefinitionsOverview";
     }
 
-    @GetMapping("/products/{productId}")
+    @GetMapping("/products/{productId}")            // FIXME method returns error
     protected String productDefinitionsDetails(@PathVariable("productId") Long productId, Model model) {
         Optional<ProductDefinition> product = productDefinitionService.findById(productId);
         if (product.isPresent()) {
