@@ -10,6 +10,7 @@ import java.util.Optional;
  * Created on: 10-6-2022
  */
 public interface PantryProductService {
+  List<PantryProduct> findAll();
   List<PantryProduct> findAllByPantryId(Long pantryId);
   void deleteById(Long pantryProductId);
   Optional<PantryProduct> findById(Long pantryProductId);

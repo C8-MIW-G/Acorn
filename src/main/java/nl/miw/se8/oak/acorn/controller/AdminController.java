@@ -10,16 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -27,6 +23,7 @@ import java.util.Optional;
  * Aangemaakt op: 30-6-2022
  */
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     AcornUserService acornUserService;
@@ -57,7 +54,7 @@ public class AdminController {
             model.addAttribute("user", mapper.userToUserOverviewVM(acornUser.get()));
             return "userDetails";
         }
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/users/{userId}/delete")
@@ -65,28 +62,28 @@ public class AdminController {
         Optional<AcornUser> optionalAcornUser = acornUserService.findById(userId);
         if (optionalAcornUser.isPresent()) {
 
-            // There must always be at least one sysadmin
-            if (optionalAcornUser.get().getEmail().equals(SecurityController.getCurrentUser().getEmail())) {
+            // Sysadmin can remove themselves, but there must always be at least one sysadmin
+            if (acornUserIsCurrentUser(optionalAcornUser.get())) {
                 if (acornUserService.moreThanOneSysAdmin()) {
                     acornUserService.deleteById(userId);
                     SecurityContextHolder.clearContext();
                     return "redirect:/";
                 } else {
                     redirectAttributes.addFlashAttribute("errorMessage", "Cannot remove: there must be at least one systems administrator.");
-                    return "redirect:/users";
+                    return "redirect:/admin/users";
                 }
             }
+
             acornUserService.deleteById(userId);
-            redirectAttributes.addFlashAttribute("successMessage",
-                    String.format("Successfully removed %s!", optionalAcornUser.get().getEmail()));
+            redirectAttributes.addFlashAttribute("successMessage", String.format("Successfully removed %s!", optionalAcornUser.get().getEmail()));
         }
 
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     // TODO - Fields should re-autofill after error messages are shown.
     @PostMapping("users/{userId}/update")
-    protected String userUpdate(@Valid @ModelAttribute("user") UserOverviewVM userOverviewVM, BindingResult result, Model model) {
+    protected String userUpdate(@Valid @ModelAttribute("user") UserOverviewVM userOverviewVM, BindingResult result) {
         if (result.hasErrors()) {
             return "userDetails";
         } else if (acornUserService.emailInUseBySomeoneElse(userOverviewVM)) {
@@ -96,7 +93,11 @@ public class AdminController {
 
         AcornUser updatedUser = acornUserService.updateCurrentUser(userOverviewVM);
         SecurityController.updatePrincipal(updatedUser);
-        return "redirect:/users";
+        return "redirect:/admin/users";
+    }
+
+    private boolean acornUserIsCurrentUser(AcornUser acornUser) {
+        return SecurityController.getCurrentUser().getEmail().equals(acornUser.getEmail());
     }
 
 }

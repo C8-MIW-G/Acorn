@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -19,6 +20,7 @@ public class DataLoader {
     private final ProductDefinitionService productDefinitionService;
     private final AcornUserService userService;
     private final PantryService pantryService;
+    private final PantryProductService pantryProductService;
     private final RoleService roleService;
     private final PrivilegeService privilegeService;
     private final PasswordEncoder passwordEncoder;
@@ -26,12 +28,14 @@ public class DataLoader {
     public DataLoader(ProductDefinitionService productDefinitionService,
                       AcornUserService userService,
                       PantryService pantryService,
+                      PantryProductService pantryProductService,
                       RoleService roleService,
                       PrivilegeService privilegeService,
                       PasswordEncoder passwordEncoder) {
         this.productDefinitionService = productDefinitionService;
         this.userService = userService;
         this.pantryService = pantryService;
+        this.pantryProductService = pantryProductService;
         this.roleService = roleService;
         this.privilegeService = privilegeService;
         this.passwordEncoder = passwordEncoder;
@@ -42,6 +46,7 @@ public class DataLoader {
         seedUsers();
         seedProductDefinitions();
         seedPantries();
+        seedPantryProducts();
     }
 
     private void seedUsers() {
@@ -69,7 +74,7 @@ public class DataLoader {
                 AcornUser user = new AcornUser();
                 user.setEmail("user@user.com");
                 user.setPassword(passwordEncoder.encode("user"));
-                user.setName("test");
+                user.setName("user");
                 user.setRoles(List.of(userRole));
                 userService.save(user);
             }
@@ -105,6 +110,25 @@ public class DataLoader {
             pantryService.save(new Pantry("Sylvia's Pantry"));
             pantryService.save(new Pantry("Wicher's Pantry"));
             pantryService.save(new Pantry("Thijs' Pantry"));
+        }
+    }
+
+    private void seedPantryProducts() {
+        if (pantryProductService.findAll().size() == 0) {
+            List<Pantry> pantries = pantryService.findAll();
+            List<ProductDefinition> productDefinitions = productDefinitionService.findAll();
+
+            for (Pantry pantry : pantries) {
+                for (int i = 0; i < 20; i++) {
+                    int randomProduct = (int) (Math.random() * productDefinitions.size());
+                    int randomDate = (int) (Math.random() * 31);
+                    PantryProduct pantryProduct = new PantryProduct(
+                            pantry,
+                            productDefinitions.get(randomProduct),
+                            LocalDate.now().plusDays(randomDate));
+                    pantryProductService.save(pantryProduct);
+                }
+            }
         }
     }
 
