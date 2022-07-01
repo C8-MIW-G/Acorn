@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class Pantry {
 
     @Id @GeneratedValue
     private Long id;
+    // pantry name cannot be shorter than two characters
+    @Size(min = 2,message = "Please enter a message of at least 2 characters")
     private String name;
     @OneToMany(mappedBy = "pantry",  cascade = ALL)
     private List<PantryProduct> pantryProducts;

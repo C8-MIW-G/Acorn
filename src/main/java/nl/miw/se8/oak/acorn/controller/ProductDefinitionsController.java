@@ -2,15 +2,14 @@ package nl.miw.se8.oak.acorn.controller;
 
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
+import nl.miw.se8.oak.acorn.viewmodel.Mapper;
+import nl.miw.se8.oak.acorn.viewmodel.ProductsViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Author: Thijs van Blanken
@@ -28,9 +27,15 @@ public class ProductDefinitionsController {
 
     @GetMapping("/products")
     protected String productDefinitionsOverview(Model model) {
+        Mapper mapper = new Mapper();
         List<ProductDefinition> productDefinitions = productDefinitionService.findAll();
         Collections.sort(productDefinitions);
-        model.addAttribute("products", productDefinitions);
+        List<ProductsViewModel> productsViewModels = new ArrayList<>();
+
+        for (ProductDefinition productdefinition: productDefinitions) {
+            productsViewModels.add(mapper.productDefToProductViewModel(productdefinition));
+        }
+        model.addAttribute("products", productsViewModels);
         return "productDefinitionsOverview";
     }
 

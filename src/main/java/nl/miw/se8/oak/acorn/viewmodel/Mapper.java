@@ -1,5 +1,6 @@
 package nl.miw.se8.oak.acorn.viewmodel;
 
+import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
 
@@ -25,6 +26,14 @@ public class Mapper {
         productsViewModel.setId(pD.getId());
         productsViewModel.setName(pD.getName());
         return productsViewModel;
+    }
+
+    public UserOverviewVM userToUserOverviewVM(AcornUser acornUser) {
+        UserOverviewVM userOverviewVM = new UserOverviewVM();
+        userOverviewVM.setId(acornUser.getId());
+        userOverviewVM.setEmail(acornUser.getEmail());
+        userOverviewVM.setName(acornUser.getName());
+        return userOverviewVM;
     }
 
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,7 +84,7 @@ public class PantryController {
 
     // the pantry (that is uplaoded to the db) in this method is actually a pantryViewmodel. However the database treats it as an actual Pantry.
     @PostMapping("/pantry/edit")
-    protected String renamePantry(@ModelAttribute("pantry") Pantry pantry,
+    protected String renamePantry(@Valid @ModelAttribute("pantry") Pantry pantry,
                                   BindingResult result,
                                   @AuthenticationPrincipal AcornUser acornUser) {
         // Check if a new pantry is created, or an existing pantry is edited.

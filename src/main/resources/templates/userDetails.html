@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head"></head>
+
+<body>
+
+<nav th:replace="fragments/template :: navbar"></nav>
+
+<main>
+    <div class="content-medium">
+        <h2>Edit a user</h2>
+
+        <div class="basket form-group overflow-auto">
+            <form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
+                <input type ="hidden" th:field="*{id}">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div>
+                        <input type="text" id="email" th:field="*{email}" class="input-text">
+                    </div>
+                    <div th:each="error: ${#fields.errors('email')}" class="alert alert-info" role="alert" >
+                        <span th:text="${error}">errorMessage</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <div>
+                        <input type="text" id="name" th:field="*{name}" class="input-text">
+                    </div>
+                    <div th:each="error: ${#fields.errors('name')}" class="alert alert-info" role="alert" >
+                        <span th:text="${error}">errorMessage</span>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</main>
+
+<footer th:replace="fragments/template :: footer"></footer>
+
+</body>
+
+</html>
