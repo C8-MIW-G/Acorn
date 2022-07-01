@@ -17,6 +17,7 @@ import java.util.*;
  * Contains all service functionality that has to do with the ProductDefinitions model
  */
 @Controller
+@RequestMapping("/admin")
 public class ProductDefinitionsController {
 
     ProductDefinitionService productDefinitionService;
@@ -46,13 +47,13 @@ public class ProductDefinitionsController {
             model.addAttribute("product", product.get());
             return "productDefinitionsDetails";
         }
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
     @GetMapping("/products/{productId}/delete")
     protected String deleteProductDefinition(@PathVariable("productId") Long productId) {
         productDefinitionService.deleteById(productId);
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
     @GetMapping("/products/create")
@@ -68,7 +69,7 @@ public class ProductDefinitionsController {
             model.addAttribute("product", productDefinition.get());
             return "productDefinitionsCreate";
         }
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
     @PostMapping("/products/create")
@@ -76,7 +77,7 @@ public class ProductDefinitionsController {
         if (!result.hasErrors()) {
             productDefinitionService.save(productDefinition);
         }
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
 }

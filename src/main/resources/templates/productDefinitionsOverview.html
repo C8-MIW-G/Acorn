@@ -14,7 +14,7 @@
         <h2>Products</h2>
 
         <div class="d-flex flex-row my-4">
-            <a href="/products/create"><button type="button" class="btn btn-primary">Add new product</button></a>
+            <a href="/admin/products/create"><button type="button" class="btn btn-primary">Add new product</button></a>
         </div>
 
         <div class="table-container scrollbar-thin">
@@ -30,10 +30,10 @@
                     <tr th:each="product : ${products}">
                         <td th:text="${product.id}" class="text-align-right"></td>
                         <td>
-                            <a th:href="@{/products/{productId}/edit(productId=${product.id})}" th:text="${product.name}"></a>
+                            <a th:href="@{/admin/products/{productId}/edit(productId=${product.id})}" th:text="${product.name}"></a>
                         </td>
                         <td>
-                            <a th:href="@{/products/{productId}/delete(productId=${product.id})}">delete</a>
+                            <a th:href="@{/admin/products/{productId}/delete(productId=${product.id})}">delete</a>
                         </td>
                     </tr>
                 </tbody>
