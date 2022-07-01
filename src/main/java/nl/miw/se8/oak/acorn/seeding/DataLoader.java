@@ -20,6 +20,7 @@ public class DataLoader {
     private final ProductDefinitionService productDefinitionService;
     private final AcornUserService userService;
     private final PantryService pantryService;
+    private final PantryUserService pantryUserService;
     private final PantryProductService pantryProductService;
     private final RoleService roleService;
     private final PrivilegeService privilegeService;
@@ -28,6 +29,7 @@ public class DataLoader {
     public DataLoader(ProductDefinitionService productDefinitionService,
                       AcornUserService userService,
                       PantryService pantryService,
+                      PantryUserService pantryUserService,
                       PantryProductService pantryProductService,
                       RoleService roleService,
                       PrivilegeService privilegeService,
@@ -35,6 +37,7 @@ public class DataLoader {
         this.productDefinitionService = productDefinitionService;
         this.userService = userService;
         this.pantryService = pantryService;
+        this.pantryUserService = pantryUserService;
         this.pantryProductService = pantryProductService;
         this.roleService = roleService;
         this.privilegeService = privilegeService;
@@ -44,8 +47,9 @@ public class DataLoader {
     @EventListener
     public void seed(ContextRefreshedEvent event) {
         seedUsers();
-        seedProductDefinitions();
         seedPantries();
+        seedPantryUsers();
+        seedProductDefinitions();
         seedPantryProducts();
     }
 
@@ -57,19 +61,26 @@ public class DataLoader {
                 Role adminRole = createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
                 Role userRole = createRoleIfNotFound("ROLE_USER", List.of(readPrivilege));
 
-                AcornUser admin = new AcornUser();
-                admin.setEmail("admin@admin.com");
-                admin.setPassword(passwordEncoder.encode("admin"));
-                admin.setName("admin");
-                admin.setRoles(List.of(adminRole));
-                userService.save(admin);
+                AcornUser sylvia = new AcornUser();
+                sylvia.setEmail("Sylvia");
+                sylvia.setPassword(passwordEncoder.encode("Sylvia"));
+                sylvia.setName("Sylvia");
+                sylvia.setRoles(List.of(adminRole));
+                userService.save(sylvia);
 
-                AcornUser admin2 = new AcornUser();
-                admin2.setEmail("admin2@admin.com");
-                admin2.setPassword(passwordEncoder.encode("admin2"));
-                admin2.setName("admin2");
-                admin2.setRoles(List.of(adminRole));
-                userService.save(admin2);
+                AcornUser wicher = new AcornUser();
+                wicher.setEmail("Wicher");
+                wicher.setPassword(passwordEncoder.encode("Wicher"));
+                wicher.setName("Wicher");
+                wicher.setRoles(List.of(adminRole));
+                userService.save(wicher);
+
+                AcornUser thijs = new AcornUser();
+                thijs.setEmail("Thijs");
+                thijs.setPassword(passwordEncoder.encode("Thijs"));
+                thijs.setName("Thijs");
+                thijs.setRoles(List.of(adminRole));
+                userService.save(thijs);
 
                 AcornUser user = new AcornUser();
                 user.setEmail("user@user.com");
@@ -78,6 +89,22 @@ public class DataLoader {
                 user.setRoles(List.of(userRole));
                 userService.save(user);
             }
+    }
+
+    private void seedPantries() {
+        if (pantryService.findAll().size() == 0) {
+            pantryService.save(new Pantry("Sylvia's Pantry"));
+            pantryService.save(new Pantry("Wicher's Pantry"));
+            pantryService.save(new Pantry("Thijs' Pantry"));
+        }
+    }
+
+    private void seedPantryUsers() {
+        if (pantryUserService.findAll().size() == 0) {
+            pantryUserService.save(new PantryUser(userService.findByEmail("Sylvia").get(), pantryService.findByName("Sylvia's Pantry").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("Wicher").get(), pantryService.findByName("Wicher's Pantry").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Thijs' Pantry").get(), true));
+        }
     }
 
     private void seedProductDefinitions() {
@@ -102,14 +129,6 @@ public class DataLoader {
             productDefinitionService.save( new ProductDefinition("Ntolmadakia"));
             productDefinitionService.save( new ProductDefinition("Peanut butter"));
             productDefinitionService.save( new ProductDefinition("Jam"));
-        }
-    }
-
-    private void seedPantries() {
-        if (pantryService.findAll().size() == 0) {
-            pantryService.save(new Pantry("Sylvia's Pantry"));
-            pantryService.save(new Pantry("Wicher's Pantry"));
-            pantryService.save(new Pantry("Thijs' Pantry"));
         }
     }
 

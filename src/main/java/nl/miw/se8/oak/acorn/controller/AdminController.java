@@ -1,8 +1,11 @@
 package nl.miw.se8.oak.acorn.controller;
 
 import nl.miw.se8.oak.acorn.model.AcornUser;
+import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.service.AcornUserService;
+import nl.miw.se8.oak.acorn.service.PantryService;
 import nl.miw.se8.oak.acorn.service.RoleService;
+import nl.miw.se8.oak.acorn.viewmodel.AdminPantryOverviewVM;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
 import nl.miw.se8.oak.acorn.viewmodel.UserOverviewVM;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,10 +31,12 @@ public class AdminController {
 
     AcornUserService acornUserService;
     RoleService roleService;
+    PantryService pantryService;
 
-    public AdminController(AcornUserService acornUserService, RoleService roleService) {
+    public AdminController(AcornUserService acornUserService, RoleService roleService, PantryService pantryService) {
         this.acornUserService = acornUserService;
         this.roleService = roleService;
+        this.pantryService = pantryService;
     }
 
     @GetMapping("/users")
@@ -94,6 +99,17 @@ public class AdminController {
         AcornUser updatedUser = acornUserService.updateCurrentUser(userOverviewVM);
         SecurityController.updatePrincipal(updatedUser);
         return "redirect:/admin/users";
+    }
+
+    @GetMapping("/pantries")
+    protected String pantrySelection(Model model) {
+        List<Pantry> pantries = pantryService.findAll();
+        List<AdminPantryOverviewVM> adminPantryOverviewVMs = new ArrayList<>();
+        for (Pantry pantry: pantries) {
+            adminPantryOverviewVMs.add(Mapper.pantryToAdminPantryOverviewVM(pantry));
+        }
+        model.addAttribute("pantries", adminPantryOverviewVMs);
+        return "pantrySelection";
     }
 
     private boolean acornUserIsCurrentUser(AcornUser acornUser) {

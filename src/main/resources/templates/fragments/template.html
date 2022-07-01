@@ -35,9 +35,12 @@
                     <a class="nav-link" href="/products">Products</a>
                 </li>
             </ul>
-            <ul class="navbar-nav" sec:authorize="hasRole('ROLE_ADMIN')">
+            <ul class="navbar-nav admin-nav" sec:authorize="hasRole('ROLE_ADMIN')">
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/users">Manage Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/pantries">All Pantries</a>
                 </li>
             </ul>
         </div>

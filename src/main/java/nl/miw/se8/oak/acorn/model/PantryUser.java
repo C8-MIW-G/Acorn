@@ -30,7 +30,7 @@ public class PantryUser {
                 this.id = DEFAULT_ID;
                 this.user = user;
                 this.pantry = pantry;
-                this.isAdministrator = true;
+                this.isAdministrator = isAdministrator;
         }
 
         public PantryUser(AcornUser user, Pantry pantry) {

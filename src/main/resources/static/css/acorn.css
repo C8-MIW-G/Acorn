@@ -63,6 +63,10 @@ h2 {
     letter-spacing: .1rem;
 }
 
+.admin-nav {
+    background-color: var(--primary-color-matte);
+}
+
 /* --------------------------------------- Buttons */
 .btn-primary {
     background-color: var(--primary-color);

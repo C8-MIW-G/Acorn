@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.ArrayList;
 import javax.validation.Valid;
 import java.util.List;
@@ -43,16 +42,18 @@ public class PantryController {
 
     @GetMapping("/pantrySelection")
     protected String pantrySelection(Model model) {
-        Mapper mapper = new Mapper();
-        // gill a list with all pantries and create an empty arraylist for PantryViewmodels
-        List<Pantry> pantries = pantryService.findAll();
-        List<PantryViewmodelIdName> pantryViewmodels = new ArrayList<>();
-        // Each pantry gets converted to a PantryViewodel (with attributes ID and Name) which is added to an Arraylist
-        for (Pantry pantry: pantries) {
-            pantryViewmodels.add(mapper.pantryToPantryViewmodelIdName(pantry));
+        AcornUser acornUser = SecurityController.getCurrentUser();
+        List<PantryUser> pantryUsers = pantryUserService.findPantryUserByUser(acornUser);
+        List<PantryViewmodelIdName> pantryViewModels = new ArrayList<>();
+
+        for (PantryUser pantryUser : pantryUsers) {
+            Optional<Pantry> optionalPantry = pantryService.findById(pantryUser.getPantry().getId());
+            if (optionalPantry.isPresent()) {
+                pantryViewModels.add(Mapper.pantryToPantryViewmodelIdName(optionalPantry.get()));
+            }
         }
-        // PantryViewmodels-ArrayList get loaded into the view.
-        model.addAttribute("pantries", pantryViewmodels);
+
+        model.addAttribute("pantries", pantryViewModels);
         return "pantrySelection";
     }
 
@@ -64,25 +65,20 @@ public class PantryController {
 
     @GetMapping("/pantry/create")
     protected String createPantry(Model model) {
-        Mapper mapper = new Mapper();
         Pantry pantry = new Pantry();
-        // the mapper here takes a pantry and return a pantryViewmodel (with attributes id and name) and loads it in the view.
-        model.addAttribute("pantryToPantryEditViewmodel",mapper.pantryToPantryViewmodelIdName(pantry));
+        model.addAttribute("pantryToPantryEditViewmodel",Mapper.pantryToPantryViewmodelIdName(pantry));
         return "pantryEdit.html";
     }
 
-    @GetMapping("/pantry/{pantryId}/edit")              // DTO CHECK
+    @GetMapping("/pantry/{pantryId}/edit")
     protected String editPantry(@PathVariable("pantryId") Long pantryId, Model model) {
         Optional<Pantry> pantry = pantryService.findById(pantryId);
-        // the mapper here takes a pantry and return a pantryViewmodel (with attributes id and name) and loads it in the view.
         if (pantry.isPresent()) {
-            Mapper mapper = new Mapper();
-            model.addAttribute("pantryToPantryEditViewmodel", mapper.pantryToPantryViewmodelIdName(pantry.get()));
+            model.addAttribute("pantryToPantryEditViewmodel", Mapper.pantryToPantryViewmodelIdName(pantry.get()));
         }
         return "pantryEdit.html";
     }
 
-    // the pantry (that is uplaoded to the db) in this method is actually a pantryViewmodel. However the database treats it as an actual Pantry.
     @PostMapping("/pantry/edit")
     protected String renamePantry(@Valid @ModelAttribute("pantry") Pantry pantry,
                                   BindingResult result,
