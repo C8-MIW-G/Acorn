@@ -130,7 +130,7 @@ public class UserController {
                 }
 
                 userService.save(acornUser);
-                updatePrincipal(acornUser);
+                SecurityController.updatePrincipal(acornUser);
             }
         }
 
@@ -228,12 +228,6 @@ public class UserController {
     }
 
     // TODO - Is this good practice?
-    private void updatePrincipal(AcornUser acornUser) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                acornUser,
-                acornUser.getPassword(),
-                acornUser.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
+
 
 }
