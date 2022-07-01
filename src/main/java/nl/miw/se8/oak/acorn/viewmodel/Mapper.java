@@ -12,4 +12,11 @@ public class Mapper {
         return pantryDTO;
     }
 
+    public Pantry pantryEditViewmodelToPantry(PantryEditViewmodel pantryEditViewmodel) {
+        Pantry pantry = new Pantry();
+        pantry.setId(pantryEditViewmodel.getId());
+        pantry.setName(pantryEditViewmodel.getName());
+        return pantry;
+    }
+
 }

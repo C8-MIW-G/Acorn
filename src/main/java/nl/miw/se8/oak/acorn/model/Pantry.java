@@ -38,10 +38,4 @@ public class Pantry {
     public Pantry() {
         this(DEFAULT_NAME);
     }
-
-    public Pantry(PantryEditViewmodel pantryEditViewmodel) {
-        this.id = pantryEditViewmodel.getId();
-        this.name = pantryEditViewmodel.getName();
-    }
-
 }
