@@ -61,6 +61,13 @@ public class DataLoader {
                 Role adminRole = createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
                 Role userRole = createRoleIfNotFound("ROLE_USER", List.of(readPrivilege));
 
+                AcornUser admin = new AcornUser();
+                admin.setEmail("admin@admin.com");
+                admin.setPassword(passwordEncoder.encode("admin"));
+                admin.setName("Admininstrator");
+                admin.setRoles(List.of(adminRole));
+                userService.save(admin);
+
                 AcornUser sylvia = new AcornUser();
                 sylvia.setEmail("Sylvia");
                 sylvia.setPassword(passwordEncoder.encode("Sylvia"));
