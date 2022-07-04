@@ -3,7 +3,7 @@ package nl.miw.se8.oak.acorn.controller;
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
-import nl.miw.se8.oak.acorn.viewmodel.ProductsViewModel;
+import nl.miw.se8.oak.acorn.viewmodel.ProductsDefinitionOverviewViewModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,12 +31,12 @@ public class ProductDefinitionsController {
         Mapper mapper = new Mapper();
         List<ProductDefinition> productDefinitions = productDefinitionService.findAll();
         Collections.sort(productDefinitions);
-        List<ProductsViewModel> productsViewModels = new ArrayList<>();
+        List<ProductsDefinitionOverviewViewModel> productsDefinitionOverviewViewModels = new ArrayList<>();
 
         for (ProductDefinition productdefinition: productDefinitions) {
-            productsViewModels.add(mapper.productDefToProductViewModel(productdefinition));
+            productsDefinitionOverviewViewModels.add(mapper.productDefToProductViewModel(productdefinition));
         }
-        model.addAttribute("products", productsViewModels);
+        model.addAttribute("products", productsDefinitionOverviewViewModels);
         return "productDefinitionsOverview";
     }
 
