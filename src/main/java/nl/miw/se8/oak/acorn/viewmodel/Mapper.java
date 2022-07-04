@@ -6,8 +6,7 @@ import nl.miw.se8.oak.acorn.model.ProductDefinition;
 
 public class Mapper {
 
-
-    public PantryViewmodelIdName pantryToPantryViewmodelIdName(Pantry pantry) {
+    public static PantryViewmodelIdName pantryToPantryViewmodelIdName(Pantry pantry) {
         PantryViewmodelIdName pantryDTO = new PantryViewmodelIdName();
         pantryDTO.setId(pantry.getId());
         pantryDTO.setName(pantry.getName());
@@ -34,6 +33,20 @@ public class Mapper {
         userOverviewVM.setEmail(acornUser.getEmail());
         userOverviewVM.setName(acornUser.getName());
         return userOverviewVM;
+    }
+
+    public AcornUser userOverviewVMToUser(UserOverviewVM userOverviewVM) {
+        AcornUser acornUser = new AcornUser();
+        acornUser.setEmail(userOverviewVM.getEmail());
+        acornUser.setName(userOverviewVM.getName());
+        return acornUser;
+    }
+
+    public static AdminPantryOverviewVM pantryToAdminPantryOverviewVM(Pantry pantry) {
+        AdminPantryOverviewVM adminPantryOverviewVM = new AdminPantryOverviewVM();
+        adminPantryOverviewVM.setId(pantry.getId());
+        adminPantryOverviewVM.setName(pantry.getName());
+        return adminPantryOverviewVM;
     }
 
 }

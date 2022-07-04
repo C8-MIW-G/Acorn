@@ -14,7 +14,7 @@
         <h2 th:if="${product.id == -1}">Create a new product</h2>
         <h2 th:unless="${product.id == -1}">Edit product</h2>
 
-        <form th:action="@{/products/create}" method="post" th:object="${product}">
+        <form th:action="@{/admin/products/create}" method="post" th:object="${product}">
             <input type="hidden" th:field="*{id}">
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Name</label>

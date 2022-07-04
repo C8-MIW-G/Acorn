@@ -21,6 +21,11 @@ public class PantryProductImplementation implements PantryProductService{
     }
 
     @Override
+    public List<PantryProduct> findAll() {
+        return pantryProductRepository.findAll();
+    }
+
+    @Override
     public List<PantryProduct> findAllByPantryId(Long pantryId) {
         return pantryProductRepository.findAllByPantryId(pantryId);
     }

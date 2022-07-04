@@ -14,6 +14,7 @@ public class UserOverviewVM {
 
     private Long id;
 
+    // TODO - refactor magic strings into finals
     @NotBlank(message = "This field cannot be empty.")
     @Size(max = 40, min = 5, message = "This field cannot contain less than 5 or more than 40 characters.")
     private String email;

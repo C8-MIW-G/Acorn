@@ -28,11 +28,11 @@
                     </tr>
                     <tr th:each="user : ${users}">
                         <td>
-                            <a th:href="@{/users/{userId}(userId=${user.id})}" th:text="${user.email}"></a>
+                            <a th:href="@{/admin/users/{userId}(userId=${user.id})}" th:text="${user.email}"></a>
                         </td>
                         <td th:text="${user.name}"></td>
                         <td class="text-center">
-                            <a th:href="@{/users/{userId}/delete(userId=${user.id})}">remove</a>
+                            <a th:href="@{/admin/users/{userId}/delete(userId=${user.id})}">remove</a>
                         </td>
                     </tr>
                 </table>
