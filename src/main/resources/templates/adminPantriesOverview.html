@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/template :: navbar"></nav>
+
+<main>
+    <div class="content-large">
+
+        <h2>Pantries</h2>
+
+        <table th:if="${pantries.size > 0}" class="table">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th class="th-fixed-width-small"></th>
+                <th class="th-fixed-width-small"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pantry : ${pantries}">
+                <td>
+                    <span th:text="${pantry.name}">pantryName</span>
+                </td>
+                <td>
+                    <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantry.id})}">edit</a>
+                </td>
+                <td>
+                    <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantry.id})}">delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p th:unless="${pantries.size != 0}" class="text-center">You do not seem to have any pantries...</p>
+    </div>
+</main>
+
+<footer th:replace="fragments/template :: footer"></footer>
+
+</body>
+
+</html>
