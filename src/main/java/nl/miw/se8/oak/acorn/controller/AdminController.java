@@ -72,13 +72,15 @@ public class AdminController {
                     SecurityContextHolder.clearContext();
                     return "redirect:/";
                 } else {
-                    redirectAttributes.addFlashAttribute("errorMessage", "Cannot remove: there must be at least one systems administrator.");
+                    redirectAttributes.addFlashAttribute(
+                            "errorMessage", "Cannot remove: there must be at least one systems administrator.");
                     return "redirect:/admin/users";
                 }
             }
 
             acornUserService.deleteById(userId);
-            redirectAttributes.addFlashAttribute("successMessage", String.format("Successfully removed %s!", optionalAcornUser.get().getEmail()));
+            redirectAttributes.addFlashAttribute(
+                    "successMessage", String.format("Successfully removed %s!", optionalAcornUser.get().getEmail()));
         }
 
         return "redirect:/admin/users";
@@ -107,7 +109,7 @@ public class AdminController {
             adminPantryOverviewVMs.add(Mapper.pantryToAdminPantryOverviewVM(pantry));
         }
         model.addAttribute("pantries", adminPantryOverviewVMs);
-        return "pantrySelection";
+        return "adminPantriesOverview";
     }
 
     private boolean acornUserIsCurrentUser(AcornUser acornUser) {
