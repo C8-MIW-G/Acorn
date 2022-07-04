@@ -63,7 +63,7 @@ public class PantryController {
         return "redirect:/pantrySelection";
     }
 
-    @GetMapping("/pantry/create")
+    @GetMapping("/pantry/create")                   // FIXME does this need o be a DTO/ViewModel? i made it but it seems obsolete here.
     protected String createPantry(Model model) {
         Pantry pantry = new Pantry();
         model.addAttribute("pantryToPantryEditViewmodel",Mapper.pantryToPantryViewmodelIdName(pantry));
