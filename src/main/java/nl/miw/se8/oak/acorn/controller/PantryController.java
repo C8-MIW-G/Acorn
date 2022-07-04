@@ -62,7 +62,7 @@ public class PantryController {
         return "redirect:/pantrySelection";
     }
 
-    @GetMapping("/pantry/create")
+    @GetMapping("/pantry/create")                   // FIXME does this need o be a DTO/ViewModel? i made it but it seems obsolete here.
     protected String createPantry(Model model) {
         Mapper mapper = new Mapper();
         Pantry pantry = new Pantry();
@@ -71,7 +71,7 @@ public class PantryController {
         return "pantryEdit.html";
     }
 
-    @GetMapping("/pantry/{pantryId}/edit")              // DTO CHECK
+    @GetMapping("/pantry/{pantryId}/edit")
     protected String editPantry(@PathVariable("pantryId") Long pantryId, Model model) {
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         // the mapper here takes a pantry and return a pantryViewmodel (with attributes id and name) and loads it in the view.

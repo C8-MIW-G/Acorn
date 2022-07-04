@@ -25,7 +25,7 @@ public class ProductDefinitionsController {
         this.productDefinitionService = productDefinitionService;
     }
 
-    @GetMapping("/products")
+    @GetMapping("/products")                                        // incorporated viewmodel
     protected String productDefinitionsOverview(Model model) {
         Mapper mapper = new Mapper();
         List<ProductDefinition> productDefinitions = productDefinitionService.findAll();
@@ -49,19 +49,19 @@ public class ProductDefinitionsController {
         return "redirect:/products";
     }
 
-    @GetMapping("/products/{productId}/delete")
+    @GetMapping("/products/{productId}/delete")         // no DTO/viewmodel nodig
     protected String deleteProductDefinition(@PathVariable("productId") Long productId) {
         productDefinitionService.deleteById(productId);
         return "redirect:/products";
     }
 
-    @GetMapping("/products/create")
+    @GetMapping("/products/create")                     // DTO/Viewmodel nodig? vragen aan Joost
     protected String createProductDefinition(Model model) {
         model.addAttribute("product", new ProductDefinition());
         return "productDefinitionsCreate";
     }
 
-    @GetMapping("/products/{productId}/edit")
+    @GetMapping("/products/{productId}/edit")               // sowieso DTO nodig, dunkt mij
     protected String editProductDefinition(@PathVariable("productId") Long productId, Model model) {
         Optional<ProductDefinition> productDefinition = productDefinitionService.findById(productId);
         if (productDefinition.isPresent()) {
@@ -71,7 +71,7 @@ public class ProductDefinitionsController {
         return "redirect:/products";
     }
 
-    @PostMapping("/products/create")
+    @PostMapping("/products/create")                 // DTO/ViewModel nodig?
     protected String submitProductDefinition(@ModelAttribute("productDefinition") ProductDefinition productDefinition, BindingResult result) {
         if (!result.hasErrors()) {
             productDefinitionService.save(productDefinition);
