@@ -6,10 +6,12 @@ import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.service.PantryProductService;
 import nl.miw.se8.oak.acorn.service.PantryService;
 import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,8 +40,9 @@ public class PantryProductController {
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isPresent()) {
             model.addAttribute("pantryName", pantry.get().getName());
+            return "pantryContents";
         }
-        return "pantryContents";
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/pantryProduct/{pantryProductId}/delete")
