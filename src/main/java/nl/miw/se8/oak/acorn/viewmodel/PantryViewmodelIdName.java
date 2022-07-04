@@ -11,4 +11,9 @@ public class PantryViewmodelIdName {
     private Long id;
 
     private String name;
+
+    public PantryViewmodelIdName() {
+    }
+
+
 }

@@ -20,11 +20,11 @@ public class Mapper {
         return pantry;
     }
 
-    public ProductsViewModel productDefToProductViewModel(ProductDefinition pD) {
-        ProductsViewModel productsViewModel = new ProductsViewModel();
-        productsViewModel.setId(pD.getId());
-        productsViewModel.setName(pD.getName());
-        return productsViewModel;
+    public ProductsDefinitionOverviewViewModel productDefToProductViewModel(ProductDefinition pD) {
+        ProductsDefinitionOverviewViewModel productsDefinitionOverviewViewModel = new ProductsDefinitionOverviewViewModel();
+        productsDefinitionOverviewViewModel.setId(pD.getId());
+        productsDefinitionOverviewViewModel.setName(pD.getName());
+        return productsDefinitionOverviewViewModel;
     }
 
     public static UserOverviewVM userToUserOverviewVM(AcornUser acornUser) {
@@ -47,6 +47,6 @@ public class Mapper {
         adminPantryOverviewVM.setId(pantry.getId());
         adminPantryOverviewVM.setName(pantry.getName());
         return adminPantryOverviewVM;
-    }
 
+    }
 }

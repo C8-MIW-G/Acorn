@@ -2,6 +2,8 @@ package nl.miw.se8.oak.acorn.viewmodel;
 
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
+import nl.miw.se8.oak.acorn.model.PantryProduct;
+import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +26,33 @@ public class MapperTest {
                 "The id should be 999, however this is not the returned value");
         assertEquals("Test", testPantryMV.getName(),
                 "The name 'Test' should be returned, however something else has been returned");
+    }
+
+    @Test
+    @DisplayName("Tests conversion from pantryViewModelIdName to a pantry object.")
+    void pantryViewmodelIdNameToPantry() {
+        Mapper mapper = new Mapper();
+        PantryViewmodelIdName testPantryVieModel = new PantryViewmodelIdName();
+        testPantryVieModel.setId(999L);
+        testPantryVieModel.setName("Test");
+        Pantry testPantry = mapper.pantryViewmodelIdNameToPantry(testPantryVieModel);
+
+        assertNotNull(testPantry, "A Pantry object should be present, but it is not");
+        assertEquals(999L, testPantry.getId(), "The returned id value should be 999, " +
+                "but something else was returned");
+        assertEquals("Test", testPantry.getName(), "The name test should have been returned," +
+                "But something else was returned");
+    }
+
+    @Test
+    @DisplayName("Tests conversion from Productdefinition to a ProductDefinitionOverviewViewModel " +
+            "using id and name attributes")
+    void productDefToProductViewModel() {
+        Mapper mapper = new Mapper();
+        ProductDefinition testProduct = new ProductDefinition(999L, "Test");
+
+        assertNotNull(testProduct, "A ProductDefinition");
+
     }
 
     @Test

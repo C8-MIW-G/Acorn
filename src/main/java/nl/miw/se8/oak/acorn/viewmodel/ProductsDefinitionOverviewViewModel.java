@@ -4,11 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ProductsViewModel {
+public class ProductsDefinitionOverviewViewModel {
 
         private Long id;
 
         private String name;
+
+        public ProductsDefinitionOverviewViewModel() {
+        }
 }
 
 
