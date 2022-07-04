@@ -43,9 +43,8 @@ public class AdminController {
     protected String userOverview(Model model) {
         List<AcornUser> allAcornUsers = acornUserService.findAll();
         List<UserOverviewVM> allUsersModelViewUsers = new ArrayList<>();
-        Mapper mapper = new Mapper();
         for (AcornUser user : allAcornUsers) {
-            allUsersModelViewUsers.add(mapper.userToUserOverviewVM(user));
+            allUsersModelViewUsers.add(Mapper.userToUserOverviewVM(user));
         }
         model.addAttribute("users", allUsersModelViewUsers);
         return "userOverview";
@@ -54,9 +53,8 @@ public class AdminController {
     @GetMapping("/users/{userId}")
     protected String userDetails(@PathVariable("userId") Long userId, Model model) {
         Optional<AcornUser> acornUser = acornUserService.findById(userId);
-        Mapper mapper = new Mapper();
         if (acornUser.isPresent()) {
-            model.addAttribute("user", mapper.userToUserOverviewVM(acornUser.get()));
+            model.addAttribute("user", Mapper.userToUserOverviewVM(acornUser.get()));
             return "userDetails";
         }
         return "redirect:/admin/users";

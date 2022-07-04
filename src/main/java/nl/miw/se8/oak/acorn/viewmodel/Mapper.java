@@ -27,7 +27,7 @@ public class Mapper {
         return productsViewModel;
     }
 
-    public UserOverviewVM userToUserOverviewVM(AcornUser acornUser) {
+    public static UserOverviewVM userToUserOverviewVM(AcornUser acornUser) {
         UserOverviewVM userOverviewVM = new UserOverviewVM();
         userOverviewVM.setId(acornUser.getId());
         userOverviewVM.setEmail(acornUser.getEmail());
