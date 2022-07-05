@@ -3,7 +3,7 @@ package nl.miw.se8.oak.acorn.controller;
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.service.AcornUserService;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
-import nl.miw.se8.oak.acorn.viewmodel.UserEditView;
+import nl.miw.se8.oak.acorn.viewmodel.UserEditVM;
 import nl.miw.se8.oak.acorn.viewmodel.UserRegisterVM;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,7 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import java.util.Optional;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,15 +71,15 @@ public class UserController {
         return "redirect:/pantrySelection";
     }
 
-//    @GetMapping("/profile")
-//    protected String profile(@AuthenticationPrincipal AcornUser acornUser, Model model) {
-//        UserEditView userEditView = new UserEditView(acornUser);
-//        model.addAttribute("userEditView", userEditView);
-//        return "/userProfile";
-//    }
-//
+    @GetMapping("/profile")
+    protected String profile(@AuthenticationPrincipal AcornUser acornUser, Model model) {
+        UserEditVM userEditVM = Mapper.userToUserEditVM(acornUser);
+        model.addAttribute("userEditVM", userEditVM);
+        return "userProfile";
+    }
+
 //    @PostMapping("/profile")
-//    protected String editProfile(@ModelAttribute("userEditView") UserEditView userEditView,
+//    protected String editProfile(@ModelAttribute("userEditView") UserEditVM userEditView,
 //                                 BindingResult result,
 //                                 Model model) {
 //        if (!result.hasErrors()) {
@@ -163,17 +163,17 @@ public class UserController {
         return true;
     }
 
-    private void updateEmail(UserEditView userEditView, AcornUser user, Model model) {
-        if (!userEditView.getEmail().equals(user.getEmail())) {
-            user.setEmail(userEditView.getEmail());
+    private void updateEmail(UserEditVM userEditVM, AcornUser user, Model model) {
+        if (!userEditVM.getEmail().equals(user.getEmail())) {
+            user.setEmail(userEditVM.getEmail());
             model.addAttribute("successMessage", INFO_EMAIL_UPDATE_SUCCESS);
         }
     }
 
-    private void updatePassword(UserEditView userEditView, AcornUser acornUser, Model model) {
-        if (oldPasswordsMatch(userEditView, acornUser)) {
-            if (newPasswordsMatch(userEditView.getNewPassword(), userEditView.getNewPasswordCheck())) {
-                acornUser.setPassword(passwordEncoder.encode(userEditView.getNewPassword()));
+    private void updatePassword(UserEditVM userEditVM, AcornUser acornUser, Model model) {
+        if (oldPasswordsMatch(userEditVM, acornUser)) {
+            if (newPasswordsMatch(userEditVM.getNewPassword(), userEditVM.getNewPasswordCheck())) {
+                acornUser.setPassword(passwordEncoder.encode(userEditVM.getNewPassword()));
                 model.addAttribute("successMessage", INFO_PASSWORD_UPDATE_SUCCESS);
             }
         } else {
@@ -181,10 +181,10 @@ public class UserController {
         }
     }
 
-    private void updateName(UserEditView userEditView, AcornUser acornUser, Model model) {
-        if (!userEditView.getNewName().equals(acornUser.getName())) {
-            acornUser.setName(userEditView.getNewName());
-            userEditView.setName(userEditView.getNewName());
+    private void updateName(UserEditVM userEditVM, AcornUser acornUser, Model model) {
+        if (!userEditVM.getNewName().equals(acornUser.getName())) {
+            acornUser.setName(userEditVM.getNewName());
+            userEditVM.setName(userEditVM.getNewName());
             model.addAttribute("successMessage", INFO_NAME_UPDATE_SUCCESS);
         }
     }
@@ -205,8 +205,8 @@ public class UserController {
         return userService.findByEmail(email).isPresent();
     }
 
-    private boolean oldPasswordsMatch(UserEditView userEditView, AcornUser acornUser) {
-        return passwordEncoder.matches(userEditView.getOldPassword(), acornUser.getPassword());
+    private boolean oldPasswordsMatch(UserEditVM userEditVM, AcornUser acornUser) {
+        return passwordEncoder.matches(userEditVM.getOldPassword(), acornUser.getPassword());
     }
 
     private boolean newPasswordsMatch(String password, String passwordCheck) {

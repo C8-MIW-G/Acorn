@@ -10,7 +10,7 @@ import nl.miw.se8.oak.acorn.model.AcornUser;
  * OMSCHRIJVING
  */
 @Getter @Setter
-public class UserEditView {
+public class UserEditVM {
 
     private Long id;
     private String email;
@@ -20,10 +20,10 @@ public class UserEditView {
     private String name;
     private String newName;
 
-    public UserEditView() {
+    public UserEditVM() {
     }
 
-    public UserEditView(AcornUser acornUser) {
+    public UserEditVM(AcornUser acornUser) {
         this.id = acornUser.getId();
         this.email = acornUser.getEmail();
         this.name = acornUser.getName();

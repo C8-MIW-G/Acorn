@@ -63,4 +63,12 @@ public class Mapper {
         return acornUser;
     }
 
+    public static UserEditVM userToUserEditVM(AcornUser acornUser) {
+        UserEditVM userEditVM = new UserEditVM();
+        userEditVM.setId(acornUser.getId());
+        userEditVM.setEmail(acornUser.getEmail());
+        userEditVM.setName(acornUser.getName());
+        return userEditVM;
+    }
+
 }
