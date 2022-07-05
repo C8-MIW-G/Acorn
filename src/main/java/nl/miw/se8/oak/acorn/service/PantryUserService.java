@@ -9,5 +9,4 @@ public interface PantryUserService {
     List<PantryUser> findAll();
     void save(PantryUser pantryUser);
     List<PantryUser> findPantryUserByUser(AcornUser user);
-    boolean currentUserHasAccessToPantry(Long pantryId);
 }

@@ -3,10 +3,8 @@ package nl.miw.se8.oak.acorn.controller;
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryUser;
-import nl.miw.se8.oak.acorn.service.PantryProductService;
-import nl.miw.se8.oak.acorn.service.PantryService;
+import nl.miw.se8.oak.acorn.service.*;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
-import nl.miw.se8.oak.acorn.service.PantryUserService;
 import nl.miw.se8.oak.acorn.viewmodel.PantryViewmodelIdName;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,13 +32,19 @@ public class PantryController {
     PantryService pantryService;
     PantryProductService pantryProductService;
     PantryUserService pantryUserService;
+    AcornUserService acornUserService;
+    AuthorizationService authorizationService;
 
     public PantryController(PantryService pantryService,
                             PantryProductService pantryProductService,
-                            PantryUserService pantryUserService) {
+                            PantryUserService pantryUserService,
+                            AcornUserService acornUserService,
+                            AuthorizationService authorizationService) {
         this.pantryService = pantryService;
         this.pantryProductService = pantryProductService;
         this.pantryUserService = pantryUserService;
+        this.acornUserService = acornUserService;
+        this.authorizationService = authorizationService;
     }
 
     @GetMapping("/pantrySelection")
@@ -62,7 +66,7 @@ public class PantryController {
 
     @GetMapping("/pantry/{pantryId}/delete")
     protected String deletePantry(@PathVariable("pantryId") Long pantryId) {
-        if (!pantryUserService.currentUserHasAccessToPantry(pantryId)) {
+        if (!authorizationService.userCanAccessPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
@@ -79,7 +83,7 @@ public class PantryController {
 
     @GetMapping("/pantry/{pantryId}/edit")
     protected String editPantry(@PathVariable("pantryId") Long pantryId, Model model) {
-        if (!pantryUserService.currentUserHasAccessToPantry(pantryId)) {
+        if (!authorizationService.userCanAccessPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
@@ -100,7 +104,7 @@ public class PantryController {
                 Pantry savedPantry = pantryService.save(pantry);
                 PantryUser pantryUser = new PantryUser(acornUser, savedPantry, true);
                 pantryUserService.save(pantryUser);
-            } else if (!pantryUserService.currentUserHasAccessToPantry(pantry.getId())) {
+            } else if (!authorizationService.userCanAccessPantry(pantry.getId())) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             }
 
