@@ -1,8 +1,9 @@
 package nl.miw.se8.oak.acorn.viewmodel;
-
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
+import nl.miw.se8.oak.acorn.model.PantryProduct;
+
 
 public class Mapper {
 
@@ -47,6 +48,18 @@ public class Mapper {
         adminPantryOverviewVM.setId(pantry.getId());
         adminPantryOverviewVM.setName(pantry.getName());
         return adminPantryOverviewVM;
+
     }
 
+    public PantryProductEditViewModel pantryProductToPantryProductEditViewModel(PantryProduct pantryProduct) {
+        PantryProductEditViewModel pantryProductEditViewModel = new PantryProductEditViewModel();
+        pantryProductEditViewModel.setId(pantryProduct.getId());
+        if (pantryProduct == null) {
+            pantryProductEditViewModel.setProductDefinitionName(pantryProduct.getProductDefinition().getName());
+            pantryProductEditViewModel.setPantryId(pantryProduct.getPantry().getId());
+            pantryProductEditViewModel.setExpirationDate(pantryProduct.getExpirationDate());
+        }
+        return pantryProductEditViewModel;
+    }
 }
+
