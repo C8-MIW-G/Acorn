@@ -8,6 +8,7 @@ import nl.miw.se8.oak.acorn.service.PantryService;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
 import nl.miw.se8.oak.acorn.service.PantryUserService;
 import nl.miw.se8.oak.acorn.viewmodel.PantryViewmodelIdName;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.ArrayList;
 import javax.validation.Valid;
 import java.util.List;
@@ -59,6 +62,10 @@ public class PantryController {
 
     @GetMapping("/pantry/{pantryId}/delete")
     protected String deletePantry(@PathVariable("pantryId") Long pantryId) {
+        if (!pantryUserService.currentUserHasAccessToPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
         pantryService.deleteById(pantryId);
         return "redirect:/pantrySelection";
     }
@@ -72,6 +79,10 @@ public class PantryController {
 
     @GetMapping("/pantry/{pantryId}/edit")
     protected String editPantry(@PathVariable("pantryId") Long pantryId, Model model) {
+        if (!pantryUserService.currentUserHasAccessToPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isPresent()) {
             model.addAttribute("pantryToPantryEditViewmodel", Mapper.pantryToPantryViewmodelIdName(pantry.get()));
@@ -83,17 +94,16 @@ public class PantryController {
     protected String renamePantry(@Valid @ModelAttribute("pantry") Pantry pantry,
                                   BindingResult result,
                                   @AuthenticationPrincipal AcornUser acornUser) {
-        // Check if a new pantry is created, or an existing pantry is edited.
-        boolean newPantry = pantry.getId() == -1;
-
         if (!result.hasErrors()) {
-            Pantry savedPantry = pantryService.save(pantry);
-
-            // Sets current user as pantry administrator of newly created pantry
-            if (newPantry) {
+            // Check if a new pantry is created, or an existing pantry is edited.
+            if (pantry.getId() == -1) {
+                Pantry savedPantry = pantryService.save(pantry);
                 PantryUser pantryUser = new PantryUser(acornUser, savedPantry, true);
                 pantryUserService.save(pantryUser);
+            } else if (!pantryUserService.currentUserHasAccessToPantry(pantry.getId())) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             }
+
         }
         return "redirect:/pantrySelection";
     }
