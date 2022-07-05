@@ -18,6 +18,7 @@
 
         <div class="d-flex flex-row my-4">
             <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}"><button type="button" class="btn btn-primary">Add product</button></a>
+            <a th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}"><button type="button" class="btn btn-members">Pantry members</button></a>      <!-- TODO give this better positioning -->
             <button type="button" class="btn btn-delete ml-auto" data-toggle="modal" data-target="#myModal">Delete pantry</button>
         </div>
 
