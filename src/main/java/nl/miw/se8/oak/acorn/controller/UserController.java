@@ -3,6 +3,7 @@ package nl.miw.se8.oak.acorn.controller;
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.service.AcornUserService;
 import nl.miw.se8.oak.acorn.viewmodel.UserEditView;
+import nl.miw.se8.oak.acorn.viewmodel.UserRegisterVM;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,7 @@ public class UserController {
 
     @GetMapping("/register")
     protected String registerGet(Model model) {
-        model.addAttribute("userEditView", new UserEditView());
+        model.addAttribute("userRegisterVM", new UserRegisterVM());
         return "userRegister";
     }
 
