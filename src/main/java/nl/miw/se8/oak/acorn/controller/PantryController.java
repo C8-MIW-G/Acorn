@@ -56,7 +56,7 @@ public class PantryController {
         for (PantryUser pantryUser : pantryUsers) {
             Optional<Pantry> optionalPantry = pantryService.findById(pantryUser.getPantry().getId());
             if (optionalPantry.isPresent()) {
-                pantryViewModels.add(Mapper.pantryToPantryViewmodelIdName(optionalPantry.get()));
+                pantryViewModels.add(Mapper.pantryToPantryEditVM(optionalPantry.get()));
             }
         }
 
@@ -77,7 +77,7 @@ public class PantryController {
     @GetMapping("/pantry/create")                   // FIXME does this need o be a DTO/ViewModel? i made it but it seems obsolete here.
     protected String createPantry(Model model) {
         Pantry pantry = new Pantry();
-        model.addAttribute("pantryToPantryEditViewmodel",Mapper.pantryToPantryViewmodelIdName(pantry));
+        model.addAttribute("pantryToPantryEditViewmodel",Mapper.pantryToPantryEditVM(pantry));
         return "pantryEdit.html";
     }
 
@@ -89,7 +89,7 @@ public class PantryController {
 
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isPresent()) {
-            model.addAttribute("pantryToPantryEditViewmodel", Mapper.pantryToPantryViewmodelIdName(pantry.get()));
+            model.addAttribute("pantryToPantryEditViewmodel", Mapper.pantryToPantryEditVM(pantry.get()));
         }
         return "pantryEdit.html";
     }

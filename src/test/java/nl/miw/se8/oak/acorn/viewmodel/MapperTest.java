@@ -20,7 +20,7 @@ public class MapperTest {
         testPantry.setId(999L);
         testPantry.setName("Test");
 
-        PantryViewmodelIdName testPantryMV = mapper.pantryToPantryViewmodelIdName(testPantry);
+        PantryViewmodelIdName testPantryMV = mapper.pantryToPantryEditVM(testPantry);
 
         assertNotNull(testPantryMV, "A pantryViewModel object should be present, but it is not");
         assertEquals(999L, testPantryMV.getId(),
@@ -37,7 +37,7 @@ public class MapperTest {
         testPantryVieModel.setId(999L);
         testPantryVieModel.setName("Test");
 
-        Pantry testPantry = mapper.pantryViewmodelIdNameToPantry(testPantryVieModel);
+        Pantry testPantry = mapper.pantryEditVMToPantry(testPantryVieModel);
 
         assertNotNull(testPantry, "A Pantry object should be present, but it is not");
         assertEquals(999L, testPantry.getId(), "The returned id value should be 999, " +

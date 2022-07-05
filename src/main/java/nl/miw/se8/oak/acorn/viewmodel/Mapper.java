@@ -6,17 +6,17 @@ import nl.miw.se8.oak.acorn.model.ProductDefinition;
 
 public class Mapper {
 
-    public static PantryViewmodelIdName pantryToPantryViewmodelIdName(Pantry pantry) {
-        PantryViewmodelIdName pantryDTO = new PantryViewmodelIdName();
-        pantryDTO.setId(pantry.getId());
-        pantryDTO.setName(pantry.getName());
-        return pantryDTO;
+    public static PantryViewmodelIdName pantryToPantryEditVM(Pantry pantry) {
+        PantryViewmodelIdName pantryEditVM = new PantryViewmodelIdName();
+        pantryEditVM.setId(pantry.getId());
+        pantryEditVM.setName(pantry.getName());
+        return pantryEditVM;
     }
 
-    public Pantry pantryViewmodelIdNameToPantry(PantryViewmodelIdName pantryEditViewmodel) {
+    public Pantry pantryEditVMToPantry(PantryViewmodelIdName pantryEditVM) {
         Pantry pantry = new Pantry();
-        pantry.setId(pantryEditViewmodel.getId());
-        pantry.setName(pantryEditViewmodel.getName());
+        pantry.setId(pantryEditVM.getId());
+        pantry.setName(pantryEditVM.getName());
         return pantry;
     }
 
