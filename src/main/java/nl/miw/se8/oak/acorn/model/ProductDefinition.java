@@ -40,6 +40,11 @@ public class ProductDefinition implements Comparable<ProductDefinition>{
         this.pantryProducts = new HashSet<>();
     }
 
+    public ProductDefinition(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     // Sort ProductDefinitions by first letter
     @Override
     public int compareTo(ProductDefinition other) {

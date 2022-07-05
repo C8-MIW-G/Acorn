@@ -100,9 +100,17 @@ public class DataLoader {
 
     private void seedPantries() {
         if (pantryService.findAll().size() == 0) {
-            pantryService.save(new Pantry("Sylvia's Pantry"));
-            pantryService.save(new Pantry("Wicher's Pantry"));
-            pantryService.save(new Pantry("Thijs' Pantry"));
+            Pantry pantry = new Pantry();
+            pantry.setName("Sylvia's Pantry");
+            pantryService.save(pantry);
+
+            Pantry pantry2 = new Pantry();
+            pantry2.setName("Wicher's Pantry");
+            pantryService.save(pantry2);
+
+            Pantry pantry3 = new Pantry();
+            pantry3.setName("Thijs' Pantry");
+            pantryService.save(pantry3);
         }
     }
 

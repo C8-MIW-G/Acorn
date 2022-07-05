@@ -8,12 +8,14 @@ import nl.miw.se8.oak.acorn.service.RoleService;
 import nl.miw.se8.oak.acorn.viewmodel.AdminPantryOverviewVM;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
 import nl.miw.se8.oak.acorn.viewmodel.UserOverviewVM;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -72,13 +74,15 @@ public class AdminController {
                     SecurityContextHolder.clearContext();
                     return "redirect:/";
                 } else {
-                    redirectAttributes.addFlashAttribute("errorMessage", "Cannot remove: there must be at least one systems administrator.");
+                    redirectAttributes.addFlashAttribute(
+                            "errorMessage", "Cannot remove: there must be at least one systems administrator.");
                     return "redirect:/admin/users";
                 }
             }
 
             acornUserService.deleteById(userId);
-            redirectAttributes.addFlashAttribute("successMessage", String.format("Successfully removed %s!", optionalAcornUser.get().getEmail()));
+            redirectAttributes.addFlashAttribute(
+                    "successMessage", String.format("Successfully removed %s!", optionalAcornUser.get().getEmail()));
         }
 
         return "redirect:/admin/users";
@@ -107,7 +111,7 @@ public class AdminController {
             adminPantryOverviewVMs.add(Mapper.pantryToAdminPantryOverviewVM(pantry));
         }
         model.addAttribute("pantries", adminPantryOverviewVMs);
-        return "pantrySelection";
+        return "adminPantriesOverview";
     }
 
     private boolean acornUserIsCurrentUser(AcornUser acornUser) {

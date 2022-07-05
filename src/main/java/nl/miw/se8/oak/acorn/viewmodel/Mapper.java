@@ -1,31 +1,31 @@
 package nl.miw.se8.oak.acorn.viewmodel;
+
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
-import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.model.PantryProduct;
-
+import nl.miw.se8.oak.acorn.model.ProductDefinition;
 
 public class Mapper {
 
-    public static PantryViewmodelIdName pantryToPantryViewmodelIdName(Pantry pantry) {
-        PantryViewmodelIdName pantryDTO = new PantryViewmodelIdName();
-        pantryDTO.setId(pantry.getId());
-        pantryDTO.setName(pantry.getName());
-        return pantryDTO;
+    public static PantryViewmodelIdName pantryToPantryEditVM(Pantry pantry) {
+        PantryViewmodelIdName pantryEditVM = new PantryViewmodelIdName();
+        pantryEditVM.setId(pantry.getId());
+        pantryEditVM.setName(pantry.getName());
+        return pantryEditVM;
     }
 
-    public Pantry pantryViewmodelIdNameToPantry(PantryViewmodelIdName pantryEditViewmodel) {
+    public Pantry pantryEditVMToPantry(PantryViewmodelIdName pantryEditVM) {
         Pantry pantry = new Pantry();
-        pantry.setId(pantryEditViewmodel.getId());
-        pantry.setName(pantryEditViewmodel.getName());
+        pantry.setId(pantryEditVM.getId());
+        pantry.setName(pantryEditVM.getName());
         return pantry;
     }
 
-    public ProductsViewModel productDefToProductViewModel(ProductDefinition pD) {
-        ProductsViewModel productsViewModel = new ProductsViewModel();
-        productsViewModel.setId(pD.getId());
-        productsViewModel.setName(pD.getName());
-        return productsViewModel;
+    public ProductsDefinitionOverviewViewModel productDefToProductViewModel(ProductDefinition pD) {
+        ProductsDefinitionOverviewViewModel productsDefinitionOverviewViewModel = new ProductsDefinitionOverviewViewModel();
+        productsDefinitionOverviewViewModel.setId(pD.getId());
+        productsDefinitionOverviewViewModel.setName(pD.getName());
+        return productsDefinitionOverviewViewModel;
     }
 
     public static UserOverviewVM userToUserOverviewVM(AcornUser acornUser) {
@@ -42,7 +42,6 @@ public class Mapper {
         acornUser.setName(userOverviewVM.getName());
         return acornUser;
     }
-
     public static AdminPantryOverviewVM pantryToAdminPantryOverviewVM(Pantry pantry) {
         AdminPantryOverviewVM adminPantryOverviewVM = new AdminPantryOverviewVM();
         adminPantryOverviewVM.setId(pantry.getId());
@@ -61,5 +60,5 @@ public class Mapper {
         }
         return pantryProductEditViewModel;
     }
-}
 
+}

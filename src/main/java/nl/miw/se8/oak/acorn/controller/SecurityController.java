@@ -1,7 +1,6 @@
 package nl.miw.se8.oak.acorn.controller;
 
 import nl.miw.se8.oak.acorn.model.AcornUser;
-import nl.miw.se8.oak.acorn.service.AcornUserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * Aangemaakt op: 1-7-2022
  * OMSCHRIJVING
  */
-
 public class SecurityController {
 
     public static AcornUser getCurrentUser() {

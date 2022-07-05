@@ -1,11 +1,13 @@
 package nl.miw.se8.oak.acorn.service;
 
+import nl.miw.se8.oak.acorn.controller.SecurityController;
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.PantryUser;
 import nl.miw.se8.oak.acorn.repository.PantryUserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PantryUserServiceImplementation implements PantryUserService{
@@ -30,4 +32,5 @@ public class PantryUserServiceImplementation implements PantryUserService{
     public List<PantryUser> findPantryUserByUser(AcornUser user) {
         return pantryUserRepository.findPantryUserByUser(user);
     }
+
 }
