@@ -50,9 +50,13 @@ public class MapperTest {
     void productDefToProductViewModel() {
         Mapper mapper = new Mapper();
         ProductDefinition testProduct = new ProductDefinition(999L, "Test");
+        ProductsDefinitionOverviewViewModel testViewModel = mapper.productDefToProductViewModel(testProduct);
 
-        assertNotNull(testProduct, "A ProductDefinition");
-
+        assertNotNull(testViewModel, "A ProductDefinitionOverviewViewModel should be present, but it is not");
+        assertEquals(999L, testProduct.getId(), "The returned ID vlue should be 999L," +
+                "But something else was returned");
+        assertEquals("Test", testProduct.getName(), "The name 'Test'  should have been returned," +
+                "But something else was returned");
     }
 
     @Test

@@ -40,7 +40,7 @@ public class ProductDefinitionsController {
         return "productDefinitionsOverview";
     }
 
-    @GetMapping("/products/{productId}")            // FIXME method returns error
+    @GetMapping("/products/{productId}")            // FIXME method returns error. View seems to not be used.
     protected String productDefinitionsDetails(@PathVariable("productId") Long productId, Model model) {
         Optional<ProductDefinition> product = productDefinitionService.findById(productId);
         if (product.isPresent()) {
@@ -56,17 +56,19 @@ public class ProductDefinitionsController {
         return "redirect:/admin/products";
     }
 
-    @GetMapping("/products/create")                     // DTO/Viewmodel nodig? vragen aan Joost
+    @GetMapping("/products/create")                     // incorporated viewmodel
     protected String createProductDefinition(Model model) {
-        model.addAttribute("product", new ProductDefinition());
+        model.addAttribute("product", new ProductsDefinitionOverviewViewModel());
         return "productDefinitionsCreate";
     }
 
-    @GetMapping("/products/{productId}/edit")               // sowieso DTO nodig, dunkt mij
+    @GetMapping("/products/{productId}/edit")               // incorporated viewModel
     protected String editProductDefinition(@PathVariable("productId") Long productId, Model model) {
         Optional<ProductDefinition> productDefinition = productDefinitionService.findById(productId);
+        Mapper mapper = new Mapper();
+
         if (productDefinition.isPresent()) {
-            model.addAttribute("product", productDefinition.get());
+            model.addAttribute("product", mapper.productDefToProductViewModel(productDefinition.get()));
             return "productDefinitionsCreate";
         }
         return "redirect:/admin/products";
