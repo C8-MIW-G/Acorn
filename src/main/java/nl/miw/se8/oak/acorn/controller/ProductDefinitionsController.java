@@ -26,7 +26,7 @@ public class ProductDefinitionsController {
         this.productDefinitionService = productDefinitionService;
     }
 
-    @GetMapping("/products")                                        // incorporated viewmodel
+    @GetMapping("/products")
     protected String productDefinitionsOverview(Model model) {
         Mapper mapper = new Mapper();
         List<ProductDefinition> productDefinitions = productDefinitionService.findAll();
@@ -50,19 +50,19 @@ public class ProductDefinitionsController {
         return "redirect:/admin/products";
     }
 
-    @GetMapping("/products/{productId}/delete")         // no DTO/viewmodel nodig
+    @GetMapping("/products/{productId}/delete")
     protected String deleteProductDefinition(@PathVariable("productId") Long productId) {
         productDefinitionService.deleteById(productId);
         return "redirect:/admin/products";
     }
 
-    @GetMapping("/products/create")                     // incorporated viewmodel
+    @GetMapping("/products/create")
     protected String createProductDefinition(Model model) {
         model.addAttribute("product", new ProductsDefinitionOverviewViewModel());
         return "productDefinitionsCreate";
     }
 
-    @GetMapping("/products/{productId}/edit")               // incorporated viewModel
+    @GetMapping("/products/{productId}/edit")
     protected String editProductDefinition(@PathVariable("productId") Long productId, Model model) {
         Optional<ProductDefinition> productDefinition = productDefinitionService.findById(productId);
         Mapper mapper = new Mapper();
@@ -74,7 +74,7 @@ public class ProductDefinitionsController {
         return "redirect:/admin/products";
     }
 
-    @PostMapping("/products/create")                 // DTO/ViewModel nodig?
+    @PostMapping("/products/create")
     protected String submitProductDefinition(@ModelAttribute("productDefinition") ProductDefinition productDefinition, BindingResult result) {
         if (!result.hasErrors()) {
             productDefinitionService.save(productDefinition);
