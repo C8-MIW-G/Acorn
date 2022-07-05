@@ -2,7 +2,6 @@ package nl.miw.se8.oak.acorn.viewmodel;
 
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
-import nl.miw.se8.oak.acorn.model.PantryProduct;
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,13 +11,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MapperTest {
 
-
     @Test
     @DisplayName("Tests if, when we convert a pantry to a viewmodel, the ViewModel is in fact created. " +
             "Then tests if all attributes are inherited correctly")
     void pantryToPantryViewmodelIdName() {
         Mapper mapper = new Mapper();
-        Pantry testPantry = new Pantry(999L,"Test");
+        Pantry testPantry = new Pantry();
+        testPantry.setId(999L);
+        testPantry.setName("Test");
+
         PantryViewmodelIdName testPantryMV = mapper.pantryToPantryViewmodelIdName(testPantry);
 
         assertNotNull(testPantryMV, "A pantryViewModel object should be present, but it is not");
@@ -35,6 +36,7 @@ public class MapperTest {
         PantryViewmodelIdName testPantryVieModel = new PantryViewmodelIdName();
         testPantryVieModel.setId(999L);
         testPantryVieModel.setName("Test");
+
         Pantry testPantry = mapper.pantryViewmodelIdNameToPantry(testPantryVieModel);
 
         assertNotNull(testPantry, "A Pantry object should be present, but it is not");
@@ -49,7 +51,10 @@ public class MapperTest {
             "using id and name attributes")
     void productDefToProductViewModel() {
         Mapper mapper = new Mapper();
-        ProductDefinition testProduct = new ProductDefinition(999L, "Test");
+        ProductDefinition testProduct = new ProductDefinition();
+        testProduct.setId(999L);
+        testProduct.setName("Test");
+
         ProductsDefinitionOverviewViewModel testViewModel = mapper.productDefToProductViewModel(testProduct);
 
         assertNotNull(testViewModel, "A ProductDefinitionOverviewViewModel should be present, but it is not");

@@ -37,13 +37,6 @@ public class Pantry {
         pantryUsers = new ArrayList<>();
     }
 
-    public Pantry(Long id, String name) {
-        this.id = id;
-        this.name = name;
-        pantryProducts = new ArrayList<>();
-        pantryUsers = new ArrayList<>();
-    }
-
     public Pantry() {
         this(DEFAULT_NAME);
     }
