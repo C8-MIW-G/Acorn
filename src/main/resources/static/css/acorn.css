@@ -112,6 +112,18 @@ h2 {
     width: 6rem;
 }
 
+.btn-members {
+    color: var(--white);
+    background-color: #3f95e0;
+    position: fixed;
+    right: 55%;
+}
+
+.btn-members:hover {
+    background-color: #66b5fa;
+}
+
+
 /* --------------------------------------- Tables */
 .table-container {
     max-height: 70vh;
