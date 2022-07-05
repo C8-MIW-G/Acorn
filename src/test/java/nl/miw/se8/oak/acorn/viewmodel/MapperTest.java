@@ -56,7 +56,7 @@ public class MapperTest {
         testProduct.setId(999L);
         testProduct.setName("Test");
 
-        ProductsDefinitionOverviewViewModel testViewModel = mapper.productDefToProductViewModel(testProduct);
+        ProductsDefinitionOverviewViewModel testViewModel = mapper.productDefToProductDefVM(testProduct);
 
         assertNotNull(testViewModel, "A ProductDefinitionOverviewViewModel should be present, but it is not");
         assertEquals(999L, testProduct.getId(), "The returned ID vlue should be 999L," +
