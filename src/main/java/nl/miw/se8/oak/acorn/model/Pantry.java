@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
@@ -18,33 +17,22 @@ import static javax.persistence.CascadeType.ALL;
 public class Pantry {
 
     public static final long DEFAULT_ID = -1;
-    public static final String DEFAULT_NAME = "";
+    public static final int MIN_PANTRY_NAME_LENGTH = 2;
+    public static final String ERROR_NAME_TOO_SHORT = "Please enter a message of at least 2 characters";
+    public static final String DEFAULT_PANTRY_NAME = "";
+    public static final String DEFAULT_NAME = DEFAULT_PANTRY_NAME;
 
     @Id @GeneratedValue
     private Long id;
-    // pantry name cannot be shorter than two characters
-    @Size(min = 2,message = "Please enter a message of at least 2 characters")
+    @Size(min = MIN_PANTRY_NAME_LENGTH, message = ERROR_NAME_TOO_SHORT)
     private String name;
     @OneToMany(mappedBy = "pantry",  cascade = ALL)
     private List<PantryProduct> pantryProducts;
     @OneToMany(mappedBy = "pantry",  cascade = ALL)
     private List<PantryUser> pantryUsers;
 
-    public Pantry(String name) {
-        this.id = DEFAULT_ID;
-        this.name = name;
-        pantryProducts = new ArrayList<>();
-        pantryUsers = new ArrayList<>();
-    }
-
-    public Pantry(Long id, String name) {
-        this.id = id;
-        this.name = name;
-        pantryProducts = new ArrayList<>();
-        pantryUsers = new ArrayList<>();
-    }
-
     public Pantry() {
-        this(DEFAULT_NAME);
+        this.id = DEFAULT_ID;
+        this.name = DEFAULT_NAME;
     }
 }

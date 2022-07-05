@@ -12,14 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MapperTest {
 
-
     @Test
     @DisplayName("Tests if, when we convert a pantry to a viewmodel, the ViewModel is in fact created. " +
             "Then tests if all attributes are inherited correctly")
     void pantryToPantryViewmodelIdName() {
         Mapper mapper = new Mapper();
-        Pantry testPantry = new Pantry(999L,"Test");
-        PantryViewmodelIdName testPantryMV = mapper.pantryToPantryViewmodelIdName(testPantry);
+        Pantry testPantry = new Pantry();
+        testPantry.setId(999L);
+        testPantry.setName("Test");
+
+        PantryViewmodelIdName testPantryMV = mapper.pantryToPantryEditVM(testPantry);
 
         assertNotNull(testPantryMV, "A pantryViewModel object should be present, but it is not");
         assertEquals(999L, testPantryMV.getId(),
@@ -35,7 +37,8 @@ public class MapperTest {
         PantryViewmodelIdName testPantryVieModel = new PantryViewmodelIdName();
         testPantryVieModel.setId(999L);
         testPantryVieModel.setName("Test");
-        Pantry testPantry = mapper.pantryViewmodelIdNameToPantry(testPantryVieModel);
+
+        Pantry testPantry = mapper.pantryEditVMToPantry(testPantryVieModel);
 
         assertNotNull(testPantry, "A Pantry object should be present, but it is not");
         assertEquals(999L, testPantry.getId(), "The returned id value should be 999, " +
@@ -49,8 +52,11 @@ public class MapperTest {
             "using id and name attributes")
     void productDefToProductViewModel() {
         Mapper mapper = new Mapper();
-        ProductDefinition testProduct = new ProductDefinition(999L, "Test");
-        ProductsDefinitionOverviewViewModel testViewModel = mapper.productDefToProductViewModel(testProduct);
+        ProductDefinition testProduct = new ProductDefinition();
+        testProduct.setId(999L);
+        testProduct.setName("Test");
+
+        ProductsDefinitionOverviewViewModel testViewModel = mapper.productDefToProductDefVM(testProduct);
 
         assertNotNull(testViewModel, "A ProductDefinitionOverviewViewModel should be present, but it is not");
         assertEquals(999L, testProduct.getId(), "The returned ID vlue should be 999L," +
@@ -89,4 +95,16 @@ public class MapperTest {
         assertEquals(userOverviewVM.getEmail(), "testUser@testUser.com");
         assertEquals(userOverviewVM.getName(), "testUser");
     }
+
+    @Test
+    @DisplayName("Tests the mapper method that converts a pantryProduct to a PantryProductEditViewModel")
+    void pantryProductToPantryProductEditViewModel() {
+        PantryProduct pantryProduct = new PantryProduct();
+        pantryProduct.setId(1L);
+
+        Mapper mapper = new Mapper();
+        PantryProductEditViewModel pantryProductEditViewModel = mapper.pantryProductToPantryProductEditViewModel(pantryProduct);
+
+        assertInstanceOf(PantryProductEditViewModel.class, pantryProductEditViewModel );
+        assertEquals(pantryProductEditViewModel.getId(), 1L,"Id is correct");}
 }

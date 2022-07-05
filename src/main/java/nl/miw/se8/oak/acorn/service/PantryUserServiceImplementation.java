@@ -33,19 +33,10 @@ public class PantryUserServiceImplementation implements PantryUserService{
     public List<PantryUser> findPantryUserByUser(AcornUser user) {
         return pantryUserRepository.findPantryUserByUser(user);
     }
+
     @Override
     public List<PantryUser> findPantryUserByPantry(Pantry pantry) {
         return pantryUserRepository.findPantryUserByPantry(pantry);
     }
 
-    public boolean currentUserHasAccessToPantry(Long pantryId) {
-        AcornUser user = SecurityController.getCurrentUser();
-        List<PantryUser> pantryUsers = pantryUserRepository.findPantryUserByUser(user);
-        for (PantryUser pantryUser : pantryUsers) {
-            if (Objects.equals(pantryUser.getPantry().getId(), pantryId)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

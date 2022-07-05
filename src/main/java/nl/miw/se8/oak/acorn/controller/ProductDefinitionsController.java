@@ -26,7 +26,7 @@ public class ProductDefinitionsController {
         this.productDefinitionService = productDefinitionService;
     }
 
-    @GetMapping("/products")
+    @GetMapping("/products")                                        // incorporated viewmodel
     protected String productDefinitionsOverview(Model model) {
         Mapper mapper = new Mapper();
         List<ProductDefinition> productDefinitions = productDefinitionService.findAll();
@@ -34,20 +34,10 @@ public class ProductDefinitionsController {
         List<ProductsDefinitionOverviewViewModel> productsDefinitionOverviewViewModels = new ArrayList<>();
 
         for (ProductDefinition productdefinition: productDefinitions) {
-            productsDefinitionOverviewViewModels.add(mapper.productDefToProductViewModel(productdefinition));
+            productsDefinitionOverviewViewModels.add(mapper.productDefToProductDefVM(productdefinition));
         }
         model.addAttribute("products", productsDefinitionOverviewViewModels);
         return "productDefinitionsOverview";
-    }
-
-    @GetMapping("/products/{productId}")            // FIXME method returns error. View seems to not be used.
-    protected String productDefinitionsDetails(@PathVariable("productId") Long productId, Model model) {
-        Optional<ProductDefinition> product = productDefinitionService.findById(productId);
-        if (product.isPresent()) {
-            model.addAttribute("product", product.get());
-            return "productDefinitionsDetails";
-        }
-        return "redirect:/admin/products";
     }
 
     @GetMapping("/products/{productId}/delete")
@@ -56,25 +46,25 @@ public class ProductDefinitionsController {
         return "redirect:/admin/products";
     }
 
-    @GetMapping("/products/create")
+    @GetMapping("/products/create")                     // incorporated viewmodel
     protected String createProductDefinition(Model model) {
         model.addAttribute("product", new ProductsDefinitionOverviewViewModel());
         return "productDefinitionsCreate";
     }
 
-    @GetMapping("/products/{productId}/edit")
+    @GetMapping("/products/{productId}/edit")               // incorporated viewModel
     protected String editProductDefinition(@PathVariable("productId") Long productId, Model model) {
         Optional<ProductDefinition> productDefinition = productDefinitionService.findById(productId);
         Mapper mapper = new Mapper();
 
         if (productDefinition.isPresent()) {
-            model.addAttribute("product", mapper.productDefToProductViewModel(productDefinition.get()));
+            model.addAttribute("product", mapper.productDefToProductDefVM(productDefinition.get()));
             return "productDefinitionsCreate";
         }
         return "redirect:/admin/products";
     }
 
-    @PostMapping("/products/create")
+    @PostMapping("/products/create")                 // DTO/ViewModel nodig?
     protected String submitProductDefinition(@ModelAttribute("productDefinition") ProductDefinition productDefinition, BindingResult result) {
         if (!result.hasErrors()) {
             productDefinitionService.save(productDefinition);
