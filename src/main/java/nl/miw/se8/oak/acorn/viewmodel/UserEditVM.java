@@ -14,11 +14,11 @@ public class UserEditVM {
 
     private Long id;
     private String email;
+    private String name;
     private String oldPassword;
     private String newPassword;
     private String newPasswordCheck;
-    private String name;
-    private String newName;
+
 
     public UserEditVM() {
     }
@@ -27,7 +27,6 @@ public class UserEditVM {
         this.id = acornUser.getId();
         this.email = acornUser.getEmail();
         this.name = acornUser.getName();
-        this.newName = this.name;
     }
 
     public void clearPasswords() {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,57 +79,59 @@ public class UserController {
         return "userProfile";
     }
 
-//    @PostMapping("/profile")
-//    protected String editProfile(@ModelAttribute("userEditView") UserEditVM userEditView,
-//                                 BindingResult result,
-//                                 Model model) {
-//        if (!result.hasErrors()) {
-//            Optional<AcornUser> optionalAcornUser = userService.findById(userEditView.getId());
-//            if (optionalAcornUser.isPresent()) {
-//                AcornUser acornUser = optionalAcornUser.get();
-//
-//                // EMAIL
-//                if (userEditView.getEmail() != null) {
-//                    if (!userEditView.getEmail().equals(acornUser.getEmail())) {
-//                        if (!validEmail(userEditView, model)) {
-//                            model.addAttribute("userEditView", userEditView);
-//                            return "userProfile";
-//                        }
-//                        updateEmail(userEditView, acornUser, model);
-//                    }
-//                }
-//
-//                // PROFILE NAME
-//                if (userEditView.getNewName() != null) {
-//                    if (!validName(userEditView, model)) {
-//                        model.addAttribute("userEditView", userEditView);
-//                        return "userProfile";
-//                    }
-//                    updateName(userEditView, acornUser, model);
-//                }
-//
-//                // PASSWORD
-//                if (userEditView.getOldPassword() != null &&
-//                    userEditView.getNewPassword() != null &&
-//                    userEditView.getNewPasswordCheck() != null) {
-//                    if (!validPassword(userEditView, model)) {
-//                        userEditView.clearPasswords();
-//                        model.addAttribute("userEditView", userEditView);
-//                        return "userProfile";
-//                    }
-//                    updatePassword(userEditView, acornUser, model);
-//                }
-//
-//                userService.save(acornUser);
-//                SecurityController.updatePrincipal(acornUser);
-//            }
-//        }
-//
-//        // Do not redirect in order to show user feedback on success
-//        userEditView.clearPasswords();
-//        model.addAttribute("userEditView", userEditView);
-//        return "userProfile";
-//    }
+    @PostMapping("/profile")
+    protected String editProfile(@ModelAttribute("userEditView") UserEditVM userEditVM,
+                                 BindingResult result,
+                                 Model model) {
+        if (!result.hasErrors()) {
+            Optional<AcornUser> optionalAcornUser = userService.findById(userEditVM.getId());
+            if (optionalAcornUser.isPresent()) {
+                AcornUser acornUser = optionalAcornUser.get();
+
+                // EMAIL
+                if (userEditVM.getEmail() != null) {
+                    if (!userEditVM.getEmail().equals(acornUser.getEmail())) {
+                        if (!validEmail(userEditVM.getEmail(), model)) {
+                            model.addAttribute("userEditVM", userEditVM);
+                            return "userProfile";
+                        }
+                        updateEmail(userEditVM, acornUser, model);
+                    }
+                }
+
+                // PROFILE NAME
+                if (userEditVM.getName() != null) {
+                    if (!userEditVM.getName().equals(acornUser.getName())) {
+                        if (!validName(userEditVM.getName(), model)) {
+                            model.addAttribute("userEditVM", userEditVM);
+                            return "userProfile";
+                        }
+                        updateName(userEditVM, acornUser, model);
+                    }
+                }
+
+                // PASSWORD
+                if (userEditVM.getOldPassword() != null &&
+                    userEditVM.getNewPassword() != null &&
+                    userEditVM.getNewPasswordCheck() != null) {
+                    if (!validPassword(userEditVM.getNewPassword(), userEditVM.getNewPasswordCheck(), model)) {
+                        userEditVM.clearPasswords();
+                        model.addAttribute("userEditVM", userEditVM);
+                        return "userProfile";
+                    }
+                    updatePassword(userEditVM, acornUser, model);
+                }
+
+                userService.save(acornUser);
+                SecurityController.updatePrincipal(acornUser);
+            }
+        }
+
+        // Do not redirect in order to show user feedback on success
+        userEditVM.clearPasswords();
+        model.addAttribute("userEditVM", userEditVM);
+        return "userProfile";
+    }
 
     private boolean validEmail(String email, Model model) {
         if (!emailLongEnough(email)) {
@@ -182,9 +185,8 @@ public class UserController {
     }
 
     private void updateName(UserEditVM userEditVM, AcornUser acornUser, Model model) {
-        if (!userEditVM.getNewName().equals(acornUser.getName())) {
-            acornUser.setName(userEditVM.getNewName());
-            userEditVM.setName(userEditVM.getNewName());
+        if (!userEditVM.getName().equals(acornUser.getName())) {
+            userEditVM.setName(userEditVM.getName());
             model.addAttribute("successMessage", INFO_NAME_UPDATE_SUCCESS);
         }
     }
@@ -216,8 +218,5 @@ public class UserController {
     public static boolean passwordLongEnough(String password) {
         return password.length() > AcornUser.MINIMAL_PASSWORD_LENGTH;
     }
-
-    // TODO - Is this good practice?
-
 
 }
