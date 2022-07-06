@@ -14,6 +14,16 @@
         <h2>Pantry Members</h2>
 
         <div class="table-container scrollbar-thin">
+
+<!--            <form th:action="@{/pantry/{pantryId}/members/add}" method="post" th:object="${pantryToPantryEditViewmodel}">-->
+<!--            <label for="addPantryMember">Add new pantry member:</label>-->
+<!--            <input type="text" id="addPantryMember" name="addPantryMember" placeholder="new Pantrymember name">-->
+<!--            </form>-->
+
+            <div class="d-flex flex-row my-4">
+                <a href="/pantry/{pantryId}/members/addMember"><button type="button" class="btn btn-primary">Add new member</button></a>
+            </div>
+
             <table th:if="${pantryMembers.size > 0}" class="table">
                 <thead>
                 <tr>
@@ -32,7 +42,7 @@
                 </tbody>
 
             </table>
-            
+
         </div>
 
     </div>
