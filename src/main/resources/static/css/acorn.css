@@ -165,19 +165,21 @@ input[type="date"] {
     padding: .2rem .8rem;
 }
 
-/* --------------------------------------- Radio */
-.radioDiv:hover {
+/* --------------------------------------- Adding PantryProducts */
+
+.pantryProductButton {
+    width: 100%;
+    text-align: left;
+    padding: .2rem 2rem;
+    background-color: var(--body);
+    border: .1rem solid var(--primary-color-matte);
+    margin: .2rem 0;
+    transition: .3s;
+}
+
+.pantryProductButton:hover {
     background-color: var(--primary-color-extralight);
-}
-
-.radioLabel {
-    margin: 0;
-    padding: .4rem;
-    width: 100%;
-}
-
-.productRadioLabel {
-    width: 100%;
+    border-color: var(--primary-color);
 }
 
 /* --------------------------------------- Other */

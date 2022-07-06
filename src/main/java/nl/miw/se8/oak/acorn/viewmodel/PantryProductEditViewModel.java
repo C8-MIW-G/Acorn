@@ -2,30 +2,27 @@ package nl.miw.se8.oak.acorn.viewmodel;
 
 import lombok.Getter;
 import lombok.Setter;
+import nl.miw.se8.oak.acorn.model.PantryProduct;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-
 
 /**
  * @author Sylvia Kazakou
  *
  */
 
-@Getter@Setter
+@Getter @Setter
 public class PantryProductEditViewModel {
 
-    public static final long DEFAULT_ID = -1L;
     private Long id;
-
-    private String productDefinitionName;
-
+    private Long pantryId;
+    private Long productDefinitionId;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate expirationDate;
 
-    private Long pantryId;
-
-    private Long productDefinitionId;
     public PantryProductEditViewModel() {
-        this.id = DEFAULT_ID;
+        this.id = PantryProduct.DEFAULT_ID;
     }
 
 }
