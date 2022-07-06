@@ -41,7 +41,6 @@ public class Mapper {
         adminPantryOverviewVM.setId(pantry.getId());
         adminPantryOverviewVM.setName(pantry.getName());
         return adminPantryOverviewVM;
-
     }
 
     public PantryProductEditViewModel pantryProductToPantryProductEditViewModel(PantryProduct pantryProduct) {
