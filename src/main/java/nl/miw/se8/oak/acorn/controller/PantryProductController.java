@@ -85,7 +85,7 @@ public class PantryProductController {
         model.addAttribute("productDefinitions", productDefinitions);
 
         // Load the page using the model
-        return "addEditPantryProduct";
+        return "pantryProductAdd";
     }
 
     @GetMapping("/pantry/{pantryId}/edit/{pantryProductId}")
@@ -94,8 +94,9 @@ public class PantryProductController {
                                       Model model) {
         Optional<PantryProduct> pantryProduct = pantryProductService.findById(pantryProductId);
         if (pantryProduct.isPresent()) {
-            model.addAttribute("pantryProduct", pantryProduct.get());
-            return "addEditPantryProduct";
+            PantryProductEditViewModel pantryProductVM = Mapper.pantryProductToPantryProductEditViewModel(pantryProduct.get());
+            model.addAttribute("pantryProduct", pantryProductVM);
+            return "pantryProductEdit";
         }
         return "redirect:/pantry/" + pantryId;
     }
@@ -114,6 +115,16 @@ public class PantryProductController {
 
             pantryProductService.save(pantryProduct);
         }
+        return "redirect:/pantry/" + pantryProductVM.getPantryId();
+    }
+
+    @PostMapping("pantry/{pantryId}/edit")
+    protected String editPantryProduct(@ModelAttribute("pantryProduct") PantryProductEditViewModel pantryProductVM, BindingResult result) {
+       if (!result.hasErrors() && pantryProductVM.getExpirationDate() != null) {
+           PantryProduct pantryProduct = pantryProductService.findById(pantryProductVM.getId()).get();
+           pantryProduct.setExpirationDate(pantryProductVM.getExpirationDate());
+           pantryProductService.save(pantryProduct);
+       }
         return "redirect:/pantry/" + pantryProductVM.getPantryId();
     }
 

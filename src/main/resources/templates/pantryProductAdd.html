@@ -9,13 +9,11 @@
 <main>
     <div class="content-medium">
 
-        <h2 th:if="${pantryProduct.id == -1}">Add a product to the pantry</h2>
-        <h2 th:unless="${pantryProduct.id == -1}">Edit a product</h2>
+        <h2>Add product</h2>
 
         <form th:action="@{/pantry/{pantryId}/add(pantryId=${pantryProduct.pantryId})}" method="post" th:object="${pantryProduct}" id ="the-form">
             <input type="hidden" th:field="*{id}">
             <input type="hidden" th:field="*{pantryId}">
-            <input type="hidden" th:field="*{productDefinitionId}" th:unless="${pantryProduct.id == -1}">
 
             <div class="table-container scrollbar-thin" th:if="${pantryProduct.id == -1}">
                 <div th:each="product : ${productDefinitions}">
