@@ -100,11 +100,12 @@ public class MapperTest {
     @DisplayName("Tests the mapper method that converts a pantryProduct to a PantryProductEditViewModel")
     void pantryProductToPantryProductEditViewModel() {
         PantryProduct pantryProduct = new PantryProduct();
-        pantryProduct.setId(1L);
+        pantryProduct.setId(-1L);
 
         Mapper mapper = new Mapper();
         PantryProductEditViewModel pantryProductEditViewModel = mapper.pantryProductToPantryProductEditViewModel(pantryProduct);
 
-        assertInstanceOf(PantryProductEditViewModel.class, pantryProductEditViewModel );
-        assertEquals(pantryProductEditViewModel.getId(), 1L,"Id is correct");}
+        assertInstanceOf(PantryProductEditViewModel.class, pantryProductEditViewModel);
+        assertEquals(pantryProductEditViewModel.getId(), -1L,"Id is correct");
+    }
 }
