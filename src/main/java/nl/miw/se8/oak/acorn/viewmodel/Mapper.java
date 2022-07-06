@@ -44,14 +44,16 @@ public class Mapper {
 
     }
 
-    public PantryProductEditViewModel pantryProductToPantryProductEditViewModel(PantryProduct pantryProduct) {
+    public static PantryProductEditViewModel pantryProductToPantryProductEditViewModel(PantryProduct pantryProduct) {
         PantryProductEditViewModel pantryProductEditViewModel = new PantryProductEditViewModel();
         pantryProductEditViewModel.setId(pantryProduct.getId());
-        if (pantryProduct == null) {
-            pantryProductEditViewModel.setProductDefinitionName(pantryProduct.getProductDefinition().getName());
+
+        if (pantryProduct.getId() != PantryProduct.DEFAULT_ID) {
             pantryProductEditViewModel.setPantryId(pantryProduct.getPantry().getId());
-            pantryProductEditViewModel.setExpirationDate(pantryProduct.getExpirationDate());
+//            pantryProductEditViewModel.setProductDefinitionName(pantryProduct.getProductDefinition().getName());
+//            pantryProductEditViewModel.setExpirationDate(pantryProduct.getExpirationDate());
         }
+
         return pantryProductEditViewModel;
     }
 

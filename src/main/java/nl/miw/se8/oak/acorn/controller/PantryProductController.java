@@ -4,6 +4,8 @@ import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryProduct;
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.service.*;
+import nl.miw.se8.oak.acorn.viewmodel.Mapper;
+import nl.miw.se8.oak.acorn.viewmodel.PantryProductEditViewModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,29 +75,17 @@ public class PantryProductController {
 
     @GetMapping("/pantry/{pantryId}/add")
     protected String addNewItemInPantry(@PathVariable("pantryId") Long pantryId, Model model) {
-        PantryProduct pantryProduct = new PantryProduct();
-        Optional<Pantry> pantry = pantryService.findById(pantryId);
-        if (pantry.isPresent()){
-            pantryProduct.setPantry(pantry.get());
-        }
-        model.addAttribute("pantryProduct", pantryProduct);
+        // Add viewmodel to model
+        PantryProductEditViewModel pantryProductVM = Mapper.pantryProductToPantryProductEditViewModel(new PantryProduct());
+        pantryProductVM.setPantryId(pantryId);
+        model.addAttribute("pantryProduct", pantryProductVM);
 
-        List<ProductDefinition> products = productDefinitionService.findAll();
-        model.addAttribute("productDefinitions", products);
+        // Add list of product definitions to model
+        List<ProductDefinition> productDefinitions = productDefinitionService.findAll();
+        model.addAttribute("productDefinitions", productDefinitions);
 
+        // Load the page using the model
         return "addEditPantryProduct";
-    }
-
-    @PostMapping("/pantry/{pantryId}/add")
-    protected String savePantryProduct(
-            @ModelAttribute("pantryProduct") PantryProduct pantryProduct,
-            BindingResult result) {
-        if (!result.hasErrors()) {
-            if (pantryProduct.getProductDefinition() != null) {
-                pantryProductService.save(pantryProduct);
-            }
-        }
-        return "redirect:/pantry/" + pantryProduct.getPantry().getId();
     }
 
     @GetMapping("/pantry/{pantryId}/edit/{pantryProductId}")
@@ -107,6 +98,19 @@ public class PantryProductController {
             return "addEditPantryProduct";
         }
         return "redirect:/pantry/" + pantryId;
+    }
+
+    @PostMapping("/pantry/{pantryId}/add")
+    protected String savePantryProduct(@ModelAttribute("pantryProduct") PantryProductEditViewModel pantryProductVM, BindingResult result) {
+        if (!result.hasErrors()) {
+            PantryProduct pantryProduct = new PantryProduct();
+            pantryProduct.setId(pantryProductVM.getId());
+            pantryProduct.setPantry(pantryService.findById(pantryProductVM.getPantryId()).get());
+            pantryProduct.setProductDefinition(productDefinitionService.findById(pantryProductVM.getProductDefinitionId()).get());
+//            pantryProduct.setExpirationDate(LocalDate.now());
+            pantryProductService.save(pantryProduct);
+        }
+        return "redirect:/pantry/" + pantryProductVM.getPantryId();
     }
 
 }
