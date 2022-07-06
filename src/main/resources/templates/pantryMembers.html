@@ -24,7 +24,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="pantryMember : ${acornUser}">
-                    <td th:text="${pantryMember.id}" class="text-align-right"></td>
+                    <input type="hidden" th:text="${pantryMember.id}" class="text-align-right">
                     <td th:text="${pantryMember.name}"></td>
                 </tr>
                 </tbody>
