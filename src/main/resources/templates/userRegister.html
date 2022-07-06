@@ -19,7 +19,7 @@
 
         <div class="basket">
             <h2 class="mb-5">Sign up to start reducing your food-waste!</h2>
-            <form th:action="@{/register}" method="post" th:object="${userEditView}">
+            <form th:action="@{/register}" method="post" th:object="${userRegisterVM}">
                 <div class="form-group">
                     <label for="email">What is your e-mailaddress?</label>
                     <div class="form-group">
@@ -30,17 +30,17 @@
                     <label for="name">What can we call you?</label>
                     <span><sub>This is how others will see you.</sub></span>
                     <div class="form-group">
-                        <input type="text" id="name" th:field="*{newName}" class="input-text" placeholder="Enter your profile name.">
+                        <input type="text" id="name" th:field="*{name}" class="input-text" placeholder="Enter your profile name.">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password">Create a password</label>
                     <div class="form-group">
-                        <input type="password" id="password" th:field="*{newPassword}" class="input-text" placeholder="Create a password.">
+                        <input type="password" id="password" th:field="*{password}" class="input-text" placeholder="Create a password.">
                     </div>
                     <label for="passwordCheck">Confirm password</label>
                     <div class="form-group">
-                        <input type="password" id="passwordCheck" th:field="*{newPasswordCheck}" class="input-text" placeholder="Reenter your password.">
+                        <input type="password" id="passwordCheck" th:field="*{passwordCheck}" class="input-text" placeholder="Reenter your password.">
                     </div>
                 </div>
                 <div th:if="${errorMessage}" class="alert alert-info" role="alert">

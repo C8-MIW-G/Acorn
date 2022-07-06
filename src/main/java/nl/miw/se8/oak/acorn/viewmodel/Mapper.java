@@ -54,4 +54,20 @@ public class Mapper {
         return pantryProductEditViewModel;
     }
 
+    public static AcornUser userRegisterVMToUser(UserRegisterVM userRegisterVM) {
+        AcornUser acornUser = new AcornUser();
+        acornUser.setEmail(userRegisterVM.getEmail());
+        acornUser.setName(userRegisterVM.getName());
+        acornUser.setPassword(userRegisterVM.getPassword());
+        return acornUser;
+    }
+
+    public static UserEditVM userToUserEditVM(AcornUser acornUser) {
+        UserEditVM userEditVM = new UserEditVM();
+        userEditVM.setId(acornUser.getId());
+        userEditVM.setEmail(acornUser.getEmail());
+        userEditVM.setName(acornUser.getName());
+        return userEditVM;
+    }
+
 }
