@@ -7,6 +7,8 @@ import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.service.AcornUserService;
 import nl.miw.se8.oak.acorn.service.PantryService;
 import nl.miw.se8.oak.acorn.service.PantryUserService;
+import nl.miw.se8.oak.acorn.viewmodel.Mapper;
+import nl.miw.se8.oak.acorn.viewmodel.PantryMemberVM;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +41,12 @@ public class PantryUserController {
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isPresent()) {
             List<PantryUser> pantryUsers = pantryUserService.findPantryUserByPantry(pantry.get());
-            model.addAttribute("pantryUser", pantryUsers);
+            List<PantryMemberVM> pantryMemberVMS = new ArrayList<>();
+
+            for (PantryUser pantryUser: pantryUsers) {
+                pantryMemberVMS.add(Mapper.pantryUserToPantryMemberVM(pantryUser));
+            }
+            model.addAttribute("pantryMembers", pantryMemberVMS);
         }
         return "pantryMembers";
     }

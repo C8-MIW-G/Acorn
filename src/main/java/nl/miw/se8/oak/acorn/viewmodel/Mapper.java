@@ -1,9 +1,6 @@
 package nl.miw.se8.oak.acorn.viewmodel;
 
-import nl.miw.se8.oak.acorn.model.AcornUser;
-import nl.miw.se8.oak.acorn.model.Pantry;
-import nl.miw.se8.oak.acorn.model.PantryProduct;
-import nl.miw.se8.oak.acorn.model.ProductDefinition;
+import nl.miw.se8.oak.acorn.model.*;
 
 public class Mapper {
 
@@ -70,4 +67,11 @@ public class Mapper {
         return userEditVM;
     }
 
+    public static PantryMemberVM pantryUserToPantryMemberVM(PantryUser pantryUser) {
+        PantryMemberVM pantryMemberVM = new PantryMemberVM();
+        pantryMemberVM.setPantryUserId(pantryUser.getId());
+        pantryMemberVM.setAcornUserName(pantryUser.getUser().getName());
+        pantryMemberVM.setAcornUserEmail(pantryUser.getUser().getEmail());
+        return pantryMemberVM;
+    }
 }
