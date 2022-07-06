@@ -13,10 +13,14 @@
 
         <form th:action="@{/pantry/{pantryId}/edit(pantryId=${pantryProduct.pantryId})}" method="post" th:object="${pantryProduct}" id ="the-form">
             <input type="hidden" th:field="*{id}">
-            <div>
-                <input type="date" th:field="*{expirationDate}">
+            <div class="my-5">
+                <div>
+                    <label for="date">Expiration date:</label>
+                </div>
+                <input id="date" type="date" th:field="*{expirationDate}">
             </div>
             <div class="overflow-auto">
+                <a th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}"><button type="button" class="btn btn-secondary">Return</button></a>
                 <button type="submit" class="btn btn-primary float-right">Submit changes</button>
             </div>
         </form>

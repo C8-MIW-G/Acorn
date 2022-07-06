@@ -9,6 +9,10 @@
 <main>
     <div class="content-medium">
 
+        <div class="d-flex flex-row my-4">
+            <a th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}"><button type="button" class="btn btn-secondary">Return</button></a>
+        </div>
+
         <h2>Add product</h2>
 
         <form th:action="@{/pantry/{pantryId}/add(pantryId=${pantryProduct.pantryId})}" method="post" th:object="${pantryProduct}" id ="the-form">
