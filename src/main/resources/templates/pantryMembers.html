@@ -14,7 +14,7 @@
         <h2>Pantry Members</h2>
 
         <div class="table-container scrollbar-thin">
-            <table th:if="${acornUser.size > 0}" class="table">
+            <table th:if="${pantryUser.size > 0}" class="table">
                 <thead>
                 <tr>
 <!--                    <th class="th-fixed-width-small text-align-right" scope="col">Id</th> TODO determine if this needs to be on the form-->
@@ -24,10 +24,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="pantryMember : ${acornUser}">
+                <tr th:each="pantryUser : ${pantryUser}">
 <!--                    <input type="hidden" th:text="${pantryMember.id}" class="text-align-right"> TODO determine if this needs to be on the form-->
-                    <td th:text="${pantryMember.name}"></td>
-                    <td th:text="${pantryMember.email}"></td>
+                    <td th:text="${pantryUser.user.name}"></td>
+                    <td th:text="${pantryUser.user.email}"></td>
                 </tr>
                 </tbody>
 

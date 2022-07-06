@@ -39,16 +39,10 @@ public class PantryUserController {
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isPresent()) {
             List<PantryUser> pantryUsers = pantryUserService.findPantryUserByPantry(pantry.get());
-            List<AcornUser> acornUsers = new ArrayList<>();
-
-            for (PantryUser pantryuser: pantryUsers) {
-                acornUsers.add(pantryuser.getUser());
-            }
-            model.addAttribute("acornUser", acornUsers);
+            model.addAttribute("pantryUser", pantryUsers);
         }
         return "pantryMembers";
     }
-
 
 
 
