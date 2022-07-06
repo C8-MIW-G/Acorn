@@ -20,12 +20,12 @@
             <div class="table-container scrollbar-thin" th:if="${pantryProduct.id == -1}">
                 <div th:each="product : ${productDefinitions}">
                     <button type="button"
+                            class="pantryProductButton"
                             data-toggle="modal"
                             data-target="#myModal"
                             th:data-product-id="${product.id}"
                             th:data-product-name="${product.name}"
-                            th:text="${product.name}"
-                            th:value="${product.id}">
+                            th:text="${product.name}">
                     </button>
                 </div>
             </div>
