@@ -46,8 +46,8 @@ public class Mapper {
 
         if (pantryProduct.getId() != PantryProduct.DEFAULT_ID) {
             pantryProductEditViewModel.setPantryId(pantryProduct.getPantry().getId());
-//            pantryProductEditViewModel.setProductDefinitionName(pantryProduct.getProductDefinition().getName());
-//            pantryProductEditViewModel.setExpirationDate(pantryProduct.getExpirationDate());
+            pantryProductEditViewModel.setProductDefinitionId(pantryProduct.getProductDefinition().getId());
+            pantryProductEditViewModel.setExpirationDate(pantryProduct.getExpirationDate());
         }
 
         return pantryProductEditViewModel;
