@@ -115,8 +115,7 @@ h2 {
 .btn-members {
     color: var(--white);
     background-color: #3f95e0;
-    position: fixed;
-    right: 55%;
+    margin-left: 1rem;
 }
 
 .btn-members:hover {

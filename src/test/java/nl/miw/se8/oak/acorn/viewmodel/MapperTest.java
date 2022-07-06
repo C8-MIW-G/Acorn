@@ -1,9 +1,6 @@
 package nl.miw.se8.oak.acorn.viewmodel;
 
-import nl.miw.se8.oak.acorn.model.AcornUser;
-import nl.miw.se8.oak.acorn.model.Pantry;
-import nl.miw.se8.oak.acorn.model.PantryProduct;
-import nl.miw.se8.oak.acorn.model.ProductDefinition;
+import nl.miw.se8.oak.acorn.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,6 +45,30 @@ public class MapperTest {
     }
 
     @Test
+    @DisplayName("Tests conversion from PantryUser to a PantryMemberVM " +
+            "using id, name and email attributes")
+    void pantryUserToPantryMemberVM() {
+        PantryUser testPantryUser = new PantryUser();
+        AcornUser testAcornUser = new AcornUser();
+
+        testAcornUser.setEmail("test@test.com");
+        testAcornUser.setName("Test");
+        testPantryUser.setId(999L);
+        testPantryUser.setUser(testAcornUser);
+
+        PantryMemberVM testVM = Mapper.pantryUserToPantryMemberVM(testPantryUser);
+        assertNotNull(testVM, "A viewModel should be present, but it is not");
+        assertEquals(999L, testVM.getPantryUserId(),"The returned ID value should be 999L, " +
+                "but something else was returned");
+        assertEquals("test@test.com",testVM.getAcornUserEmail(), "The returned string should be " +
+                "'test@test.com', but something else was returned");
+        assertEquals("Test", testVM.getAcornUserName(), "The returned string should be 'Test', " +
+                "but something else was returned");
+
+    }
+
+
+    @Test
     @DisplayName("Tests conversion from Productdefinition to a ProductDefinitionOverviewViewModel " +
             "using id and name attributes")
     void productDefToProductViewModel() {
@@ -59,7 +80,7 @@ public class MapperTest {
         ProductsDefinitionOverviewViewModel testViewModel = mapper.productDefToProductDefVM(testProduct);
 
         assertNotNull(testViewModel, "A ProductDefinitionOverviewViewModel should be present, but it is not");
-        assertEquals(999L, testProduct.getId(), "The returned ID vlue should be 999L," +
+        assertEquals(999L, testProduct.getId(), "The returned ID value should be 999L," +
                 "But something else was returned");
         assertEquals("Test", testProduct.getName(), "The name 'Test'  should have been returned," +
                 "But something else was returned");
