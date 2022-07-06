@@ -104,15 +104,14 @@ public class PantryProductController {
     @PostMapping("/pantry/{pantryId}/add")
     protected String savePantryProduct(@ModelAttribute("pantryProduct") PantryProductEditViewModel pantryProductVM, BindingResult result) {
         if (!result.hasErrors()) {
+            // This is basically a mapper method, but it relies on different services that can't be accessed in the Mapper class.
             PantryProduct pantryProduct = new PantryProduct();
             pantryProduct.setId(pantryProductVM.getId());
             pantryProduct.setPantry(pantryService.findById(pantryProductVM.getPantryId()).get());
             pantryProduct.setProductDefinition(productDefinitionService.findById(pantryProductVM.getProductDefinitionId()).get());
-
             if (pantryProductVM.getExpirationDate() != null) {
                 pantryProduct.setExpirationDate(pantryProductVM.getExpirationDate());
             }
-
             pantryProductService.save(pantryProduct);
         }
         return "redirect:/pantry/" + pantryProductVM.getPantryId();
@@ -120,11 +119,15 @@ public class PantryProductController {
 
     @PostMapping("pantry/{pantryId}/edit")
     protected String editPantryProduct(@ModelAttribute("pantryProduct") PantryProductEditViewModel pantryProductVM, BindingResult result) {
-       if (!result.hasErrors() && pantryProductVM.getExpirationDate() != null) {
-           PantryProduct pantryProduct = pantryProductService.findById(pantryProductVM.getId()).get();
+        PantryProduct pantryProduct = pantryProductService.findById(pantryProductVM.getId()).get();
+
+        if (!result.hasErrors() && pantryProductVM.getExpirationDate() != null) {
            pantryProduct.setExpirationDate(pantryProductVM.getExpirationDate());
-           pantryProductService.save(pantryProduct);
-       }
+       } else {
+            pantryProduct.setExpirationDate(null);
+        }
+
+        pantryProductService.save(pantryProduct);
         return "redirect:/pantry/" + pantryProductVM.getPantryId();
     }
 

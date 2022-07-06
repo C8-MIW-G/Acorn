@@ -21,8 +21,6 @@ public class PantryProductEditViewModel {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate expirationDate;
 
-    public PantryProductEditViewModel() {
-        this.id = PantryProduct.DEFAULT_ID;
-    }
+    public PantryProductEditViewModel() { }
 
 }
