@@ -107,7 +107,11 @@ public class PantryProductController {
             pantryProduct.setId(pantryProductVM.getId());
             pantryProduct.setPantry(pantryService.findById(pantryProductVM.getPantryId()).get());
             pantryProduct.setProductDefinition(productDefinitionService.findById(pantryProductVM.getProductDefinitionId()).get());
-//            pantryProduct.setExpirationDate(LocalDate.now());
+
+            if (pantryProductVM.getExpirationDate() != null) {
+                pantryProduct.setExpirationDate(pantryProductVM.getExpirationDate());
+            }
+
             pantryProductService.save(pantryProduct);
         }
         return "redirect:/pantry/" + pantryProductVM.getPantryId();
