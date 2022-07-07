@@ -98,8 +98,9 @@ public class PantryController {
     protected String renamePantry(@Valid @ModelAttribute("pantry") Pantry pantry,
                                   BindingResult result,
                                   @AuthenticationPrincipal AcornUser acornUser) {
+        boolean newPantry = pantry.getId() == -1;
 
-        if (!authorizationService.userCanAccessPantry(pantry.getId())) {
+        if (!newPantry && !authorizationService.userCanAccessPantry(pantry.getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
@@ -107,7 +108,7 @@ public class PantryController {
             Pantry savedPantry = pantryService.save(pantry);
 
             // Set current user as pantry administrator for new pantry
-            if (pantry.getId() == -1) {
+            if (newPantry) {
                 PantryUser pantryUser = new PantryUser(acornUser, savedPantry, true);
                 pantryUserService.save(pantryUser);
             }
