@@ -1,9 +1,7 @@
 package nl.miw.se8.oak.acorn.controller;
 
-import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryUser;
-import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.service.AcornUserService;
 import nl.miw.se8.oak.acorn.service.PantryService;
 import nl.miw.se8.oak.acorn.service.PantryUserService;
@@ -18,17 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Author: Thijs van Blanken
- * Created on: 27-6-2022
- */
 @Controller
 public class PantryUserController {
 
     PantryUserService pantryUserService;
-
-    AcornUserService acornUserService;
-
     PantryService pantryService;
 
     public PantryUserController(PantryUserService pantryUserService, PantryService pantryService) {
@@ -42,7 +33,6 @@ public class PantryUserController {
         if (pantry.isPresent()) {
             List<PantryUser> pantryUsers = pantryUserService.findPantryUserByPantry(pantry.get());
             List<PantryMemberVM> pantryMemberVMS = new ArrayList<>();
-
             for (PantryUser pantryUser: pantryUsers) {
                 pantryMemberVMS.add(Mapper.pantryUserToPantryMemberVM(pantryUser));
             }
@@ -50,8 +40,5 @@ public class PantryUserController {
         }
         return "pantryMembers";
     }
-
-
-
 
 }
