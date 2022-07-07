@@ -10,10 +10,11 @@ modal.on('show.bs.modal', function (event) {
     let productName = button.data('product-name')
 
     // Inject values into modal
-    var modal = $(this)
     modal.find('#productName').text(productName)
     modal.find('#productId').val(productId.toString())
+})
 
+modal.on('shown.bs.modal', function () {
     // Autofocus submit button
-    $('submitButton').focus()
+    modal.find('#submitButton').focus();
 })
