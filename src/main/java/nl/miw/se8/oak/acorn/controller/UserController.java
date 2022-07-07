@@ -25,7 +25,7 @@ public class UserController {
     public static final String ERROR_EMAIL_INVALID = "The e-mailaddress you entered is not valid.";
     public static final String ERROR_EMAIL_IN_USE = "That e-mailaddress is already in use.";
     public static final String ERROR_PASSWORD_INCORRECT = "You entered an incorrect password";
-    public static final String ERROR_PASSWORD_INVALID = "The password you entered is not valid.";
+    public static final String ERROR_PASSWORD_INVALID = "The password has to be at least 5 characters long.";
     public static final String ERROR_PASSWORDS_NO_MATCH = "The passwords you entered are not an exact match.";
     public static final String INFO_EMAIL_UPDATE_SUCCESS = "Successfully changed your email!";
     public static final String INFO_PASSWORD_UPDATE_SUCCESS = "Successfully changed your password!";
