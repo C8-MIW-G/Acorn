@@ -2,7 +2,6 @@ package nl.miw.se8.oak.acorn.controller;
 
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryUser;
-import nl.miw.se8.oak.acorn.service.AcornUserService;
 import nl.miw.se8.oak.acorn.service.PantryService;
 import nl.miw.se8.oak.acorn.service.PantryUserService;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
@@ -39,6 +38,13 @@ public class PantryUserController {
             model.addAttribute("pantryMembers", pantryMemberVMS);
         }
         return "pantryMembers";
+    }
+
+    @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/delete")
+    protected String deletePantryUser(@PathVariable("pantryUserId") Long pantryUserId,
+                                      @PathVariable("pantryId") Long pantryId) {
+        pantryUserService.deleteById(pantryUserId);
+        return "redirect:/pantry/{pantryId}/members";
     }
 
 }

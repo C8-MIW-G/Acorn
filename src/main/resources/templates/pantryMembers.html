@@ -17,7 +17,6 @@
             <table th:if="${pantryMembers.size > 0}" class="table">
                 <thead>
                 <tr>
-<!--                    <th class="th-fixed-width-small text-align-right" scope="col">Id</th> TODO determine if this needs to be on the form-->
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th class="th-fixed-width-small"></th>
@@ -25,9 +24,11 @@
                 </thead>
                 <tbody>
                 <tr th:each="pantryMember : ${pantryMembers}">
-<!--                    <input type="hidden" th:text="${pantryMember.id}" class="text-align-right"> TODO determine if this needs to be on the form-->
                     <td th:text="${pantryMember.acornUserName}"></td>
                     <td th:text="${pantryMember.acornUserEmail}"></td>
+                    <td>
+                        <a th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">remove</a>
+                    </td>
                 </tr>
                 </tbody>
 
