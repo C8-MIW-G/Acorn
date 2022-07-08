@@ -83,6 +83,7 @@ public class Mapper {
         PantryMemberVM pantryMemberVM = new PantryMemberVM();
         pantryMemberVM.setPantryUserId(pantryUser.getId());
         pantryMemberVM.setAcornUserName(pantryUser.getUser().getName());
+        pantryMemberVM.setUserId(pantryUser.getUser().getId());
         return pantryMemberVM;
     }
 

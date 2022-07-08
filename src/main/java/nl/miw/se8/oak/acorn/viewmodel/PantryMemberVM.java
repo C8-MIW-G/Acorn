@@ -9,4 +9,5 @@ public class PantryMemberVM {
     private Long pantryUserId;
     private String acornUserName;
     private String acornUserEmail;
+    private Long userId;
 }

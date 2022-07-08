@@ -52,6 +52,7 @@ public class PantryUserController {
                 pantryMemberVMS.add(Mapper.pantryUserToPantryMemberVM(pantryUser));
             }
             model.addAttribute("pantryMembers", pantryMemberVMS);
+            model.addAttribute("currentUserId", SecurityController.getCurrentUser().getId());
         }
         return "pantryMembers";
     }
@@ -86,9 +87,11 @@ public class PantryUserController {
     protected String deletePantryUser(@PathVariable("pantryUserId") Long pantryUserId,
                                       @PathVariable("pantryId") Long pantryId) {
         Long userId = SecurityController.getCurrentUser().getId();
-        Optional<PantryUser> pantryUser = pantryUserService.findPantryUserByUserIdAndPantryId(userId, pantryId);
-        if(pantryUser.get().isAdministrator()) {
-            pantryUserService.deleteById(pantryUserId);
+        Optional<PantryUser> currentUser = pantryUserService.findPantryUserByUserIdAndPantryId(userId, pantryId);
+        if(currentUser.isPresent() && currentUser.get().isAdministrator()) {
+            if(userId != pantryUserId) {
+                pantryUserService.deleteById(pantryUserId);
+            }
         }
         return "redirect:/pantry/{pantryId}/members";
     }

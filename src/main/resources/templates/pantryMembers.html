@@ -37,7 +37,7 @@
                 <tr th:each="pantryMember : ${pantryMembers}">
                     <td th:text="${pantryMember.acornUserName}"></td>
                     <td>
-                        <a th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">remove</a>
+                        <a th:if="${pantryMember.getUserId() != currentUserId}"th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">remove</a>
                     </td>
                 </tr>
                 </tbody>
