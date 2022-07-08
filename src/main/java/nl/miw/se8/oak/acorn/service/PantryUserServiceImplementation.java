@@ -5,7 +5,6 @@ import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryUser;
 import nl.miw.se8.oak.acorn.repository.PantryUserRepository;
-import nl.miw.se8.oak.acorn.viewmodel.PantryMemberVM;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -72,8 +71,6 @@ public class PantryUserServiceImplementation implements PantryUserService{
         return true;
     }
 
-    public void saveBypantryAddPantryMemberVM(PantryMemberVM newMember) {
 
-    }
 
 }

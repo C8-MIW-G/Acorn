@@ -92,7 +92,11 @@ public class PantryUserController {
     @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/delete")
     protected String deletePantryUser(@PathVariable("pantryUserId") Long pantryUserId,
                                       @PathVariable("pantryId") Long pantryId) {
-        pantryUserService.deleteById(pantryUserId);
+        Long userId = SecurityController.getCurrentUser().getId();
+        Optional<PantryUser> pantryUser = pantryUserService.findPantryUserByUserIdAndPantryId(userId, pantryId);
+        if(pantryUser.get().isAdministrator()) {
+            pantryUserService.deleteById(pantryUserId);
+        }
         return "redirect:/pantry/{pantryId}/members";
     }
 
