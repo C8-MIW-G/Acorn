@@ -17,14 +17,14 @@ import static javax.persistence.CascadeType.ALL;
 public class Pantry {
 
     public static final long DEFAULT_ID = -1;
-    public static final int MIN_PANTRY_NAME_LENGTH = 2;
-    public static final String ERROR_NAME_TOO_SHORT = "Please enter a message of at least 2 characters";
+    public static final int MIN_PANTRY_NAME_LENGTH = 4;
+    public static final int MAX_PANTRY_NAME_LENGTH = 40;
+    public static final String ERROR_NAME_TOO_SHORT = "The pantry name should be between 4 and 40 characters long.";
     public static final String DEFAULT_PANTRY_NAME = "";
     public static final String DEFAULT_NAME = DEFAULT_PANTRY_NAME;
 
     @Id @GeneratedValue
     private Long id;
-    @Size(min = MIN_PANTRY_NAME_LENGTH, message = ERROR_NAME_TOO_SHORT)
     private String name;
     @OneToMany(mappedBy = "pantry",  cascade = ALL)
     private List<PantryProduct> pantryProducts;

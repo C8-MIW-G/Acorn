@@ -29,7 +29,6 @@
                 <tbody>
                 <tr th:each="pantryMember : ${pantryMembers}">
                     <td th:text="${pantryMember.acornUserName}"></td>
-<!--                    <td th:text="${pantryMember.acornUserEmail}"></td>-->
                     <td>
                         <a th:if="${pantryMembers.size > 1 } "th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">remove</a>
                     </td>
