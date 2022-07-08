@@ -49,10 +49,7 @@ h2 {
     top: 0;
     margin-bottom: 2rem;
     z-index: 9;
-}
-
-.navbar-right {
-    flex-grow: 0;
+    padding: 0 1rem;
 }
 
 .navbar-brand-custom {
@@ -61,10 +58,27 @@ h2 {
     font-size: 1.6rem;
     color: var(--primary-color);
     letter-spacing: .1rem;
+    transition: .2s;
+}
+
+.navbar-brand-custom:hover {
+    color: var(--primary-color-light)
+}
+
+.navbar-left {
+    flex-grow: 1;
+}
+
+.navbar-right, .admin-nav {
+    flex-grow: 0;
 }
 
 .admin-nav {
-    /*background-color: var(--primary-color-matte);*/
+    background-color: var(--primary-color-extralight);
+}
+
+.nav-item {
+    padding: .2rem;
 }
 
 /* --------------------------------------- Buttons */
