@@ -38,6 +38,7 @@ public class PantryUserController {
         this.authorizationService = authorizationService;
     }
 
+    // TODO - refactor into seperate methods that are more maintainable
     @GetMapping("/pantry/{pantryId}/members")
     protected String pantryMembers(@PathVariable("pantryId") Long pantryId, Model model) {
         Optional<Pantry> pantry = pantryService.findById(pantryId);
@@ -54,7 +55,14 @@ public class PantryUserController {
                 pantryMemberVMS.add(Mapper.pantryUserToPantryMemberVM(pantryUser));
             }
             model.addAttribute("pantryMembers", pantryMemberVMS);
-            model.addAttribute("currentUserId", SecurityController.getCurrentUser().getId());
+
+            Long currentUserId = SecurityController.getCurrentUser().getId();
+            Optional<PantryUser> pantryUser = pantryUserService.findPantryUserByUserIdAndPantryId(currentUserId, pantryId);
+            if (pantryUser.isPresent()) {
+                model.addAttribute("currentUserIsAdmin", pantryUser.get().isAdministrator());
+            }
+            model.addAttribute("currentUserId", currentUserId);
+
         }
         return "pantryMembers";
     }
@@ -72,7 +80,6 @@ public class PantryUserController {
     protected String createPantryUser(@PathVariable("pantryId") Long pantryId,
                                       @ModelAttribute("userEmail") String userEmail,
                                       RedirectAttributes redirectAttributes) {
-
         Optional<AcornUser> acornUser = acornUserService.findByEmail(userEmail);
         if (acornUser.isPresent()) {
             if (!pantryUserService.userIsInPantry(acornUser.get().getId(), pantryId)) {
