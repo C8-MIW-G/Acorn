@@ -11,11 +11,21 @@
 <main>
     <div class="content-medium basket overflow-auto">
 
-        <h2 >Add an AcornUser to your Pantry</h2>
+        <h2 >Add a new member to your Pantry</h2>
 
-        <div class="form-group">
-            <input type="text" id="email" class="input-text" placeholder="Enter your e-mailaddress.">
-        </div>
+
+
+        <form th:action="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}" method="post"></form>
+        <input type="text" th:value="${userEmail}" name="userEmail" id="userEmail" placeholder="e-mailadres"/>
+        <input type="submit" />
+
+<!--        <div class="form-group">-->
+<!--            <input type="text" id="email" class="input-text" placeholder="Enter your e-mailaddress.">-->
+<!--        </div>-->
+
+        </form>
+
+
 
     </div>
 </main>
