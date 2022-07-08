@@ -11,7 +11,7 @@ public class Mapper {
         return pantryEditVM;
     }
 
-    public Pantry pantryEditVMToPantry(PantryViewmodelIdName pantryEditVM) {
+    public static Pantry pantryEditVMToPantry(PantryViewmodelIdName pantryEditVM) {
         Pantry pantry = new Pantry();
         pantry.setId(pantryEditVM.getId());
         pantry.setName(pantryEditVM.getName());

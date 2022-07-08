@@ -5,6 +5,7 @@ import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryUser;
 import nl.miw.se8.oak.acorn.service.*;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
+import nl.miw.se8.oak.acorn.viewmodel.PantryProductEditViewModel;
 import nl.miw.se8.oak.acorn.viewmodel.PantryViewmodelIdName;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -74,10 +75,10 @@ public class PantryController {
         return "redirect:/pantrySelection";
     }
 
-    @GetMapping("/pantry/create")                   // FIXME does this need o be a DTO/ViewModel? i made it but it seems obsolete here.
+    @GetMapping("/pantry/create")
     protected String createPantry(Model model) {
         Pantry pantry = new Pantry();
-        model.addAttribute("pantryToPantryEditViewmodel",Mapper.pantryToPantryEditVM(pantry));
+        model.addAttribute("pantryVM",Mapper.pantryToPantryEditVM(pantry));
         return "pantryEdit.html";
     }
 
@@ -89,30 +90,33 @@ public class PantryController {
 
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isPresent()) {
-            model.addAttribute("pantryToPantryEditViewmodel", Mapper.pantryToPantryEditVM(pantry.get()));
+            model.addAttribute("pantryVM", Mapper.pantryToPantryEditVM(pantry.get()));
         }
         return "pantryEdit.html";
     }
 
     @PostMapping("/pantry/edit")
-    protected String renamePantry(@Valid @ModelAttribute("pantry") Pantry pantry,
+    protected String renamePantry(@Valid @ModelAttribute("pantryVM") PantryViewmodelIdName pantryVM,
                                   BindingResult result,
                                   @AuthenticationPrincipal AcornUser acornUser) {
-        boolean newPantry = pantry.getId() == -1;
+        boolean newPantry = pantryVM.getId() == -1;
 
-        if (!newPantry && !authorizationService.userCanAccessPantry(pantry.getId())) {
+        if (!newPantry && !authorizationService.userCanAccessPantry(pantryVM.getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        if (!result.hasErrors()) {
-            Pantry savedPantry = pantryService.save(pantry);
-
-            // Set current user as pantry administrator for new pantry
-            if (newPantry) {
-                PantryUser pantryUser = new PantryUser(acornUser, savedPantry, true);
-                pantryUserService.save(pantryUser);
-            }
+        if (result.hasErrors()) {
+            return "pantryEdit";
         }
+        
+        Pantry savedPantry = pantryService.save(Mapper.pantryEditVMToPantry(pantryVM));
+
+        // Set current user as pantry administrator for new pantry
+        if (newPantry) {
+            PantryUser pantryUser = new PantryUser(acornUser, savedPantry, true);
+            pantryUserService.save(pantryUser);
+        }
+
         return "redirect:/pantrySelection";
     }
 

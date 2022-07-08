@@ -30,12 +30,11 @@ public class MapperTest {
     @Test
     @DisplayName("Tests conversion from pantryViewModelIdName to a pantry object.")
     void pantryViewmodelIdNameToPantry() {
-        Mapper mapper = new Mapper();
         PantryViewmodelIdName testPantryVieModel = new PantryViewmodelIdName();
         testPantryVieModel.setId(999L);
         testPantryVieModel.setName("Test");
 
-        Pantry testPantry = mapper.pantryEditVMToPantry(testPantryVieModel);
+        Pantry testPantry = Mapper.pantryEditVMToPantry(testPantryVieModel);
 
         assertNotNull(testPantry, "A Pantry object should be present, but it is not");
         assertEquals(999L, testPantry.getId(), "The returned id value should be 999, " +
@@ -60,8 +59,6 @@ public class MapperTest {
         assertNotNull(testVM, "A viewModel should be present, but it is not");
         assertEquals(999L, testVM.getPantryUserId(),"The returned ID value should be 999L, " +
                 "but something else was returned");
-        assertEquals("test@test.com",testVM.getAcornUserEmail(), "The returned string should be " +
-                "'test@test.com', but something else was returned");
         assertEquals("Test", testVM.getAcornUserName(), "The returned string should be 'Test', " +
                 "but something else was returned");
 

@@ -9,19 +9,27 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <div class="content-large">
+    <div class="content-medium">
         <div class="basket form-group overflow-auto">
-            <h2 th:if="${pantryToPantryEditViewmodel.id == -1}">Create a pantry</h2>
-            <h2 th:unless="${pantryToPantryEditViewmodel.id == -1}">Edit a pantry</h2>
-            <form th:action="@{/pantry/edit}" method="post" th:object="${pantryToPantryEditViewmodel}">
-                <div class ="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">Name</label>
-                    <div class="col-sm-10">
+            <h2 th:if="${pantryVM.id == -1}">Create a pantry</h2>
+            <h2 th:unless="${pantryVM.id == -1}">Edit a pantry</h2>
+            <form th:action="@{/pantry/edit}" method="post" th:object="${pantryVM}">
+                <div class ="form-group">
+                    <div class="">
+                        <label for="name" class="col-form-label">Name</label>
+                    </div>
+                    <div class="">
                         <input type ="hidden" id="ID" th:field="*{id}">
-                        <input type ="text" id="name" th:field="*{name}" class="input-text" placeholder="Write the name of your new pantry here">
+                        <input autofocus type ="text" id="name" th:field="*{name}" class="input-text" placeholder="Write the name of your new pantry here">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary float-right">Submit</button>
+                <div th:each="error: ${#fields.errors('name')}" class="alert alert-info" role="alert" >
+                    <span th:text="${error}">errorMessage</span>
+                </div>
+                <div class="">
+                    <a th:href="@{/pantrySelection}" class="btn btn-secondary">Return</a>
+                    <button type="submit" class="btn btn-primary float-right">Submit</button>
+                </div>
             </form>
         </div>
     </div>
