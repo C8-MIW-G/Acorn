@@ -26,6 +26,10 @@
                 </div>
             </div>
 
+            <div th:if="${errorMessage}" class="alert alert-info" role="alert">
+                <span th:text="${errorMessage}">errorMessage</span>
+            </div>
+
             <table th:if="${pantryMembers.size > 0}" class="table">
                 <thead>
                 <tr>

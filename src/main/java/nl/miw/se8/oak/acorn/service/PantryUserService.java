@@ -17,4 +17,6 @@ public interface PantryUserService {
     Optional<PantryUser> findPantryUserByUserIdAndPantryId(Long userId, Long pantryId);
     boolean pantryHasMoreThanOneMember(Long pantryId);
     boolean userIsTheOnlyPantryAdmin(Long userId, Long pantryId);
+
+    boolean userIsInPantry(Long userId, Long pantryId);
 }

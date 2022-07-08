@@ -1,20 +1,18 @@
 package nl.miw.se8.oak.acorn.controller;
 
+import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryUser;
+import nl.miw.se8.oak.acorn.service.AcornUserService;
 import nl.miw.se8.oak.acorn.service.AuthorizationService;
 import nl.miw.se8.oak.acorn.service.PantryService;
 import nl.miw.se8.oak.acorn.service.PantryUserService;
-import nl.miw.se8.oak.acorn.viewmodel.AddPantryMemberVM;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
 import nl.miw.se8.oak.acorn.viewmodel.PantryMemberVM;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,12 +23,16 @@ import java.util.Optional;
 @Controller
 public class PantryUserController {
 
+    AcornUserService acornUserService;
     PantryUserService pantryUserService;
     AuthorizationService authorizationService;
     PantryService pantryService;
 
-    public PantryUserController(PantryUserService pantryUserService, PantryService pantryService,
+    public PantryUserController(AcornUserService acornUserService,
+                                PantryUserService pantryUserService,
+                                PantryService pantryService,
                                 AuthorizationService authorizationService) {
+        this.acornUserService = acornUserService;
         this.pantryUserService = pantryUserService;
         this.pantryService = pantryService;
         this.authorizationService = authorizationService;
@@ -66,21 +68,26 @@ public class PantryUserController {
         return "pantryMembersAdd";
     }
 
+    @PostMapping("/pantry/{pantryId}/members/addMember")
+    protected String createPantryUser(@PathVariable("pantryId") Long pantryId,
+                                      @ModelAttribute("userEmail") String userEmail,
+                                      RedirectAttributes redirectAttributes) {
 
-    @PostMapping("/pantry/{pantryId}/members/addMemberPost")
-    protected String createPantryUser(@PathVariable("pantryId") Long pantryId, @RequestParam String userEmail) {
-        Mapper mapper = new Mapper();
+        Optional<AcornUser> acornUser = acornUserService.findByEmail(userEmail);
+        if (acornUser.isPresent()) {
+            if (!pantryUserService.userIsInPantry(acornUser.get().getId(), pantryId)) {
+                Pantry pantry = pantryService.findById(pantryId).get();
+                PantryUser pantryUser = new PantryUser(acornUser.get(), pantry);
+                pantryUserService.save(pantryUser);
+                redirectAttributes.addFlashAttribute("errorMessage", "Successfully added " + acornUser.get().getName() + " to your pantry");
+            } else {
+                redirectAttributes.addFlashAttribute("errorMessage", acornUser.get().getName() + " is already a member of this pantry!");
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Could not add that user.");
+        }
 
-        AddPantryMemberVM addPantryMemberVM = mapper.createANewPantryMemberVM(userEmail, pantryId);
-
-
-//        make sure user is pantry administrator
-//        retrieve acornuser using email
-//        create new pantryuser using pantry id and email
-//                post new pantryuser
-
-
-        return null;
+        return "redirect:/pantry/" + pantryId + "/members";
     }
 
     @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/delete")

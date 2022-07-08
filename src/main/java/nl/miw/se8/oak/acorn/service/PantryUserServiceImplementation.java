@@ -71,6 +71,14 @@ public class PantryUserServiceImplementation implements PantryUserService{
         return true;
     }
 
+    @Override
+    public boolean userIsInPantry(Long userId, Long pantryId) {
+        Optional<PantryUser> pantryUser = findPantryUserByUserIdAndPantryId(userId, pantryId);
+        if (pantryUser.isPresent()) {
+            return true;
+        }
+        return false;
+    }
 
 
 }
