@@ -1,5 +1,6 @@
 package nl.miw.se8.oak.acorn.controller;
 
+import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryUser;
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
@@ -87,5 +88,15 @@ public class PantryUserController {
                                       @PathVariable("pantryId") Long pantryId) {
         pantryUserService.deleteById(pantryUserId);
         return "redirect:/pantry/{pantryId}/members";
+    }
+
+    @GetMapping("/pantry/{pantryId}/leave")
+    protected String leavePantry(@PathVariable("pantryId") Long pantryId) {
+        Long userId = SecurityController.getCurrentUser().getId();
+        Optional<PantryUser> pantryUser = pantryUserService.findPantryUserByUserIdAndPantryId(userId, pantryId);
+        if (pantryUser.isPresent()) {
+            pantryUserService.deleteById(pantryUser.get().getId());
+        }
+        return "redirect:/pantrySelection";
     }
 }

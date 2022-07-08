@@ -48,4 +48,9 @@ public class PantryUserServiceImplementation implements PantryUserService{
         pantryUserRepository.deleteById(id);
     }
 
+    @Override
+    public Optional<PantryUser> findPantryUserByUserIdAndPantryId(Long userId, Long pantryId) {
+        return pantryUserRepository.findPantryUserByUserIdAndPantryId(userId, pantryId);
+    }
+
 }

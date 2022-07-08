@@ -12,7 +12,7 @@ public interface PantryUserService {
     void save(PantryUser pantryUser);
     List<PantryUser> findPantryUserByUser(AcornUser user);
     List<PantryUser> findPantryUserByPantry(Pantry pantry);
-
     Optional<PantryUser> findById(Long pantryUserId);
     void deleteById(Long id);
+    Optional<PantryUser> findPantryUserByUserIdAndPantryId(Long userId, Long pantryId);
 }
