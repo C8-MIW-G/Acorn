@@ -77,6 +77,11 @@ public class PantryUserController {
 
         AddPantryMemberVM addPantryMemberVM = mapper.createANewPantryMemberVM(userEmail, pantryId);
 
+        pantryUserService.saveByAddPantryMemberVM(addPantryMemberVM);
+
+
+
+
 
 //        make sure user is pantry administrator
 //        retrieve acornuser using email
@@ -84,7 +89,7 @@ public class PantryUserController {
 //                post new pantryuser
 
 
-        return null;
+        return "pantryMembers";
     }
 
     @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/delete")

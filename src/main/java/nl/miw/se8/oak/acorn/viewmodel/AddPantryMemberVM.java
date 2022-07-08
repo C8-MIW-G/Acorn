@@ -9,4 +9,7 @@ public class AddPantryMemberVM {
     private String newMemberEmail;
 
     private Long pantryId;
+
+    public AddPantryMemberVM() {
+    }
 }

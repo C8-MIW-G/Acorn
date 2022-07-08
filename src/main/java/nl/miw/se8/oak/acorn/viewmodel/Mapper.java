@@ -9,7 +9,6 @@ import java.util.Optional;
 
 public class Mapper {
 
-    PantryUserService pantryUserService;
 
     AcornUserService acornUserService;
     PantryService pantryService;

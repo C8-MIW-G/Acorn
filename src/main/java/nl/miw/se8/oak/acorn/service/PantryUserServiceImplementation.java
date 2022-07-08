@@ -4,10 +4,13 @@ import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryUser;
 import nl.miw.se8.oak.acorn.repository.PantryUserRepository;
+import nl.miw.se8.oak.acorn.viewmodel.AddPantryMemberVM;
+import nl.miw.se8.oak.acorn.viewmodel.Mapper;
 import nl.miw.se8.oak.acorn.viewmodel.PantryMemberVM;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -49,9 +52,10 @@ public class PantryUserServiceImplementation implements PantryUserService{
         pantryUserRepository.deleteById(id);
     }
 
-    public void saveBypantryAddPantryMemberVM(PantryMemberVM newMember) {
-
-
+    @Override
+    public void saveByAddPantryMemberVM(AddPantryMemberVM newMember) {
+        Mapper mapper = new Mapper();
+        save(mapper.addPantryMemberVMToPantryUser(newMember));
     }
 
 }
