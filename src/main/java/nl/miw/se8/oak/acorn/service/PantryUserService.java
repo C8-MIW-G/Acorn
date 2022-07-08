@@ -15,4 +15,5 @@ public interface PantryUserService {
     Optional<PantryUser> findById(Long pantryUserId);
     void deleteById(Long id);
     Optional<PantryUser> findPantryUserByUserIdAndPantryId(Long userId, Long pantryId);
+    boolean pantryHasMoreThanOneMember(Long pantryId);
 }

@@ -12,4 +12,5 @@ public interface PantryUserRepository extends JpaRepository<PantryUser, Long> {
     List<PantryUser> findPantryUserByUser(AcornUser user);
     List<PantryUser> findPantryUserByPantry(Pantry pantry);
     Optional<PantryUser> findPantryUserByUserIdAndPantryId(Long userId, Long pantryId);
+    List<PantryUser> findPantryUserByPantryId(Long pantryId);
 }

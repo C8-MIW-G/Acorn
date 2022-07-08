@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,11 +97,19 @@ public class PantryUserController {
     }
 
     @GetMapping("/pantry/{pantryId}/leave")
-    protected String leavePantry(@PathVariable("pantryId") Long pantryId) {
+    protected String leavePantry(@PathVariable("pantryId") Long pantryId,
+                                 RedirectAttributes redirectAttributes) {
         Long userId = SecurityController.getCurrentUser().getId();
         Optional<PantryUser> pantryUser = pantryUserService.findPantryUserByUserIdAndPantryId(userId, pantryId);
         if (pantryUser.isPresent()) {
-            pantryUserService.deleteById(pantryUser.get().getId());
+
+            // Cannot leave a pantry where you are the only member.
+            if (pantryUserService.pantryHasMoreThanOneMember(pantryId)) {
+                pantryUserService.deleteById(pantryUser.get().getId());
+            } else {
+                redirectAttributes.addFlashAttribute("errorMessage", "You cannot leave a pantry if you are the only member. You can delete the pantry instead.");
+                return "redirect:/pantry/" + pantryId;
+            }
         }
         return "redirect:/pantrySelection";
     }

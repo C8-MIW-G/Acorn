@@ -54,6 +54,11 @@ public class PantryUserServiceImplementation implements PantryUserService{
         return pantryUserRepository.findPantryUserByUserIdAndPantryId(userId, pantryId);
     }
 
+    @Override
+    public boolean pantryHasMoreThanOneMember(Long pantryId) {
+        return pantryUserRepository.findPantryUserByPantryId(pantryId).size() > 1;
+    }
+
     public void saveBypantryAddPantryMemberVM(PantryMemberVM newMember) {
 
     }
