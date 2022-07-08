@@ -11,5 +11,4 @@ public class PantryMemberVM {
     private String acornUserName;
 
     private String acornUserEmail;
-
 }

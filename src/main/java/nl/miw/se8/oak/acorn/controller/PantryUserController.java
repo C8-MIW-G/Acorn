@@ -56,7 +56,7 @@ public class PantryUserController {
             List<PantryUser> pantryUsers = pantryUserService.findPantryUserByPantry(pantry.get());
             List<PantryMemberVM> pantryMemberVMS = new ArrayList<>();
 
-            for (PantryUser pantryUser: pantryUsers) {
+            for (PantryUser pantryUser : pantryUsers) {
                 pantryMemberVMS.add(Mapper.pantryUserToPantryMemberVM(pantryUser));
             }
             model.addAttribute("pantryMembers", pantryMemberVMS);
@@ -64,13 +64,25 @@ public class PantryUserController {
         return "pantryMembers";
     }
 
-    @PostMapping("/pantry/{pantryId}/members/add")
-    protected String addPantryMember(@PathVariable("pantryId") Long pantryId, String newMember, BindingResult result) {
+    @GetMapping("/pantry/{pantryId}/members/addMember")
+    protected String addPantryMember(@PathVariable("pantryId") Long pantryId) {
 
-        return null;
+        if (!authorizationService.userCanAccessPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return "pantryMembersAdd";
     }
 
 
+    @PostMapping("/pantry/{pantryId}/members/addMember")
+    protected String createPantryUser(@PathVariable("pantryId") Long pantryId, String email) {
+
+//        make sure user is pantry administrator
+//        retrieve acornuser using email
+//        create new pantryuser using pantry id and email
+//                post new pantryuser
 
 
+        return null;
+    }
 }

@@ -15,13 +15,8 @@
 
         <div class="table-container scrollbar-thin">
 
-<!--            <form th:action="@{/pantry/{pantryId}/members/add}" method="post" th:object="${pantryToPantryEditViewmodel}">-->
-<!--            <label for="addPantryMember">Add new pantry member:</label>-->
-<!--            <input type="text" id="addPantryMember" name="addPantryMember" placeholder="new Pantrymember name">-->
-<!--            </form>-->
-
             <div class="d-flex flex-row my-4">
-                <a href="/pantry/{pantryId}/members/addMember"><button type="button" class="btn btn-primary">Add new member</button></a>
+                <a th:href="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}"><button type="button" class="btn btn-primary">Add new member</button></a>
             </div>
 
             <table th:if="${pantryMembers.size > 0}" class="table">
@@ -29,7 +24,6 @@
                 <tr>
 <!--                    <th class="th-fixed-width-small text-align-right" scope="col">Id</th> TODO determine if this needs to be on the form-->
                     <th scope="col">Name</th>
-                    <th scope="col">Email</th>
                     <th class="th-fixed-width-small"></th>
                 </tr>
                 </thead>
@@ -37,7 +31,6 @@
                 <tr th:each="pantryMember : ${pantryMembers}">
 <!--                    <input type="hidden" th:text="${pantryMember.id}" class="text-align-right"> TODO determine if this needs to be on the form-->
                     <td th:text="${pantryMember.acornUserName}"></td>
-                    <td th:text="${pantryMember.acornUserEmail}"></td>
                 </tr>
                 </tbody>
 
