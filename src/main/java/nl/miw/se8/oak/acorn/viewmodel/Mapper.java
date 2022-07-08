@@ -75,4 +75,12 @@ public class Mapper {
         pantryMemberVM.setAcornUserName(pantryUser.getUser().getName());
         return pantryMemberVM;
     }
+
+    public AddPantryMemberVM createANewPantryMember(String newMemberEmail, Long pantryId) {
+        AddPantryMemberVM addPantryMemberVM = new AddPantryMemberVM();
+        addPantryMemberVM.setPantryId(pantryId);
+        addPantryMemberVM.setNewMemberEmail(newMemberEmail);
+        return addPantryMemberVM;
+    }
+
 }

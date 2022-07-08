@@ -64,7 +64,6 @@ public class MapperTest {
 
     }
 
-
     @Test
     @DisplayName("Tests conversion from Productdefinition to a ProductDefinitionOverviewViewModel " +
             "using id and name attributes")
