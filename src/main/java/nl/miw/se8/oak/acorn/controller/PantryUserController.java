@@ -104,13 +104,17 @@ public class PantryUserController {
         if (pantryUser.isPresent()) {
 
             // Cannot leave a pantry where you are the only member.
-            if (pantryUserService.pantryHasMoreThanOneMember(pantryId)) {
-                pantryUserService.deleteById(pantryUser.get().getId());
-            } else {
+            if (!pantryUserService.pantryHasMoreThanOneMember(pantryId)) {
                 redirectAttributes.addFlashAttribute("errorMessage", "You cannot leave a pantry if you are the only member. You can delete the pantry instead.");
+                return "redirect:/pantry/" + pantryId;
+            } else if (pantryUserService.userIsTheOnlyPantryAdmin(userId, pantryId)) {
+                redirectAttributes.addFlashAttribute("errorMessage",
+                        "You cannot leave a pantry if you are the only pantry administrator.\n");
                 return "redirect:/pantry/" + pantryId;
             }
         }
+
+        pantryUserService.deleteById(pantryUser.get().getId());
         return "redirect:/pantrySelection";
     }
 }
