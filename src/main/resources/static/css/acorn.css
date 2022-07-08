@@ -64,7 +64,7 @@ h2 {
 }
 
 .admin-nav {
-    background-color: var(--primary-color-matte);
+    /*background-color: var(--primary-color-matte);*/
 }
 
 /* --------------------------------------- Buttons */
@@ -170,11 +170,9 @@ input[type="date"] {
 .pantryProductButton {
     width: 100%;
     text-align: left;
-    padding: .2rem 2rem;
+    padding: .1rem 1rem;
     background-color: var(--body);
     border: .1rem solid var(--primary-color-matte);
-    margin: .2rem 0;
-    transition: .3s;
 }
 
 .pantryProductButton:hover {

@@ -1,6 +1,5 @@
 package nl.miw.se8.oak.acorn.controller;
 
-import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryUser;
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
@@ -23,10 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Author: Thijs van Blanken
- * Created on: 27-6-2022
- */
 @Controller
 public class PantryUserController {
 
@@ -77,6 +72,7 @@ public class PantryUserController {
     @PostMapping("/pantry/{pantryId}/members/addMember")
     protected String createPantryUser(@PathVariable("pantryId") Long pantryId, String email) {
 
+
 //        make sure user is pantry administrator
 //        retrieve acornuser using email
 //        create new pantryuser using pantry id and email
@@ -84,5 +80,12 @@ public class PantryUserController {
 
 
         return null;
+    }
+
+    @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/delete")
+    protected String deletePantryUser(@PathVariable("pantryUserId") Long pantryUserId,
+                                      @PathVariable("pantryId") Long pantryId) {
+        pantryUserService.deleteById(pantryUserId);
+        return "redirect:/pantry/{pantryId}/members";
     }
 }
