@@ -68,6 +68,10 @@ h2 {
 }
 
 /* --------------------------------------- Buttons */
+.btn-container {
+    gap: 1rem;
+}
+
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
@@ -115,11 +119,21 @@ h2 {
 .btn-members {
     color: var(--white);
     background-color: #3f95e0;
-    margin-left: 1rem;
 }
 
 .btn-members:hover {
+    color: white;
     background-color: #66b5fa;
+}
+
+.btn-leave {
+    color: var(--white);
+    background-color: #fac936;
+}
+
+.btn-leave:hover {
+    color: white;
+    background-color: #ffdb77;
 }
 
 
