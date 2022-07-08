@@ -1,8 +1,18 @@
 package nl.miw.se8.oak.acorn.viewmodel;
 
 import nl.miw.se8.oak.acorn.model.*;
+import nl.miw.se8.oak.acorn.service.AcornUserService;
+import nl.miw.se8.oak.acorn.service.PantryService;
+import nl.miw.se8.oak.acorn.service.PantryUserService;
+
+import java.util.Optional;
 
 public class Mapper {
+
+    PantryUserService pantryUserService;
+
+    AcornUserService acornUserService;
+    PantryService pantryService;
 
     public static PantryViewmodelIdName pantryToPantryEditVM(Pantry pantry) {
         PantryViewmodelIdName pantryEditVM = new PantryViewmodelIdName();
@@ -76,11 +86,28 @@ public class Mapper {
         return pantryMemberVM;
     }
 
-    public AddPantryMemberVM createANewPantryMember(String newMemberEmail, Long pantryId) {
+    public AddPantryMemberVM createANewPantryMemberVM(String newMemberEmail, Long pantryId) {
         AddPantryMemberVM addPantryMemberVM = new AddPantryMemberVM();
         addPantryMemberVM.setPantryId(pantryId);
         addPantryMemberVM.setNewMemberEmail(newMemberEmail);
         return addPantryMemberVM;
+    }
+
+    public PantryUser addPantryMemberVMToPantryUser(AddPantryMemberVM addPantryMemberVM) {
+        PantryUser pantryUser = new PantryUser();
+        AcornUser user = new AcornUser();
+        Pantry pantry = new Pantry();
+        Optional<AcornUser> optionalAcornUser = acornUserService.findByEmail(addPantryMemberVM.getNewMemberEmail());
+        Optional<Pantry> optionalPantry = pantryService.findById(addPantryMemberVM.getPantryId());
+        if (optionalAcornUser.isPresent()) {
+            user = optionalAcornUser.get();
+        }
+        if (optionalPantry.isPresent()) {
+            pantry = optionalPantry.get();
+        }
+        pantryUser.setUser(user);
+        pantryUser.setPantry(pantry);
+        return pantryUser;
     }
 
 }

@@ -7,6 +7,7 @@ import nl.miw.se8.oak.acorn.service.AcornUserService;
 import nl.miw.se8.oak.acorn.service.AuthorizationService;
 import nl.miw.se8.oak.acorn.service.PantryService;
 import nl.miw.se8.oak.acorn.service.PantryUserService;
+import nl.miw.se8.oak.acorn.viewmodel.AddPantryMemberVM;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
 import nl.miw.se8.oak.acorn.viewmodel.PantryMemberVM;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -69,8 +71,11 @@ public class PantryUserController {
     }
 
 
-    @PostMapping("/pantry/{pantryId}/members/addMember")
-    protected String createPantryUser(@PathVariable("pantryId") Long pantryId, String email) {
+    @PostMapping("/pantry/{pantryId}/members/addMemberPost")
+    protected String createPantryUser(@PathVariable("pantryId") Long pantryId, @RequestParam String userEmail) {
+        Mapper mapper = new Mapper();
+
+        AddPantryMemberVM addPantryMemberVM = mapper.createANewPantryMemberVM(userEmail, pantryId);
 
 
 //        make sure user is pantry administrator
