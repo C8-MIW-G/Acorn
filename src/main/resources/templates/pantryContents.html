@@ -23,7 +23,7 @@
             </div>
             <div class="d-flex flex-row-reverse w-50 btn-container">
                 <button type="button" class="btn btn-delete" data-toggle="modal" data-target="#myModal">Delete pantry</button>
-                <a th:href="@{/pantry/{pantryId}/leave(pantryId=${pantryId})}" class="btn btn-leave">Leave pantry</a>
+                <button type="button" class="btn btn-leave" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
             </div>
         </div>
 
@@ -51,6 +51,7 @@
 
             <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
         </div>
+
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -66,7 +67,28 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantryId})}"><button type="submit" class="btn btn-delete" data-pantry-id="${pantry.id}">Delete pantry</button></a>
+                        <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantryId})}" class="btn btn-delete" data-pantry-id="${pantry.id}">Delete pantry</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Are you sure?</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            You are about to leave pantry <span th:block th:text="${pantryName}"></span>.
+                            <br>
+                            Are you sure to want to leave?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a th:href="@{/pantry/{pantryId}/leave(pantryId=${pantryId})}" class="btn btn-leave">Leave pantry</a>
                     </div>
                 </div>
             </div>
