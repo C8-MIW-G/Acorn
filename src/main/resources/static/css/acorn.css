@@ -99,6 +99,7 @@ h2 {
 }
 
 .btn-delete:hover {
+    color: var(--white);
     background-color: #fd6a79;
 }
 
