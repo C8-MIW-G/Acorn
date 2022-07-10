@@ -19,5 +19,4 @@ public interface PantryUserService {
     boolean userIsTheOnlyPantryAdmin(Long userId, Long pantryId);
 
     boolean userIsInPantry(Long userId, Long pantryId);
-    boolean userIsPantryAdmin(Long userId, Long pantryId);
 }

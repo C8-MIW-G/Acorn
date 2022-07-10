@@ -38,38 +38,35 @@ public class PantryUserController {
         this.authorizationService = authorizationService;
     }
 
-    // TODO - refactor into seperate methods that are more maintainable
     @GetMapping("/pantry/{pantryId}/members")
     protected String pantryMembers(@PathVariable("pantryId") Long pantryId, Model model) {
-        Optional<Pantry> pantry = pantryService.findById(pantryId);
-
         if (!authorizationService.userCanAccessPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
+        Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isPresent()) {
+            // Add to model a list of pantry members
             List<PantryUser> pantryUsers = pantryUserService.findPantryUserByPantry(pantry.get());
             List<PantryMemberVM> pantryMemberVMS = new ArrayList<>();
-
             for (PantryUser pantryUser : pantryUsers) {
                 pantryMemberVMS.add(Mapper.pantryUserToPantryMemberVM(pantryUser));
             }
             model.addAttribute("pantryMembers", pantryMemberVMS);
 
+            // Add to model permissions of current user
             Long currentUserId = SecurityController.getCurrentUser().getId();
             Optional<PantryUser> pantryUser = pantryUserService.findPantryUserByUserIdAndPantryId(currentUserId, pantryId);
             if (pantryUser.isPresent()) {
                 model.addAttribute("currentUserIsAdmin", pantryUser.get().isAdministrator());
             }
             model.addAttribute("currentUserId", currentUserId);
-
         }
         return "pantryMembers";
     }
 
     @GetMapping("/pantry/{pantryId}/members/addMember")
     protected String addPantryMember(@PathVariable("pantryId") Long pantryId) {
-
         if (!authorizationService.userCanAccessPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -82,6 +79,7 @@ public class PantryUserController {
                                       RedirectAttributes redirectAttributes) {
         Optional<AcornUser> acornUser = acornUserService.findByEmail(userEmail);
         if (acornUser.isPresent()) {
+            // Cannot add the same user twice to a pantry
             if (!pantryUserService.userIsInPantry(acornUser.get().getId(), pantryId)) {
                 Pantry pantry = pantryService.findById(pantryId).get();
                 PantryUser pantryUser = new PantryUser(acornUser.get(), pantry);
@@ -118,8 +116,10 @@ public class PantryUserController {
         if (pantryUser.isPresent()) {
             // Cannot leave a pantry where you are the only member.
             if (!pantryUserService.pantryHasMoreThanOneMember(pantryId)) {
-                redirectAttributes.addFlashAttribute("errorMessage", "You cannot leave a pantry if you are the only member. You can delete the pantry instead.");
+                redirectAttributes.addFlashAttribute("errorMessage",
+                        "You cannot leave a pantry if you are the only member. You can delete the pantry instead.");
                 return "redirect:/pantry/" + pantryId;
+            // Cannot leave a pantry where you are the only pantry administrator.
             } else if (pantryUserService.userIsTheOnlyPantryAdmin(userId, pantryId)) {
                 redirectAttributes.addFlashAttribute("errorMessage",
                         "You cannot leave a pantry if you are the only pantry administrator.\n");
@@ -127,7 +127,6 @@ public class PantryUserController {
             }
             pantryUserService.deleteById(pantryUser.get().getId());
         }
-
         return "redirect:/pantrySelection";
     }
 }
