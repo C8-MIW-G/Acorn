@@ -67,7 +67,7 @@ public class PantryController {
 
     @GetMapping("/pantry/{pantryId}/delete")
     protected String deletePantry(@PathVariable("pantryId") Long pantryId) {
-        if (!authorizationService.userCanAccessPantry(pantryId)) {
+        if (!authorizationService.userCanEditPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
@@ -84,7 +84,7 @@ public class PantryController {
 
     @GetMapping("/pantry/{pantryId}/edit")
     protected String editPantry(@PathVariable("pantryId") Long pantryId, Model model) {
-        if (!authorizationService.userCanAccessPantry(pantryId)) {
+        if (!authorizationService.userCanEditPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
@@ -101,7 +101,7 @@ public class PantryController {
                                   @AuthenticationPrincipal AcornUser acornUser) {
         boolean newPantry = pantryVM.getId() == -1;
 
-        if (!newPantry && !authorizationService.userCanAccessPantry(pantryVM.getId())) {
+        if (!newPantry && !authorizationService.userCanEditPantry(pantryVM.getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 

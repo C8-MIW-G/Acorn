@@ -1,6 +1,5 @@
 package nl.miw.se8.oak.acorn.service;
 
-import nl.miw.se8.oak.acorn.controller.SecurityController;
 import nl.miw.se8.oak.acorn.model.AcornUser;
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryUser;
@@ -64,7 +63,7 @@ public class PantryUserServiceImplementation implements PantryUserService{
         // There needs to be at least one pantry administrator in a pantry
         List<PantryUser> pantryUsers = pantryUserRepository.findPantryUserByPantryId(pantryId);
         for (PantryUser pantryUser : pantryUsers) {
-            if (pantryUser.isAdministrator() && !pantryUser.getUser().getId().equals(SecurityController.getCurrentUser().getId())) {
+            if (pantryUser.isAdministrator() && !pantryUser.getUser().getId().equals(userId)) {
                 return false;
             }
         }

@@ -106,8 +106,12 @@ public class PantryUserController {
             Optional<PantryUser> pantryUser = pantryUserService.findById(pantryUserId);
             if (pantryUser.isPresent()) {
                 String removedUserName = acornUserService.findById(pantryUser.get().getUser().getId()).get().getName();
-                pantryUserService.deleteById(pantryUserId);
-                redirectAttributes.addFlashAttribute("errorMessage", "Successfully removed " + removedUserName + " from your pantry.");
+                if (!pantryUserService.userIsTheOnlyPantryAdmin(pantryUser.get().getUser().getId(), pantryId)) {
+                    pantryUserService.deleteById(pantryUserId);
+                    redirectAttributes.addFlashAttribute("errorMessage", "Successfully removed " + removedUserName + " from your pantry.");
+                } else {
+                    redirectAttributes.addFlashAttribute("errorMessage", "Cannot remove " + removedUserName + " because they are the only pantry administrator.");
+                }
             } else {
                 redirectAttributes.addFlashAttribute("errorMessage", "Could not remove that person.");
             }

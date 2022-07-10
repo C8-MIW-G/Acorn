@@ -51,6 +51,7 @@ public class PantryProductController {
         if (pantry.isPresent()) {
             if (authorizationService.userCanAccessPantry(pantryId)) {
                 model.addAttribute("pantryName", pantry.get().getName());
+                model.addAttribute("userCanEditPantry", authorizationService.userCanEditPantry(pantryId));
                 return "pantryContents";
             }
         }
