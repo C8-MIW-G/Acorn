@@ -13,8 +13,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Auteur: Thijs van Blanken
- * Aangemaakt op: 4-7-2022
+ * Author: Thijs van Blanken
+ * Created on: 4-7-2022
  */
 @Service
 public class AuthorizationServiceImplementation implements AuthorizationService {
@@ -28,13 +28,14 @@ public class AuthorizationServiceImplementation implements AuthorizationService 
     }
 
     public boolean userCanAccessPantry(Long pantryId) {
-        if (currentUserIsAdmin() || currentUserIsMemberOfPantry(pantryId)) {
-            return true;
-        }
-        return false;
+        return currentUserIsSysAdmin() || currentUserIsMemberOfPantry(pantryId);
     }
 
-    private boolean currentUserIsAdmin() {
+    public boolean userCanEditPantry(Long pantryId) {
+        return currentUserIsSysAdmin() || currentUserIsAdminOfPantry(pantryId);
+    }
+
+    private boolean currentUserIsSysAdmin() {
         Collection<Role> roles = SecurityController.getCurrentUser().getRoles();
         for (Role role : roles) {
             if (role.getName().equals(Role.ROLE_ADMIN)) {
@@ -51,6 +52,15 @@ public class AuthorizationServiceImplementation implements AuthorizationService 
             if (Objects.equals(pantryUser.getPantry().getId(), pantryId)) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public boolean currentUserIsAdminOfPantry(Long pantryId) {
+        AcornUser user = SecurityController.getCurrentUser();
+        Optional<PantryUser> pantryUser = pantryUserRepository.findPantryUserByUserIdAndPantryId(user.getId(), pantryId);
+        if (pantryUser.isPresent()) {
+            return pantryUser.get().isAdministrator();
         }
         return false;
     }

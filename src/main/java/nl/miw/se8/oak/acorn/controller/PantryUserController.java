@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -46,28 +47,21 @@ public class PantryUserController {
 
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isPresent()) {
-            // Add to model a list of pantry members
             List<PantryUser> pantryUsers = pantryUserService.findPantryUserByPantry(pantry.get());
             List<PantryMemberVM> pantryMemberVMS = new ArrayList<>();
             for (PantryUser pantryUser : pantryUsers) {
                 pantryMemberVMS.add(Mapper.pantryUserToPantryMemberVM(pantryUser));
             }
             model.addAttribute("pantryMembers", pantryMemberVMS);
-
-            // Add to model permissions of current user
-            Long currentUserId = SecurityController.getCurrentUser().getId();
-            Optional<PantryUser> pantryUser = pantryUserService.findPantryUserByUserIdAndPantryId(currentUserId, pantryId);
-            if (pantryUser.isPresent()) {
-                model.addAttribute("currentUserIsAdmin", pantryUser.get().isAdministrator());
-            }
-            model.addAttribute("currentUserId", currentUserId);
+            model.addAttribute("currentUserIsAdmin", authorizationService.userCanEditPantry(pantryId));
+            model.addAttribute("currentUserId", SecurityController.getCurrentUser().getId());
         }
         return "pantryMembers";
     }
 
     @GetMapping("/pantry/{pantryId}/members/addMember")
     protected String addPantryMember(@PathVariable("pantryId") Long pantryId) {
-        if (!authorizationService.userCanAccessPantry(pantryId)) {
+        if (!authorizationService.userCanEditPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return "pantryMembersAdd";
@@ -77,12 +71,16 @@ public class PantryUserController {
     protected String createPantryUser(@PathVariable("pantryId") Long pantryId,
                                       @ModelAttribute("userEmail") String userEmail,
                                       RedirectAttributes redirectAttributes) {
+        if (!authorizationService.userCanEditPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
         Optional<AcornUser> acornUser = acornUserService.findByEmail(userEmail);
         if (acornUser.isPresent()) {
             // Cannot add the same user twice to a pantry
             if (!pantryUserService.userIsInPantry(acornUser.get().getId(), pantryId)) {
                 Pantry pantry = pantryService.findById(pantryId).get();
-                PantryUser pantryUser = new PantryUser(acornUser.get(), pantry);
+                PantryUser pantryUser = new PantryUser(acornUser.get(), pantry, false);
                 pantryUserService.save(pantryUser);
                 redirectAttributes.addFlashAttribute("errorMessage", "Successfully added " + acornUser.get().getName() + " to your pantry");
             } else {
@@ -97,12 +95,21 @@ public class PantryUserController {
 
     @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/delete")
     protected String deletePantryUser(@PathVariable("pantryUserId") Long pantryUserId,
-                                      @PathVariable("pantryId") Long pantryId) {
-        Long userId = SecurityController.getCurrentUser().getId();
-        Optional<PantryUser> currentUser = pantryUserService.findPantryUserByUserIdAndPantryId(userId, pantryId);
-        if(currentUser.isPresent() && currentUser.get().isAdministrator()) {
-            if(userId != pantryUserId) {
+                                      @PathVariable("pantryId") Long pantryId,
+                                      RedirectAttributes redirectAttributes) {
+        if (!authorizationService.userCanEditPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        Long currentUserId = SecurityController.getCurrentUser().getId();
+        if(!Objects.equals(currentUserId, pantryUserId)) { // You cannot remove yourself from the list
+            Optional<PantryUser> pantryUser = pantryUserService.findById(pantryUserId);
+            if (pantryUser.isPresent()) {
+                String removedUserName = acornUserService.findById(pantryUser.get().getUser().getId()).get().getName();
                 pantryUserService.deleteById(pantryUserId);
+                redirectAttributes.addFlashAttribute("errorMessage", "Successfully removed " + removedUserName + " from your pantry.");
+            } else {
+                redirectAttributes.addFlashAttribute("errorMessage", "Could not remove that person.");
             }
         }
         return "redirect:/pantry/{pantryId}/members";
@@ -111,6 +118,10 @@ public class PantryUserController {
     @GetMapping("/pantry/{pantryId}/leave")
     protected String leavePantry(@PathVariable("pantryId") Long pantryId,
                                  RedirectAttributes redirectAttributes) {
+        if (!authorizationService.userCanAccessPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
         Long userId = SecurityController.getCurrentUser().getId();
         Optional<PantryUser> pantryUser = pantryUserService.findPantryUserByUserIdAndPantryId(userId, pantryId);
         if (pantryUser.isPresent()) {
@@ -120,7 +131,7 @@ public class PantryUserController {
                         "You cannot leave a pantry if you are the only member. You can delete the pantry instead.");
                 return "redirect:/pantry/" + pantryId;
             // Cannot leave a pantry where you are the only pantry administrator.
-            } else if (pantryUserService.userIsTheOnlyPantryAdmin(userId, pantryId)) {
+            } else if (authorizationService.currentUserIsAdminOfPantry(pantryId) && pantryUserService.userIsTheOnlyPantryAdmin(userId, pantryId)) {
                 redirectAttributes.addFlashAttribute("errorMessage",
                         "You cannot leave a pantry if you are the only pantry administrator.\n");
                 return "redirect:/pantry/" + pantryId;

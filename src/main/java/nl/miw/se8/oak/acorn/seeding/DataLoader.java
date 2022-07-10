@@ -121,6 +121,7 @@ public class DataLoader {
             pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Thijs' Pantry").get(), true));
             pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Wicher's Pantry").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
             pantryUserService.save(new PantryUser(userService.findByEmail("Sylvia").get(), pantryService.findByName("Wicher's Pantry").get(), false));      // Added for testing purposes for pantruUsers List in Pantry
+            pantryUserService.save(new PantryUser(userService.findByEmail("user@user.com").get(), pantryService.findByName("Wicher's Pantry").get(), false));      // Added for testing purposes for pantruUsers List in Pantry
         }
     }
 
