@@ -186,7 +186,7 @@ public class UserController {
 
     private void updateName(UserEditVM userEditVM, AcornUser acornUser, Model model) {
         if (!userEditVM.getName().equals(acornUser.getName())) {
-            userEditVM.setName(userEditVM.getName());
+            acornUser.setName(userEditVM.getName());
             model.addAttribute("successMessage", INFO_NAME_UPDATE_SUCCESS);
         }
     }
