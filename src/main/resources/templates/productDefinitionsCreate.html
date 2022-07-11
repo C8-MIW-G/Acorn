@@ -22,7 +22,13 @@
                     <input type="text" id="name" th:field="*{name}" class="input-text" placeholder="Write the name of the new product here">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary float-right">Submit</button>
+            <div th:each="error: ${#fields.errors('name')}" class="alert alert-info" role="alert" >
+                <span th:text="${error}">errorMessage</span>
+            </div>
+            <div>
+                <a th:href="@{/admin/products}" class="btn btn-secondary">Return</a>
+                <button type="submit" class="btn btn-primary float-right">Submit</button>
+            </div>
         </form>
 
     </div>

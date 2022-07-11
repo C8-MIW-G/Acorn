@@ -9,11 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 
 /**
- * Author: Thijs van Blanken
- * Created on: 14-6-2022
+ * Author: Team Oak
+ * Created on: 11-07-2022
  * Contains all service functionality that has to do with the ProductDefinitions model
  */
 @Controller
@@ -64,11 +65,13 @@ public class ProductDefinitionsController {
         return "redirect:/admin/products";
     }
 
-    @PostMapping("/products/create")                 // DTO/ViewModel nodig?
-    protected String submitProductDefinition(@ModelAttribute("productDefinition") ProductDefinition productDefinition, BindingResult result) {
-        if (!result.hasErrors()) {
-            productDefinitionService.save(productDefinition);
+    @PostMapping("/products/create")
+    protected String submitProductDefinition(@Valid @ModelAttribute("product") ProductsDefinitionOverviewViewModel product, BindingResult result) {
+        if(result.hasErrors()) {
+            return "productDefinitionsCreate";
         }
+        Mapper mapper = new Mapper();
+        productDefinitionService.save(mapper.productDefinitionVMToProductDefinition(product));
         return "redirect:/admin/products";
     }
 

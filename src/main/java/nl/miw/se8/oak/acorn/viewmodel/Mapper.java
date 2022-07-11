@@ -35,6 +35,13 @@ public class Mapper {
         return productsDefinitionOverviewViewModel;
     }
 
+    public ProductDefinition productDefinitionVMToProductDefinition(ProductsDefinitionOverviewViewModel productDefinitionVM) {
+        ProductDefinition productDefinition = new ProductDefinition();
+        productDefinition.setId(productDefinitionVM.getId());
+        productDefinition.setName(productDefinitionVM.getName());
+        return productDefinition;
+    }
+
     public static UserOverviewVM userToUserOverviewVM(AcornUser acornUser) {
         UserOverviewVM userOverviewVM = new UserOverviewVM();
         userOverviewVM.setId(acornUser.getId());
