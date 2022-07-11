@@ -45,6 +45,12 @@
                             <div>
                                 <input id="expirationDate" type="date" th:field="*{expirationDate}">
                             </div>
+                            <div>
+                                <label for="amount">Amount:</label>
+                            </div>
+                            <div>
+                                <input id="amount" type="number" name="amount" min="1" max="10" value="1">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <!--The productId is dynamically set in this hidden field using JavaScript-->

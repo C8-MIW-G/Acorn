@@ -1,6 +1,7 @@
 package nl.miw.se8.oak.acorn.service;
 
 import nl.miw.se8.oak.acorn.model.PantryProduct;
+import nl.miw.se8.oak.acorn.viewmodel.PantryProductEditViewModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +16,5 @@ public interface PantryProductService {
   void deleteById(Long pantryProductId);
   Optional<PantryProduct> findById(Long pantryProductId);
   void save(PantryProduct pantryProduct);
+  PantryProduct pantryProductEditVMToPantryProduct(PantryProductEditViewModel pantryProductEditViewModel);
 }
