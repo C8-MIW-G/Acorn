@@ -60,9 +60,11 @@
                     </div>
                     <div class="modal-body">
                         <p>
-                            You are about to remove pantry <span th:block th:text="${pantryName}"></span>
-                            that has <span th:block th:text="${pantryProducts.size}"></span> product(s) in it.
-                            This action cannot be undone!
+                            You are about to remove pantry <b><span th:block th:text="${pantryName}"></span></b>
+                            that has <b><span th:block th:text="${pantryProducts.size}"></span> product(s)</b> in it,
+                            and has <b><span th:block th:text="${memberCount}">memberCount</span> member(s).</b>
+                            <br><br>
+                            This action cannot be undone! Do you want to delete it anyway?
                         </p>
                     </div>
                     <div class="modal-footer">
