@@ -15,18 +15,15 @@ import static javax.persistence.CascadeType.ALL;
 
 /**
  * Author: Team Oak
- * Created on: 11-07-2022
+ * Last edited on: 11-07-2022
  */
 @Entity @Getter @Setter
 public class ProductDefinition implements Comparable<ProductDefinition>{
 
     public static final long DEFAULT_ID = -1L;
     private static final String DEFAULT_NAME = "";
-
     public static final int MIN_PRODUCT_DEFINITION_NAME_LENGTH = 1;
-
     public static final int MAX_PRODUCT_DEFINITION_NAME_LENGTH = 100;
-
     public static final String ERROR_NAME_TOO_SHORT = "The product name should be between 1 and 100 characters long.";
 
     @Id @GeneratedValue

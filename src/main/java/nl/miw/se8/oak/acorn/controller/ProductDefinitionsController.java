@@ -14,7 +14,7 @@ import java.util.*;
 
 /**
  * Author: Team Oak
- * Created on: 11-07-2022
+ * Last edited on: 11-07-2022
  * Contains all service functionality that has to do with the ProductDefinitions model
  */
 @Controller
@@ -66,12 +66,13 @@ public class ProductDefinitionsController {
     }
 
     @PostMapping("/products/create")
-    protected String submitProductDefinition(@Valid @ModelAttribute("product") ProductsDefinitionOverviewViewModel product, BindingResult result) {
+    protected String submitProductDefinition(@Valid @ModelAttribute("product") ProductsDefinitionOverviewViewModel productVM,
+                                             BindingResult result) {
         if(result.hasErrors()) {
             return "productDefinitionsCreate";
         }
         Mapper mapper = new Mapper();
-        productDefinitionService.save(mapper.productDefinitionVMToProductDefinition(product));
+        productDefinitionService.save(mapper.productDefinitionVMToProductDefinition(productVM));
         return "redirect:/admin/products";
     }
 
