@@ -51,6 +51,7 @@ public class PantryProductController {
         if (pantry.isPresent()) {
             if (authorizationService.userCanAccessPantry(pantryId)) {
                 model.addAttribute("pantryName", pantry.get().getName());
+                model.addAttribute("memberCount", pantry.get().getPantryUsers().size());
                 model.addAttribute("userCanEditPantry", authorizationService.userCanEditPantry(pantryId));
                 return "pantryContents";
             }
@@ -103,18 +104,21 @@ public class PantryProductController {
     }
 
     @PostMapping("/pantry/{pantryId}/add")
-    protected String savePantryProduct(@ModelAttribute("pantryProduct") PantryProductEditViewModel pantryProductVM, BindingResult result) {
-        if (!result.hasErrors()) {
-            // This is basically a mapper method, but it relies on different services that can't be accessed in the Mapper class.
-            PantryProduct pantryProduct = new PantryProduct();
-            pantryProduct.setId(pantryProductVM.getId());
-            pantryProduct.setPantry(pantryService.findById(pantryProductVM.getPantryId()).get());
-            pantryProduct.setProductDefinition(productDefinitionService.findById(pantryProductVM.getProductDefinitionId()).get());
-            if (pantryProductVM.getExpirationDate() != null) {
-                pantryProduct.setExpirationDate(pantryProductVM.getExpirationDate());
-            }
+    protected String savePantryProduct(@PathVariable("pantryId") Long pantryId,
+                                       @ModelAttribute("pantryProduct") PantryProductEditViewModel pantryProductVM,
+                                       @ModelAttribute("amount") int amount,
+                                       BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/pantry/" + pantryId + "/add";
+        } else if (!authorizationService.userCanAccessPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        PantryProduct pantryProduct = pantryProductService.pantryProductEditVMToPantryProduct(pantryProductVM);
+        for (int i = 0; i < amount; i++) {
             pantryProductService.save(pantryProduct);
         }
+
         return "redirect:/pantry/" + pantryProductVM.getPantryId();
     }
 
