@@ -24,7 +24,7 @@
             <tbody>
             <tr th:each="pantry : ${pantries}">
                 <td>
-                    <span th:text="${pantry.name}">pantryName</span>
+                    <a th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}" th:text="${pantry.name}">pantryName</a>
                 </td>
                 <td>
                     <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantry.id})}">edit</a>
