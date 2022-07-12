@@ -78,7 +78,9 @@ public class PantryUserServiceImplementation implements PantryUserService{
         }
         return false;
     }
-    public boolean pantryUserisPantryAdmin(Long pantryUserId) {
+
+
+    public boolean pantryUserIsPantryAdmin(Long pantryUserId) {   //TODO Remove if this turns out to be useless
         Optional<PantryUser> pantryUser = findById(pantryUserId);
         if (pantryUser.isPresent()) {
             PantryUser pantryuserAdmin = pantryUser.get();
