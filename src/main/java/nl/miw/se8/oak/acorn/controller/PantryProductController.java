@@ -108,10 +108,10 @@ public class PantryProductController {
                                        @ModelAttribute("pantryProduct") PantryProductEditViewModel pantryProductVM,
                                        @ModelAttribute("amount") int amount,
                                        BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/pantry/" + pantryId + "/add";
-        } else if (!authorizationService.userCanAccessPantry(pantryId)) {
+        if (!authorizationService.userCanAccessPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        } else if (result.hasErrors() || amount < PantryProduct.MIN_AMOUNT || amount > PantryProduct.MAX_AMOUNT) {
+            return "redirect:/pantry/" + pantryId + "/add";
         }
 
         PantryProduct pantryProduct = pantryProductService.pantryProductEditVMToPantryProduct(pantryProductVM);

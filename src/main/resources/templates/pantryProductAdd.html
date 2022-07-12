@@ -45,12 +45,27 @@
                             <div>
                                 <input id="expirationDate" type="date" th:field="*{expirationDate}">
                             </div>
-                            <div>
-                                <label for="amount">Amount:</label>
+
+                            <div class="container py-4">
+                                <div class="row">
+                                    <div class="col-sm-3 mx-auto">
+                                        <div class="input-group">
+                                            <span class="input-group-prepend">
+                                                <button type="button" class="btn btn-outline-secondary btn-number" disabled="disabled" data-type="minus" data-input="amount">
+                                                    <span class="fa fa-minus"></span>
+                                                </button>
+                                            </span>
+                                            <input type="text" name="amount" class="form-control input-number" value="1" min="1" max="10">
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-input="amount">
+                                                    <span class="fa fa-plus"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <input id="amount" type="number" name="amount" min="1" max="10" value="1">
-                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <!--The productId is dynamically set in this hidden field using JavaScript-->
