@@ -13,10 +13,19 @@
 body {
     min-height: 100vh;
     background-color: var(--body);
+    position: relative;
+
 }
 
 main {
-    margin: 0 2rem;
+    padding-bottom: 2.5rem;
+}
+
+.footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 2.5rem;
 }
 
 a {
