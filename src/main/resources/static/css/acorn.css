@@ -189,9 +189,23 @@ label {
     font-weight: bold;
 }
 
+input[type="date"], .input-group-counter {
+    height: 2.6rem;
+}
+
 input[type="date"] {
     color: var(--gray-dark);
-    padding: .2rem .8rem;
+    padding: .4rem 1rem;
+    width: 12rem;
+    text-align: center;
+}
+
+.input-group-counter {
+    width: 7rem;
+}
+
+.modal-body {
+    padding: 2rem;
 }
 
 /* --------------------------------------- Adding PantryProducts */
@@ -243,4 +257,9 @@ input[type="date"] {
     font-size: 4rem;
     color: var(--primary-color);
     letter-spacing: .1rem;
+}
+
+/* For modal fading */
+.show {
+    transition: opacity 50ms;
 }
