@@ -172,6 +172,10 @@ h2 {
     width: 3rem;
 }
 
+.th-fixed-width-smallmed {
+    width:7rem;
+}
+
 .th-fixed-width-med {
     width: 10rem;
 }
