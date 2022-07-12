@@ -14,11 +14,10 @@ body {
     min-height: 100vh;
     background-color: var(--body);
     position: relative;
-
 }
 
 main {
-    padding-bottom: 2.5rem;
+    padding-bottom: 4.5rem;
 }
 
 .footer {
@@ -26,6 +25,7 @@ main {
     width: 100%;
     bottom: 0;
     height: 2.5rem;
+    margin: 1rem 0;
 }
 
 a {
