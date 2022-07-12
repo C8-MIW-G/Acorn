@@ -10,4 +10,5 @@ public class PantryMemberVM {
     private String acornUserName;
     private String acornUserEmail;
     private Long userId;
+    private Boolean isAdministrator;
 }

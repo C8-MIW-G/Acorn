@@ -32,25 +32,36 @@
                 </div>
             </div>
 
-            <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="confirmationTitle">Add <span th:block id="productName"></span></h5>
                         </div>
                         <div class="modal-body">
-                            <div>
-                                <label for="expirationDate">Expiration date:</label>
-                            </div>
-                            <div>
-                                <input id="expirationDate" type="date" th:field="*{expirationDate}">
-                            </div>
-                            <div>
-                                <label for="amount">Amount:</label>
-                            </div>
-                            <div>
-                                <input id="amount" type="number" name="amount" min="1" max="10" value="1">
-                            </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <label for="expirationDate">Expiration date:</label>
+                                        <input id="expirationDate" type="date" th:field="*{expirationDate}" class="border rounded">
+                                    </div>
+                                    <div class="col">
+                                        <label for="amount">Amount:</label>
+                                        <div class="input-group input-group-counter">
+                                            <span class="input-group-prepend">
+                                                <button type="button" class="btn btn-outline-secondary btn-number" disabled="disabled" data-type="minus" data-input="amount">
+                                                    <span class="fa fa-minus">-</span>
+                                                </button>
+                                            </span>
+                                            <input id="amount" type="text" name="amount" class="form-control input-number text-center" value="1" min="1" max="10">
+                                            <span class="input-group-append">
+                                                <button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-input="amount">
+                                                    <span class="fa fa-plus">+</span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
                         </div>
                         <div class="modal-footer">
                             <!--The productId is dynamically set in this hidden field using JavaScript-->

@@ -43,6 +43,7 @@
                 <tr th:each="pantryMember : ${pantryMembers}">
                     <td>
                         <span th:text="${pantryMember.acornUserName}">userName</span>
+                        <span th:if="${pantryMember.isAdministrator}">(admin)</span>
                         <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
                     </td>
                     <td>

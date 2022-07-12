@@ -16,6 +16,8 @@ import java.time.LocalDate;
 public class PantryProduct {
 
     public static final long DEFAULT_ID = -1L;
+    public static final int MIN_AMOUNT = 1;
+    public static final int MAX_AMOUNT = 10;
 
     @Id @GeneratedValue
     private Long id;
