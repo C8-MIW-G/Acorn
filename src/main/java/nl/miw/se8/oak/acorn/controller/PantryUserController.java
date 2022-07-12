@@ -10,6 +10,7 @@ import nl.miw.se8.oak.acorn.service.PantryUserService;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
 import nl.miw.se8.oak.acorn.viewmodel.PantryMemberVM;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -143,5 +144,21 @@ public class PantryUserController {
             pantryUserService.deleteById(pantryUser.get().getId());
         }
         return "redirect:/pantrySelection";
+    }
+
+    @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/makeAdmin")
+    protected String makeAdmin(@PathVariable("pantryId") Long pantryId, @PathVariable("pantryUserId") Long pantryUserId) {  // TODO redirect attributes
+        if (!authorizationService.userCanEditPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Optional<PantryUser> pantryUser = pantryUserService.findById(pantryUserId);
+        if (pantryUser.isPresent()) {
+            PantryUser newAdmin = pantryUser.get();
+            newAdmin.setAdministrator(true);
+            pantryUserService.save(newAdmin);
+        }
+
+
+        return "redirect:/pantry/{pantryId}/members";
     }
 }
