@@ -46,13 +46,18 @@
                         <span th:if="${pantryMember.isAdministrator}">(admin)</span>
                         <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
                     </td>
+                    <td>    <!-- TODO Only link exists, but method not yet. Had to work in reviewd thing real quick-->
+                        <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"
+                           th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
+                           Make admin </a>
+                    </td>
                     <td>
                         <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"
                            th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
                             remove</a>
                     </td>
                 </tr>
-                </tbody>
+
 
             </table>
 
