@@ -1,5 +1,6 @@
 package nl.miw.se8.oak.acorn.viewmodel;
 
+import nl.miw.se8.oak.acorn.dto.ProductDefinitionDTO;
 import nl.miw.se8.oak.acorn.model.*;
 import nl.miw.se8.oak.acorn.service.AcornUserService;
 import nl.miw.se8.oak.acorn.service.PantryService;
@@ -117,6 +118,13 @@ public class Mapper {
         pantryUser.setUser(user);
         pantryUser.setPantry(pantry);
         return pantryUser;
+    }
+
+    public static ProductDefinitionDTO productDefinitionToDTO(ProductDefinition productDefinition) {
+        ProductDefinitionDTO productDefinitionDTO = new ProductDefinitionDTO();
+        productDefinitionDTO.setId(productDefinition.getId());
+        productDefinitionDTO.setName(productDefinition.getName());
+        return productDefinitionDTO;
     }
 
 }

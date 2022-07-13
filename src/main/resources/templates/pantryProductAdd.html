@@ -15,8 +15,8 @@
 
         <h2>Add product</h2>
 
-        <form class="form-inline my-3" id="search-form">
-            <input class="form-control mr-sm-2" oninput="ajaxSearch()" id="keywordsBox" type="search" placeholder="Search..."/>
+        <form class="form-inline my-3" id="searchForm">
+            <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search..."/>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
 
@@ -24,7 +24,7 @@
             <input type="hidden" th:field="*{id}">
             <input type="hidden" th:field="*{pantryId}">
 
-            <div class="table-container scrollbar-thin" th:if="${pantryProduct.id == -1}">
+            <div id="buttonContainer" class="table-container scrollbar-thin" th:if="${pantryProduct.id == -1}">
                 <div th:each="product : ${productDefinitions}">
                     <button type="button"
                             class="pantryProductButton"
@@ -89,5 +89,6 @@
 </body>
 
 <script type="text/javascript" src="/js/pantryProductAdd.js"></script>
+<script type="text/javascript" src="/js/pantryProductAddAjax.js"></script>
 
 </html>
