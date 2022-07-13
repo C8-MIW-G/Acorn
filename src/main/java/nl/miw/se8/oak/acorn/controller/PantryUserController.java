@@ -147,26 +147,31 @@ public class PantryUserController {
     }
 
     @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/makeAdmin")
-    protected String makeAdmin(@PathVariable("pantryId") Long pantryId, @PathVariable("pantryUserId") Long pantryUserId,
-                               RedirectAttributes redirectAttributes) {  // TODO redirect attributes
+    protected String makeAdmin(@PathVariable("pantryId") Long pantryId,
+                               @PathVariable("pantryUserId") Long pantryUserId,
+                               RedirectAttributes redirectAttributes) {
         if (!authorizationService.userCanEditPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        // users that are admin can not be amde admin
+
+        // FIXME - Deze check is eigenlijk overbodig, het maakt niet uit als dit wel gebeurd. In de frontend is dit
+        // FIXME - ook al niet zichtbaar voor mensen die al admin zijn. Ik zou dit weghalen.
         if (pantryUserService.pantryUserIsPantryAdmin(pantryUserId)) {
-            redirectAttributes.addFlashAttribute("errorMessage",
-                    "This user is already an Admin");
+            redirectAttributes.addFlashAttribute("errorMessage", "This user is already an Admin");
             return "redirect:/pantry/{pantryId}/members";
         }
+
         Optional<PantryUser> pantryUser = pantryUserService.findById(pantryUserId);
         if (pantryUser.isPresent()) {
             PantryUser newAdmin = pantryUser.get();
             newAdmin.setAdministrator(true);
             pantryUserService.save(newAdmin);
+            // TODO - Deze messages zouden de naam van de nieuwe admin kunnen bevatten.
             redirectAttributes.addFlashAttribute("errorMessage", "User was made an admin");
-            //general fail message
         } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "User was not made admin");}
+            redirectAttributes.addFlashAttribute("errorMessage", "User was not made admin");
+        }
+
         return "redirect:/pantry/{pantryId}/members";
     }
 }

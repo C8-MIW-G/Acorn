@@ -48,8 +48,7 @@
                         <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
                     </td>
                     <td>
-                        <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId &&
-                        pantryMember.isAdministrator == false}"
+                        <a th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
                            th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
                            Make admin </a>
                     </td>
