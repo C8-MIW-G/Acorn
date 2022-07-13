@@ -39,6 +39,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Name</th>
+                                <th class="th-fixed-width-smallmed"></th>
                                 <th class="th-fixed-width-small"></th>
                             </tr>
                             </thead>
@@ -46,8 +47,14 @@
                             <tr th:each="pantryMember : ${pantryMembers}">
                                 <td>
                                     <span th:text="${pantryMember.acornUserName}">userName</span>
-                                    <span th:if="${pantryMember.isAdministrator}">(admin)</span>
                                     <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
+                                </td>
+                                <td>
+                                    <a th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
+                                       th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
+                                        Make admin </a>
+                                    <span th:if="${pantryMember.isAdministrator}">
+                                    <span class="material-symbols-outlined" text-align:center >manage_accounts</span>
                                 </td>
                                 <td>
                                     <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"
@@ -55,21 +62,19 @@
                                         remove</a>
                                 </td>
                             </tr>
-                            </tbody>
+                </tbody>
 
-                        </table>
+            </table>
 
-                    </div>
+        </div>
 
-                </div>
+    </div>
             </div>
             <div class="col">
 
             </div>
         </div>
     </div>
-
-
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>
