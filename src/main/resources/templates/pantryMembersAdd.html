@@ -11,12 +11,12 @@
 <main>
     <div class="content-medium basket">
 
-        <h2 >Add member</h2>
+        <h2 >Add a member</h2>
 
         <form th:action="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}" method="post">
             <div class="my-5">
                 <div>
-                    <label for="email">Email address</label>
+                    <label for="email">Email</label>
                 </div>
                 <input id="email" type="text"  th:name="userEmail" placeholder="Enter an email address." class="input-text">
             </div>

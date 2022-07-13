@@ -23,41 +23,41 @@
         </div>
 
         <div class="basket form-group overflow-auto">
-            <h3>Change your e-mailaddress</h3>
+            <h4>E-mail</h4>
             <form th:action="@{/profile}" method="post" th:object="${userEditVM}">
                 <input type ="hidden" th:field="*{id}">
                 <input type ="hidden" th:field="*{name}">
                 <div class="form-group">
-                    <label for="email">Your e-mailaddress</label>
+                    <label for="email">E-mail</label>
                     <div>
                         <input type="text" id="email" th:field="*{email}" th:placeholder="${email}" class="input-text">
                     </div>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                    <button type="submit" class="btn btn-primary btn-small float-right">Save</button>
                 </div>
             </form>
         </div>
 
         <div class="basket form-group overflow-auto">
-            <h3>Change your profile name</h3>
+            <h4>Name</h4>
             <form th:action="@{/profile}" method="post" th:object="${userEditVM}">
                 <input type ="hidden" th:field="*{id}">
                 <input type ="hidden" th:field="*{email}">
                 <div class="form-group">
-                    <label for="name">Your profile name</label>
+                    <label for="name">Name</label>
                     <div>
                         <input type="text" id="name" th:field="*{name}" th:placeholder="${name}" class="input-text">
                     </div>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                    <button type="submit" class="btn btn-primary btn-small float-right">Save</button>
                 </div>
             </form>
         </div>
 
         <div class="basket form-group overflow-auto">
-            <h3>Change your password</h3>
+            <h4>Password</h4>
             <form th:action="@{/profile}" method="post" th:object="${userEditVM}">
                 <input type ="hidden" th:field="*{id}">
                 <input type ="hidden" th:field="*{name}">
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                    <button type="submit" class="btn btn-primary btn-small float-right mt-3">Save</button>
                 </div>
             </form>
         </div>
