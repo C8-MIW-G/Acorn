@@ -154,22 +154,16 @@ public class PantryUserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        // FIXME - Deze check is eigenlijk overbodig, het maakt niet uit als dit wel gebeurd. In de frontend is dit
-        // FIXME - ook al niet zichtbaar voor mensen die al admin zijn. Ik zou dit weghalen.
-        if (pantryUserService.pantryUserIsPantryAdmin(pantryUserId)) {
-            redirectAttributes.addFlashAttribute("errorMessage", "This user is already an Admin");
-            return "redirect:/pantry/{pantryId}/members";
-        }
-
         Optional<PantryUser> pantryUser = pantryUserService.findById(pantryUserId);
+
         if (pantryUser.isPresent()) {
             PantryUser newAdmin = pantryUser.get();
             newAdmin.setAdministrator(true);
             pantryUserService.save(newAdmin);
-            // TODO - Deze messages zouden de naam van de nieuwe admin kunnen bevatten.
-            redirectAttributes.addFlashAttribute("errorMessage", "User was made an admin");
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    pantryUser.get().getUser().getName()+ " is now an admin");
         } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "User was not made admin");
+            redirectAttributes.addFlashAttribute("errorMessage", "This user could not be made an admin");
         }
 
         return "redirect:/pantry/{pantryId}/members";
