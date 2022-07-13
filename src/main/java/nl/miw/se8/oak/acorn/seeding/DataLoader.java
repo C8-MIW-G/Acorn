@@ -100,17 +100,27 @@ public class DataLoader {
 
     private void seedPantries() {
         if (pantryService.findAll().size() == 0) {
+            String[] pantryNames = {
+                    "Sylvia's Pantry",
+                    "Wicher's Pantry",
+                    "Thijs' Pantry",
+                    "Sportclub Rijssen",
+                    "Korfbalvereniging SDO",
+                    "OBS De Cirkel",
+                    "GLV Idun",
+                    "Keukentje MIW",
+                    "Bridgeclub Harde Schoppen",
+                    "Dansvereniging Blue Toes",
+                    "Liminoid",
+                    "Huize Ill Castello"
+            };
+
             Pantry pantry = new Pantry();
-            pantry.setName("Sylvia's Pantry");
-            pantryService.save(pantry);
 
-            Pantry pantry2 = new Pantry();
-            pantry2.setName("Wicher's Pantry");
-            pantryService.save(pantry2);
-
-            Pantry pantry3 = new Pantry();
-            pantry3.setName("Thijs' Pantry");
-            pantryService.save(pantry3);
+            for (String name : pantryNames) {
+                pantry.setName(name);
+                pantryService.save(pantry);
+            }
         }
     }
 
@@ -119,7 +129,13 @@ public class DataLoader {
             pantryUserService.save(new PantryUser(userService.findByEmail("Sylvia").get(), pantryService.findByName("Sylvia's Pantry").get(), true));
             pantryUserService.save(new PantryUser(userService.findByEmail("Wicher").get(), pantryService.findByName("Wicher's Pantry").get(), true));
             pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Thijs' Pantry").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Sylvia's Pantry").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
             pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Wicher's Pantry").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
+            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Sportclub Rijssen").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
+            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Korfbalvereniging SDO").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
+            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("GLV Idun").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
+            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Keukentje MIW").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
+            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Liminoid").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
             pantryUserService.save(new PantryUser(userService.findByEmail("Sylvia").get(), pantryService.findByName("Wicher's Pantry").get(), false));      // Added for testing purposes for pantruUsers List in Pantry
             pantryUserService.save(new PantryUser(userService.findByEmail("user@user.com").get(), pantryService.findByName("Wicher's Pantry").get(), false));      // Added for testing purposes for pantruUsers List in Pantry
         }
