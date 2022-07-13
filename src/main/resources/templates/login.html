@@ -9,38 +9,49 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <div class="content-medium basket">
-
-        <h2>Log in</h2>
-        <form name="f" th:action="@{/login}" method="post">
-            <div th:if="${param.error}" class="alert alert-error">
-                Invalid email and/or password.
+    <div class="container">
+        <div class="row">
+            <div class="col">
             </div>
-            <div th:if="${param.logout}" class="alert alert-success">
-                You have been logged out.
-            </div>
+            <div class="col-6">
+                <div class="content-medium basket">
 
-            <label for="username">E-mail</label>
-            <div class="form-group">
-                <input type="text" id="username" name="username" class="input-text" placeholder="Enter your e-mailaddress.">
-            </div>
+                    <h2>Log in</h2>
+                    <form name="f" th:action="@{/login}" method="post">
+                        <div th:if="${param.error}" class="alert alert-error">
+                            Invalid email and/or password.
+                        </div>
+                        <div th:if="${param.logout}" class="alert alert-success">
+                            You have been logged out.
+                        </div>
 
-            <label for="password">Password</label>
-            <div class="form-group">
-                <input type="password" id="password" name="password" class="input-text"
-                       placeholder="Enter your password.">
-            </div>
+                        <label for="username">E-mail</label>
+                        <div class="form-group">
+                            <input type="text" id="username" name="username" class="input-text" placeholder="Enter your e-mailaddress.">
+                        </div>
 
-            <div class="overflow-auto">
-                <button type="submit" class="btn btn-primary btn-small float-right">Log in</button>
-            </div>
-        </form>
+                        <label for="password">Password</label>
+                        <div class="form-group">
+                            <input type="password" id="password" name="password" class="input-text"
+                                   placeholder="Enter your password.">
+                        </div>
 
-        <div th:if="${errorMessage}" class="alert alert-warning" role="alert">
-            <span th:text="${errorMessage}">Error message</span>
+                        <div class="overflow-auto">
+                            <button type="submit" class="btn btn-primary btn-small float-right">Log in</button>
+                        </div>
+                    </form>
+
+                    <div th:if="${errorMessage}" class="alert alert-warning" role="alert">
+                        <span th:text="${errorMessage}">Error message</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col">
+            </div>
         </div>
-
     </div>
+
 
 </main>
 

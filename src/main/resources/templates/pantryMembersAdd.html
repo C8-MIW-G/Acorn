@@ -9,25 +9,35 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <div class="content-medium basket">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 >Add member</h2>
+            </div>
+            <div class="col-6">
+                <div class="content-medium basket">
+                    <form th:action="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}" method="post">
+                        <div class="my-5">
+                            <div>
+                                <label for="email">Email address</label>
+                            </div>
+                            <input id="email" type="text"  th:name="userEmail" placeholder="Enter an email address." class="input-text">
+                        </div>
+                        <div class="overflow-auto">
+                            <a th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}"><button type="button" class="btn btn-secondary">Return</button></a>
+                            <button type="submit" class="btn btn-primary float-right">Add member</button>
+                        </div>
+                    </form>
 
-        <h2 >Add member</h2>
 
-        <form th:action="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}" method="post">
-            <div class="my-5">
-                <div>
-                    <label for="email">Email address</label>
                 </div>
-                <input id="email" type="text"  th:name="userEmail" placeholder="Enter an email address." class="input-text">
             </div>
-            <div class="overflow-auto">
-                <a th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}"><button type="button" class="btn btn-secondary">Return</button></a>
-                <button type="submit" class="btn btn-primary float-right">Add member</button>
+            <div class="col">
+
             </div>
-        </form>
-
-
+        </div>
     </div>
+
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>
