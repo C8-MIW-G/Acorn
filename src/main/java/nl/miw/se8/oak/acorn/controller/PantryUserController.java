@@ -152,21 +152,25 @@ public class PantryUserController {
         if (!authorizationService.userCanEditPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        // users that are admin can not be amde admin
-        if (pantryUserService.pantryUserIsPantryAdmin(pantryUserId)) {
-            redirectAttributes.addFlashAttribute("errorMessage",
-                    "This user is already an Admin");
-            return "redirect:/pantry/{pantryId}/members";
-        }
         Optional<PantryUser> pantryUser = pantryUserService.findById(pantryUserId);
+
         if (pantryUser.isPresent()) {
+            //check if user is already a pantryadmin and, if so, returns an error message.
+            if (pantryUserService.pantryUserIsPantryAdmin(pantryUserId)) {
+                redirectAttributes.addFlashAttribute("errorMessage",
+                        pantryUser.get().getUser().getName() + " is already an Admin");
+                return "redirect:/pantry/{pantryId}/members";
+            }
+            //save new admin, and return confirmation message
             PantryUser newAdmin = pantryUser.get();
             newAdmin.setAdministrator(true);
             pantryUserService.save(newAdmin);
-            redirectAttributes.addFlashAttribute("errorMessage", "User was made an admin");
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    pantryUser.get().getUser().getName()+ " is now an admin");
             //general fail message
         } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "User was not made admin");}
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "This user could not be made an admin");}
         return "redirect:/pantry/{pantryId}/members";
     }
 }
