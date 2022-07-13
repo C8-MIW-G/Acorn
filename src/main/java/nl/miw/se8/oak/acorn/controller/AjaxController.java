@@ -8,9 +8,7 @@ import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -32,8 +30,9 @@ public class AjaxController {
         this.productDefinitionService = productDefinitionService;
     }
 
+//    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/ajaxSearchProduct")
-    public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody SearchStringDTO search, Errors errors) {
+    public ResponseEntity<?> getSearchResultViaAjax(@RequestBody SearchStringDTO search, Errors errors) {
 
         ProductDefinitionAjaxResponse result = new ProductDefinitionAjaxResponse();
 
@@ -44,9 +43,6 @@ public class AjaxController {
         }
 
         result.setProductDefinitionDTOS(productDefinitionDTOS);
-
-        System.out.println("test");
-
         return ResponseEntity.ok(result);
     }
 

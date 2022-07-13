@@ -17,23 +17,25 @@ function ajaxSearchProduct() {
 
     $.ajax({
             type: "POST",
-            contentType: "application/json",
             url: "/ajaxSearchProduct",
             data: JSON.stringify(searchData),
             dataType: 'json',
+            contentType: "application/json",
             cache: false,
             timeout: 6000,
             succes: fillTable(),
             error: function (e) {
                 console.log("Error fetching AJAX data.");
-                fillTable();
             }
         });
 }
 
 function fillTable() {
-    const newDiv = document.createElement("div");
+    const newButtonContainer = document.createElement("div");
+    newButtonContainer.classList.add("table-container", "scrollbar-thin")
+
     const newContent = document.createTextNode("Hi there and greetings!");
-    newDiv.appendChild(newContent);
-    $("#buttonContainer").replaceAll(newDiv);
+    newButtonContainer.appendChild(newContent);
+
+    $("#buttonContainer").replaceWith(newButtonContainer);
 }

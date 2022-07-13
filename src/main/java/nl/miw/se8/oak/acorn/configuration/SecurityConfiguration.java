@@ -35,6 +35,10 @@ public class SecurityConfiguration{
                 .formLogin(form -> form.loginPage("/login").permitAll().and())
                 .logout(logout -> logout.logoutUrl("/logout").permitAll().logoutSuccessUrl("/")
                         .invalidateHttpSession(true).deleteCookies("JSESSIONID"));
+
+        // TODO - Necessary to prevent 403 (forbidden) code when POSTing with AJAX. ASK JOOST ABOUT THIS!
+        http.csrf().disable();
+
         return http.build();
     }
 
