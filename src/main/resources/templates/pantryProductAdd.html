@@ -15,6 +15,11 @@
 
         <h2>Add product</h2>
 
+        <form class="form-inline my-3" id="search-form">
+            <input class="form-control mr-sm-2" oninput="ajaxSearch()" id="keywordsBox" type="search" placeholder="Search..."/>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
         <form th:action="@{/pantry/{pantryId}/add(pantryId=${pantryProduct.pantryId})}" method="post" th:object="${pantryProduct}" id ="the-form">
             <input type="hidden" th:field="*{id}">
             <input type="hidden" th:field="*{pantryId}">

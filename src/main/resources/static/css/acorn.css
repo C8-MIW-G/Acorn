@@ -220,12 +220,15 @@ input[type="date"] {
     text-align: left;
     padding: .1rem 1rem;
     background-color: var(--body);
-    border: .1rem solid var(--primary-color-matte);
+    border: 1px solid var(--primary-color-extralight);
+    border-radius: 0 1rem 1rem 0;
+    transition: .04s;
 }
 
 .pantryProductButton:hover {
     background-color: var(--primary-color-extralight);
-    border-color: var(--primary-color);
+    border-color: var(--primary-color-light);
+    border-left: .4rem solid var(--primary-color);
 }
 
 /* --------------------------------------- Other */
