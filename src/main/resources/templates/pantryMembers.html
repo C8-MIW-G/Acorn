@@ -9,64 +9,72 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <div class="content-medium">
-
-        <div>
-            <h2>Pantry Members</h2>
-        </div>
-
-        <div class="table-container scrollbar-thin">
-
-            <div class="d-flex my-4">
-                <div class="d-flex flex-row w-50 btn-container">
-                    <a th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}" class="btn btn-secondary">Return</a>
-                </div>
-                <div class="d-flex flex-row-reverse w-50 btn-container">
-                    <a th:href="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}"
-                       th:if="${currentUserIsAdmin}"
-                       class="btn btn-primary ml-2">Add member</a>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div>
+                    <h2>Pantry Members</h2>
                 </div>
             </div>
+            <div class="col-6">
+                <div class="content-medium">
+                    <div class="table-container scrollbar-thin">
 
-            <div th:if="${errorMessage}" class="alert alert-info" role="alert">
-                <span th:text="${errorMessage}">errorMessage</span>
-            </div>
+                        <div class="d-flex my-4">
+                            <div class="d-flex flex-row w-50 btn-container">
+                                <a th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}" class="btn btn-secondary">Return</a>
+                            </div>
+                            <div class="d-flex flex-row-reverse w-50 btn-container">
+                                <a th:href="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}"
+                                   th:if="${currentUserIsAdmin}"
+                                   class="btn btn-primary ml-2">Add member</a>
+                            </div>
+                        </div>
 
-            <table th:if="${pantryMembers.size > 0}" class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th class="th-fixed-width-smallmed"></th>
-                    <th class="th-fixed-width-small"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="pantryMember : ${pantryMembers}">
-                    <td>
-                        <span th:text="${pantryMember.acornUserName}">userName</span>
-                        <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
-                    </td>
-                    <td>
-                        <a th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
-                           th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
-                           Make admin </a>
-                        <span th:if="${pantryMember.isAdministrator}">
-                        <span class="material-symbols-outlined" text-align:center >manage_accounts</span>
-                    </td>
-                    <td>
-                        <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"
-                           th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
-                            remove</a>
-                    </td>
-                </tr>
+                        <div th:if="${errorMessage}" class="alert alert-info" role="alert">
+                            <span th:text="${errorMessage}">errorMessage</span>
+                        </div>
 
+                        <table th:if="${pantryMembers.size > 0}" class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th class="th-fixed-width-smallmed"></th>
+                                <th class="th-fixed-width-small"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="pantryMember : ${pantryMembers}">
+                                <td>
+                                    <span th:text="${pantryMember.acornUserName}">userName</span>
+                                    <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
+                                </td>
+                                <td>
+                                    <a th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
+                                       th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
+                                        Make admin </a>
+                                    <span th:if="${pantryMember.isAdministrator}">
+                                    <span class="material-symbols-outlined" text-align:center >manage_accounts</span>
+                                </td>
+                                <td>
+                                    <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"
+                                       th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
+                                        remove</a>
+                                </td>
+                            </tr>
+                </tbody>
 
             </table>
 
         </div>
 
     </div>
+            </div>
+            <div class="col">
 
+            </div>
+        </div>
+    </div>
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>

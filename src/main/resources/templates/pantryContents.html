@@ -8,25 +8,27 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-
-    <div class="content-large">
-
-        <div>
-            <span>Pantry</span>
-            <h2 th:text="${pantryName}"></h2>
-        </div>
-
-        <div class="d-flex my-4">
-            <div class="d-flex flex-row w-50 btn-container">
-                <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
-                <a th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}" class="btn btn-members">Pantry members</a>
+    <div class = "container">
+        <div class="row">
+            <div class="col">
+                <div>
+                    <span>Pantry</span>
+                    <h2 th:text="${pantryName}"></h2>
+                </div>
             </div>
-            <div class="d-flex flex-row-reverse w-50 btn-container">
-                <button th:if="${userCanEditPantry}" type="button" class="btn btn-delete" data-toggle="modal" data-target="#myModal">Delete pantry</button>
-                <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}" class="btn btn-leave">Edit pantry</a>
-                <button type="button" class="btn btn-leave" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
-            </div>
-        </div>
+            <div class="col-6">
+                <div class="content-large">
+                    <div class="d-flex my-4">
+                        <div class="d-flex flex-row w-50 btn-container">
+                            <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
+                            <a th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}" class="btn btn-members">Pantry members</a>
+                        </div>
+                        <div class="d-flex flex-row-reverse w-50 btn-container">
+                            <button th:if="${userCanEditPantry}" type="button" class="btn btn-delete" data-toggle="modal" data-target="#myModal">Delete pantry</button>
+                            <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}" class="btn btn-leave">Edit pantry</a>
+                            <button type="button" class="btn btn-leave" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
+                        </div>
+                    </div>
 
         <div th:if="${errorMessage}" class="alert alert-info" role="alert">
             <span th:text="${errorMessage}">errorMessage</span>
@@ -96,7 +98,9 @@
                 </div>
             </div>
         </div>
-
+        </div>
+        <div class="col">
+        </div>
     </div>
 
 </main>

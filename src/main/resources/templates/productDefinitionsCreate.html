@@ -9,29 +9,40 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <div class="content-medium basket overflow-auto">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col-6">
+                <div class="content-medium basket overflow-auto">
 
-        <h2 th:if="${product.id == -1}">Create a new product</h2>
-        <h2 th:unless="${product.id == -1}">Edit product</h2>
+                    <h2 th:if="${product.id == -1}">Create a new product</h2>
+                    <h2 th:unless="${product.id == -1}">Edit product</h2>
 
-        <form th:action="@{/admin/products/create}" method="post" th:object="${product}">
-            <input type="hidden" th:field="*{id}">
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Name</label>
-                <div class="col-sm-10">
-                    <input type="text" id="name" th:field="*{name}" class="input-text" placeholder="Write the name of the new product here">
+                    <form th:action="@{/admin/products/create}" method="post" th:object="${product}">
+                        <input type="hidden" th:field="*{id}">
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="name" th:field="*{name}" class="input-text" placeholder="Write the name of the new product here">
+                            </div>
+                        </div>
+                        <div th:each="error: ${#fields.errors('name')}" class="alert alert-info" role="alert" >
+                            <span th:text="${error}">errorMessage</span>
+                        </div>
+                        <div>
+                            <a th:href="@{/admin/products}" class="btn btn-secondary">Return</a>
+                            <button type="submit" class="btn btn-primary float-right">Submit</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
-            <div th:each="error: ${#fields.errors('name')}" class="alert alert-info" role="alert" >
-                <span th:text="${error}">errorMessage</span>
+            <div class="col">
             </div>
-            <div>
-                <a th:href="@{/admin/products}" class="btn btn-secondary">Return</a>
-                <button type="submit" class="btn btn-primary float-right">Submit</button>
-            </div>
-        </form>
-
+        </div>
     </div>
+
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>

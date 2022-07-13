@@ -9,42 +9,54 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <div class="content-large">
 
-        <h2>Products</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Products</h2>
+            </div>
+            <div class="col-6">
+                <div class="content-large">
+                    <div class="d-flex flex-row my-4">
+                        <a href="/admin/products/create"><button type="button" class="btn btn-primary">Add new product</button></a>
+                    </div>
 
-        <div class="d-flex flex-row my-4">
-            <a href="/admin/products/create"><button type="button" class="btn btn-primary">Add new product</button></a>
-        </div>
+                    <div class="table-container scrollbar-thin">
+                        <table th:if="${products.size > 0}" class="table">
+                            <thead>
+                            <tr>
+                                <th class="th-fixed-width-small text-align-right" scope="col">Id</th>
+                                <th scope="col">Product</th>
+                                <th class="th-fixed-width-small"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="product : ${products}">
+                                <td th:text="${product.id}" class="text-align-right"></td>
+                                <td>
+                                    <a th:href="@{/admin/products/{productId}/edit(productId=${product.id})}" th:text="${product.name}"></a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/admin/products/{productId}/delete(productId=${product.id})}">delete</a>
+                                </td>
+                            </tr>
+                            </tbody>
 
-        <div class="table-container scrollbar-thin">
-            <table th:if="${products.size > 0}" class="table">
-                <thead>
-                    <tr>
-                        <th class="th-fixed-width-small text-align-right" scope="col">Id</th>
-                        <th scope="col">Product</th>
-                        <th class="th-fixed-width-small"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="product : ${products}">
-                        <td th:text="${product.id}" class="text-align-right"></td>
-                        <td>
-                            <a th:href="@{/admin/products/{productId}/edit(productId=${product.id})}" th:text="${product.name}"></a>
-                        </td>
-                        <td>
-                            <a th:href="@{/admin/products/{productId}/delete(productId=${product.id})}">delete</a>
-                        </td>
-                    </tr>
-                </tbody>
+                        </table>
 
-            </table>
+                        <p th:unless="${products.size != 0}" class="text-center">No products were found... try a different search term</p>
 
-            <p th:unless="${products.size != 0}" class="text-center">No products were found... try a different search term</p>
+                    </div>
 
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
         </div>
 
     </div>
+
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>

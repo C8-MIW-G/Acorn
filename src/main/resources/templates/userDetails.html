@@ -8,43 +8,57 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <div class="content-medium">
-        <h2>Edit a user</h2>
 
-        <span th:if="${error}" th:text="${error.message}"></span>
+    <div class="container">
+        <div class="row">
+            <div class="col">
 
-        <div class="basket form-group overflow-auto">
-            <form th:action="@{/admin/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
-                <input type ="hidden" th:field="*{id}">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <div>
-                        <input type="text" id="email" th:field="*{email}" class="input-text">
+            </div>
+            <div class="col-6">
+                <div class="content-medium">
+                    <h2>Edit a user</h2>
+
+                    <span th:if="${error}" th:text="${error.message}"></span>
+
+                    <div class="basket form-group overflow-auto">
+                        <form th:action="@{/admin/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
+                            <input type ="hidden" th:field="*{id}">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <div>
+                                    <input type="text" id="email" th:field="*{email}" class="input-text">
+                                </div>
+                            </div>
+                            <div th:each="error: ${#fields.errors('email')}" class="alert alert-info" role="alert" >
+                                <span th:text="${error}">errorMessage</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <div>
+                                    <input type="text" id="name" th:field="*{name}" class="input-text">
+                                </div>
+                            </div>
+                            <div th:each="error: ${#fields.errors('name')}" class="alert alert-info" role="alert" >
+                                <span th:text="${error}">errorMessage</span>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                                <a class="" href="/admin/users">
+                                    <button type="button" class="btn btn-secondary mt-4 mr-2 btn-small">Return</button>
+                                </a>
+                            </div>
+                        </form>
                     </div>
-                </div>
-                <div th:each="error: ${#fields.errors('email')}" class="alert alert-info" role="alert" >
-                    <span th:text="${error}">errorMessage</span>
-                </div>
 
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <div>
-                        <input type="text" id="name" th:field="*{name}" class="input-text">
-                    </div>
                 </div>
-                <div th:each="error: ${#fields.errors('name')}" class="alert alert-info" role="alert" >
-                    <span th:text="${error}">errorMessage</span>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
-                    <a class="" href="/admin/users">
-                        <button type="button" class="btn btn-secondary mt-4 mr-2 btn-small">Return</button>
-                    </a>
-                </div>
-            </form>
+            </div>
+            <div class="col">
+
+            </div>
         </div>
-
     </div>
+
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>
