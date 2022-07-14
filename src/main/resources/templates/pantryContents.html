@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:position="http://www.w3.org/1999/xhtml">
 
 <head th:replace="fragments/template :: head"></head>
 
@@ -38,7 +38,7 @@
                             </td>
                             <td class="text-center" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
                             <td class="text-center">
-                                <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">remove</a>
+                                <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}"><span id="deletePantryProductBtn" class="material-symbols-outlined">delete </span></a>
                             </td>
                         </tr>
                     </table>

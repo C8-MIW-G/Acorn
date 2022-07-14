@@ -355,3 +355,6 @@ input[type="date"] {
 #toTopButton:hover {
     background-color: var(--gray);
 }
+#deletePantryProductBtn {
+    color: indianred;
+}
