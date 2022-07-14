@@ -8,112 +8,110 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
+    <div id="toTopTarget"></div>
 
     <div class = "container">
         <div class="row">
+
             <div class="col">
-                <div  id ="profileSidebar">
-                    <div class="ml-4">
+                <div class="position-fixed">
+                    <div class="mb-5">
                         <span>Your profile</span>
-                        <h2 th:text="${userEditVM.name}">name</h2>
+                        <h2 th:text="${userEditVM.name}">userName</h2>
                     </div>
-                    <div class="tab">
-                        <div id = "sidebarBtns">
+                    <div class="sidebar-button-container">
+                        <button class="btn btn-outline-secondary" onclick="scrollToEmail()">Change email</button>
+                        <button class="btn btn-outline-secondary" onclick="scrollToName()">Change name</button>
+                        <button class="btn btn-outline-secondary" onclick="scrollToPw()">Change password</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div th:if="${errorMessage}" class="alert alert-info" role="alert">
+                    <span th:text="${errorMessage}">errorMessage</span>
+                </div>
+                <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                    <span th:text="${successMessage}">successMessage</span>
+                </div>
+
+                <div id="changeEmail" class="basket form-group">
+                    <h3>Email</h3>
+                    <form th:action="@{/profile}" method="post" th:object="${userEditVM}">
+                        <input type ="hidden" th:field="*{id}">
+                        <input type ="hidden" th:field="*{name}">
+                        <div class="form-group">
+                            <label for="email">Your e-mailaddress</label>
                             <div>
-                                <button class = "btn btn-outline-secondary" onclick="scrollToName()">Change name</button>
-                            </div>
-                            <div class="space">
-                            </div>
-                            <div>
-                                <button class = "btn btn-outline-secondary" onclick="scrollToPw()">Change password</button>
+                                <input type="text" id="email" th:field="*{email}" th:placeholder="${email}" class="input-text">
                             </div>
                         </div>
-                    </div>
-
+                        <div class="overflow-auto">
+                            <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                        </div>
+                    </form>
                 </div>
 
-            </div>
-            <div class="col-6">
-                <div class="content-medium">
-
-                    <div th:if="${errorMessage}" class="alert alert-info" role="alert">
-                        <span th:text="${errorMessage}">errorMessage</span>
-                    </div>
-                    <div th:if="${successMessage}" class="alert alert-success" role="alert">
-                        <span th:text="${successMessage}">successMessage</span>
-                    </div>
-
-                    <div class="basket form-group overflow-auto">
-                        <h3>Change your e-mailaddress</h3>
-                        <form th:action="@{/profile}" method="post" th:object="${userEditVM}">
-                            <input type ="hidden" th:field="*{id}">
-                            <input type ="hidden" th:field="*{name}">
-                            <div class="form-group">
-                                <label for="email">Your e-mailaddress</label>
-                                <div>
-                                    <input type="text" id="email" th:field="*{email}" th:placeholder="${email}" class="input-text">
-                                </div>
-                            </div>
+                <div id="changeName" class="basket form-group">
+                    <h3>Name</h3>
+                    <form th:action="@{/profile}" method="post" th:object="${userEditVM}">
+                        <input type ="hidden" th:field="*{id}">
+                        <input type ="hidden" th:field="*{email}">
+                        <div class="form-group">
+                            <label for="name">Your profile name</label>
                             <div>
-                                <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                                <input type="text" id="name" th:field="*{name}" th:placeholder="${name}" class="input-text">
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="overflow-auto">
+                            <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                        </div>
+                    </form>
+                </div>
 
-                    <div class="basket form-group overflow-auto">
-                        <h3>Change your profile name</h3>
-                        <form id = "name change" th:action="@{/profile}" method="post" th:object="${userEditVM}">
-                            <input type ="hidden" th:field="*{id}">
-                            <input type ="hidden" th:field="*{email}">
-                            <div class="form-group">
-                                <label for="name">Your profile name</label>
-                                <div>
-                                    <input type="text" id="name" th:field="*{name}" th:placeholder="${name}" class="input-text">
-                                </div>
-                            </div>
+                <div id="changePW" class="basket form-group">
+                    <h3>Password</h3>
+                    <form th:action="@{/profile}" method="post" th:object="${userEditVM}">
+                        <input type ="hidden" th:field="*{id}">
+                        <input type ="hidden" th:field="*{name}">
+                        <input type ="hidden" th:field="*{email}">
+                        <div>
+                            <label for="oldpassword">Your current password</label>
                             <div>
-                                <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                                <input type="password" id="oldPassword" th:field="*{oldPassword}" class="input-text" placeholder="Enter your current password.">
                             </div>
-                        </form>
-                    </div>
-
-                    <div  class="basket form-group overflow-auto">
-                        <h3>Change your password</h3>
-                        <form id = "pw change" th:action="@{/profile}" method="post" th:object="${userEditVM}">
-                            <input type ="hidden" th:field="*{id}">
-                            <input type ="hidden" th:field="*{name}">
-                            <input type ="hidden" th:field="*{email}">
+                            <label for="newPassword">Create a new password</label>
                             <div>
-                                <label for="password">Your current password</label>
-                                <div>
-                                    <input type="password" id="password" th:field="*{oldPassword}" class="input-text" placeholder="Enter your current password.">
-                                </div>
-                                <label for="password">Create a new password</label>
-                                <div>
-                                    <input type="password" id="password" th:field="*{newPassword}" class="input-text" placeholder="Create a new password.">
-                                </div>
-                                <label for="password">Confirm new password</label>
-                                <div>
-                                    <input type="password" id="password" th:field="*{newPasswordCheck}" class="input-text" placeholder="Confirm your new password.">
-                                </div>
+                                <input type="password" id="newPassword" th:field="*{newPassword}" class="input-text" placeholder="Create a new password.">
                             </div>
+                            <label for="newPasswordCheck">Confirm new password</label>
                             <div>
-                                <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                                <input type="password" id="newPasswordCheck" th:field="*{newPasswordCheck}" class="input-text" placeholder="Confirm your new password.">
                             </div>
-                        </form>
-                    </div>
-
+                        </div>
+                        <div class="overflow-auto">
+                            <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
+
             <div class="col">
-                <button class="btn-secondary" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+                <button class="btn-secondary" onclick="scrollToTop()" id="toTopButton" title="Go to top">
+<!--                    <span class="material-symbols-outlined">expand_less</span>-->
+                    <span></span>
+                </button>
             </div>
+
         </div>
     </div>
+
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>
 
 </body>
+
 <script type="text/javascript" src="/js/userProfile.js"></script>
+
 </html>

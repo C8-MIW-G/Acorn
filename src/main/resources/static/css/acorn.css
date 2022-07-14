@@ -39,7 +39,6 @@ a:hover {
 
 h2 {
     margin-bottom: 1rem;
-    font-family: 'Lobster', cursive;
 }
 
 .content-large, .content-medium {
@@ -238,7 +237,7 @@ input[type="date"] {
     border-left: .4rem solid var(--primary-color) !important;
     border-top-right-radius: .3rem !important;
     border-bottom-right-radius: .3rem !important;
-    padding: 2rem 1 rem;
+    padding: 2rem 1rem;
 }
 
 .scrollbar-thin {
@@ -343,44 +342,35 @@ input[type="date"] {
     width: 1rem;
 }
 
-
 .card-icon {
     position: absolute;
     bottom: 1rem;
     left: 50%;
     transform: translateX(-50%);
 }
-#myBtn {
+
+/* ------------------------ Redesigned UI */
+.sidebar-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#toTopButton {
     display: none;
     position: fixed;
-    bottom: 20px;
-    right: 30px;
+    bottom: 2rem;
+    right: 2rem;
     z-index: 99;
     border: none;
     outline: none;
-    background-color: var(--gray-dark) ;
-    color: white;
+    background-color: var(--gray-dark);
+    color: var(--body);
     cursor: pointer;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 18px;
+    padding: .6rem;
+    border-radius: 1rem;
 }
 
-#myBtn:hover {
+#toTopButton:hover {
     background-color: var(--light-grey);
-}
-
-#profileSidebar {
-    position: fixed;
-}
-
-#sidebarBtns {
-    padding-bottom: 50px;
-    margin-bottom: 100px;
-}
-
-.space {
-    width: 4px;
-    height: auto;
-    display: inline-block;
 }

@@ -1,36 +1,32 @@
-// Enable scrolling in view of profile page elements
-
+// JQuery doesn't work in this script for whatever reason
+function scrollToEmail() {
+    document.getElementById("changeEmail").scrollIntoView({
+        behavior: "smooth", block: "center", inline: "start" });
+}
 
 function scrollToName() {
-    let name = document.getElementById("name change");
-    name.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "start"
-    });
+    document.getElementById("changeName").scrollIntoView({
+        behavior: "smooth", block: "center", inline: "start" });
 }
 
 function scrollToPw() {
-    let pw = document.getElementById("pw change");
-    pw.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "start"
-    });
+    document.getElementById("changePW").scrollIntoView({
+        behavior: "smooth", block: "center", inline: "start" });
 }
 
-window.onscroll = function() {scrollFunction()};
+function scrollToTop() {
+    document.getElementById("toTopTarget").scrollIntoView({
+        behavior: "smooth", block: "center", inline: "start" });
+}
 
-function scrollFunction() {
+let toTopButton = document.getElementById("toTopButton");
+
+window.onscroll = function() { hideShowToTopButton() };
+
+function hideShowToTopButton() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        mybutton.style.display = "block";
+        toTopButton.style.display = "block";
     } else {
-        mybutton.style.display = "none";
+        toTopButton.style.display = "none";
     }
 }
-mybutton = document.getElementById("myBtn");
-function topFunction() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-}
-
