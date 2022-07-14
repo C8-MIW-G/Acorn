@@ -13,7 +13,7 @@ import java.time.LocalDate;
  * Created on: 9-6-2022
  */
 @Entity @Getter @Setter
-public class PantryProduct {
+public class PantryProduct implements Comparable <PantryProduct>{
 
     public static final long DEFAULT_ID = -1L;
     public static final int MIN_AMOUNT = 1;
@@ -39,4 +39,9 @@ public class PantryProduct {
         this.id = DEFAULT_ID;
     }
 
+    @Override
+    public int compareTo(PantryProduct pantryProduct) {
+        return
+        getExpirationDate().compareTo(pantryProduct.getExpirationDate());
+    }
 }
