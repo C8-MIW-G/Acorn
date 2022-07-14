@@ -13,20 +13,14 @@
 
             <div class="col">
                 <div>
-                    <span>Pantry</span>
                     <h2 th:text="${pantryName}"></h2>
+                    <div>
+                        <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
+                    </div>
                 </div>
             </div>
 
             <div class="col-6">
-                <div>
-                    <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
-                    <a th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}" class="btn btn-members">Pantry members</a>
-                    <button th:if="${userCanEditPantry}" type="button" class="btn btn-delete" data-toggle="modal" data-target="#myModal">Delete pantry</button>
-                    <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}" class="btn btn-leave">Edit pantry</a>
-                    <button type="button" class="btn btn-leave" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
-                </div>
-
                 <div th:if="${errorMessage}" class="alert alert-info" role="alert">
                     <span th:text="${errorMessage}">errorMessage</span>
                 </div>
@@ -95,13 +89,22 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col">
+                <div class="position-fixed">
+                    <div class =" sidebar-button-container">
+                        <div class="sidebar-button-container"></div>
+                        <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Pantry members</a>
+                        <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}">Edit pantry</a>
+                        <button class="btn btn-outline-secondary" th:if="${userCanEditPantry}" data-toggle="modal" data-target="#myModal">Delete pantry</button>
+                        <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="col">
-        </div>
 
     </div>
-
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/template :: navbar"></nav>
+
+<main>
+
+
+    <div class = "container">
+        <div class="row">
+
+            <div class="col">
+                <div class="position-fixed">
+                    <div class="mb-5">
+                        <span>Pantry-member profile for:</span>
+                        <h2 th:text="${pantryMember.getUserName()}"></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div th:if="${errorMessage}" class="alert alert-info" role="alert">
+                    <span th:text="${errorMessage}">errorMessage</span>
+                </div>
+                <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                    <span th:text="${successMessage}">successMessage</span>
+                </div>
+
+                <div id="makeAdmin" class="basket form-group">
+                    <h3 th:text="${pantryMember.getUserName()}"></h3>
+                    <br th:if="${pantryMember.isAdministrator == true}">
+                    <h5 th:if="${pantryMember.isAdministrator == true}">administrator</h5>
+                    <form th:action="@{/profile}" method="post" th:object="${pantryMember}">
+                        <input type ="hidden" th:field="*{pantryUserId}">
+                        <input type ="hidden" th:field="*{isAdministrator}">
+                    </form>
+                </div>
+
+
+
+                </div>
+
+            <div class="col">
+                <div class="position-fixed">
+                    <div class =" sidebar-button-container">
+                        <div class="sidebar-button-container"></div>
+                        <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Return</button>
+                        <button class="btn-secondary" onclick="scrollToTop()" id="toTopButton" title="Go to top"></button>
+                        <a  th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
+                            class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryUserId})}">
+                            Make admin </a>
+                        <a class="" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">
+                            <button type="button" class="btn btn-secondary mt-4 mr-2 btn-small">Return</button>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+</main>
+
+<footer th:replace="fragments/template :: footer"></footer>
+
+</body>
+
+</html>
+

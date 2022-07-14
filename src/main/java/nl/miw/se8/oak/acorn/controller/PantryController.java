@@ -79,7 +79,7 @@ public class PantryController {
     protected String createPantry(Model model) {
         Pantry pantry = new Pantry();
         model.addAttribute("pantryVM",Mapper.pantryToPantryEditVM(pantry));
-        return "pantryEdit.html";
+        return "pantryEdit";
     }
 
     @GetMapping("/pantry/{pantryId}/edit")
@@ -92,7 +92,7 @@ public class PantryController {
         if (pantry.isPresent()) {
             model.addAttribute("pantryVM", Mapper.pantryToPantryEditVM(pantry.get()));
         }
-        return "pantryEdit.html";
+        return "pantryEdit";
     }
 
     @PostMapping("/pantry/edit")

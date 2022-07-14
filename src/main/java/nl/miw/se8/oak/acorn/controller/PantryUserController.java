@@ -7,6 +7,7 @@ import nl.miw.se8.oak.acorn.service.AcornUserService;
 import nl.miw.se8.oak.acorn.service.AuthorizationService;
 import nl.miw.se8.oak.acorn.service.PantryService;
 import nl.miw.se8.oak.acorn.service.PantryUserService;
+import nl.miw.se8.oak.acorn.viewmodel.MakePantryAdminVM;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
 import nl.miw.se8.oak.acorn.viewmodel.PantryMemberVM;
 import org.springframework.http.HttpStatus;
@@ -167,5 +168,22 @@ public class PantryUserController {
         }
 
         return "redirect:/pantry/{pantryId}/members";
+    }
+
+    @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/pantryUserProfile")
+    protected String pantryMemberProfile( @PathVariable("pantryId") Long pantryId, @PathVariable("pantryUserId") Long pantryUserId, Model model) {
+        if (!authorizationService.userCanEditPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        Optional<PantryUser> pantryMember = pantryUserService.findById(pantryUserId);
+
+        if (pantryMember.isPresent()) {
+            MakePantryAdminVM makePantryAdminVM = Mapper.pantryUsertoMakePantryAdminVM(pantryMember.get());
+            model.addAttribute("pantryMember", makePantryAdminVM);
+        }
+        model.addAttribute("currentUserIsAdmin", authorizationService.userCanEditPantry(pantryId));
+        model.addAttribute("currentUserId", SecurityController.getCurrentUser().getId());
+        return "pantryMemberProfile";
     }
 }

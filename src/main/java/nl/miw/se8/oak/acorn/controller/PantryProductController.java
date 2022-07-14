@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,7 @@ public class PantryProductController {
     @GetMapping("/pantry/{pantryId}")
     protected String pantryContents(@PathVariable("pantryId") Long pantryId, Model model) {
         List<PantryProduct> pantryProducts = pantryProductService.findAllByPantryId(pantryId);
+        Collections.sort(pantryProducts);
         model.addAttribute("pantryProducts", pantryProducts);
 
         Optional<Pantry> pantry = pantryService.findById(pantryId);
