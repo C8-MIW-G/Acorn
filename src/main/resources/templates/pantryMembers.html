@@ -46,15 +46,16 @@
                             <tbody>
                             <tr th:each="pantryMember : ${pantryMembers}">
                                 <td>
-                                    <span th:text="${pantryMember.acornUserName}">userName</span>
+<!-- ORIGINAL                                    <span th:text="${pantryMember.acornUserName}">userName</span>-->
+                                    <a th:href="@{/pantry/{pantryId}/members/{pantryUserId}/pantryUserProfile(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}"th:text="${pantryMember.acornUserName}">userName</a>
                                     <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
                                 </td>
                                 <td>
-                                    <a th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
-                                       th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
-                                        Make admin </a>
+<!--                                    <a th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"-->
+<!--                                       th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">-->
+<!--                                        Make admin </a>-->
                                     <span th:if="${pantryMember.isAdministrator}">
-                                    <span class="material-symbols-outlined" text-align:center >manage_accounts</span>
+                                    <span class="material-symbols-outlined" >manage_accounts</span>
                                 </td>
                                 <td>
                                     <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"

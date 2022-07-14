@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head">
+</head>
+
+<body>
+
+<nav th:replace="fragments/template :: navbar"></nav>
+
+<main>
+
+
+    <div id="toTopTarget"></div>
+
+    <div class = "container">
+        <div class="row">
+
+            <div class="col">
+                <div class="position-fixed">
+                    <div class="mb-5">
+                        <span>Your pantrymember profile</span>  <!-- TODO make this text make sense -->
+                        <h2 th:text="${userName}">userName</h2>
+                    </div>
+                    <div class="sidebar-button-container">
+                        <button class="btn btn-outline-secondary" onclick="scrollToEmail()">Make admin</button>   <!-- TODO make fitting for page-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div th:if="${errorMessage}" class="alert alert-info" role="alert">
+                    <span th:text="${errorMessage}">errorMessage</span>
+                </div>
+                <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                    <span th:text="${successMessage}">successMessage</span>
+                </div>
+
+                <div id="makeAdmin" class="basket form-group">
+                    <h3>Email</h3>
+                    <form th:action="@{/profile}" method="post" th:object="${pantryMember}">
+                        <input type ="hidden" th:field="*{pantryUserId}">
+                        <input type ="hidden" th:field="*{isAdministrator}">
+                        <div class="form-group">
+                            <label>Your e-mailaddress</label>
+                            <div>
+<!--                                /<input type="text" id="email" th:field="*{email}" th:placeholder="${email}" class="input-text">-->
+                                <a  th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
+                                    th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryUserId})}">
+                                    Make admin </a>
+                            </div>
+                        </div>
+                        <div class="overflow-auto">
+                            <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="col">
+                <button class="btn-secondary" onclick="scrollToTop()" id="toTopButton" title="Go to top">
+                    <!--                    <span class="material-symbols-outlined">expand_less</span>-->
+                    <span></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+</main>
+
+<footer th:replace="fragments/template :: footer"></footer>
+
+</body>
+
+</html>
+

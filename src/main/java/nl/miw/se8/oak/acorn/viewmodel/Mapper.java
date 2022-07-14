@@ -127,4 +127,12 @@ public class Mapper {
         return productDefinitionDTO;
     }
 
+    public static MakePantryAdminVM pantryUsertoMakePantryAdminVM(PantryUser pantryUser) {
+        MakePantryAdminVM makePantryAdminVM = new MakePantryAdminVM();
+        makePantryAdminVM.setPantryUserId(pantryUser.getId());
+        makePantryAdminVM.setIsAdministrator(pantryUser.isAdministrator());
+        makePantryAdminVM.setUserName((pantryUser.getUser().getName()));
+       return makePantryAdminVM;
+    }
+
 }
