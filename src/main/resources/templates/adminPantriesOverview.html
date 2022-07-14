@@ -10,41 +10,37 @@
 
 <main>
     <div class="container">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                </div>
-                <div class="col-6">
-                    <div class="content-large">
-                        <h2>Pantries</h2>
-                        <table th:if="${pantries.size > 0}" class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th class="th-fixed-width-small"></th>
-                                <th class="th-fixed-width-small"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="pantry : ${pantries}">
-                                <td>
-                                    <a th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}" th:text="${pantry.name}">pantryName</a>
-                                </td>
-                                <td>
-                                    <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantry.id})}">edit</a>
-                                </td>
-                                <td>
-                                    <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantry.id})}">delete</a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col-6">
+                    <h2>Pantries</h2>
+                    <table th:if="${pantries.size > 0}" class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th class="th-fixed-width-small"></th>
+                            <th class="th-fixed-width-small"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pantry : ${pantries}">
+                            <td>
+                                <a th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}" th:text="${pantry.name}">pantryName</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantry.id})}">edit</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantry.id})}">delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                        <p th:unless="${pantries.size != 0}" class="text-center">You do not seem to have any pantries...</p>
-                    </div>
-                </div>
-                <div class="col">
-                </div>
+                    <p th:unless="${pantries.size != 0}" class="text-center">You do not seem to have any pantries...</p>
+            </div>
+            <div class="col">
             </div>
         </div>
     </div>

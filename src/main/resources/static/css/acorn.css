@@ -237,7 +237,7 @@ input[type="date"] {
     border-left: .4rem solid var(--primary-color) !important;
     border-top-right-radius: .3rem !important;
     border-bottom-right-radius: .3rem !important;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
 }
 
 .scrollbar-thin {
@@ -266,30 +266,11 @@ input[type="date"] {
     letter-spacing: .1rem;
 }
 
-
-/* --------------------------------------- Main Columns */
-.mainWrapper {
-    display: flex;
-}
-
-.main-column-middle {
-    width: 60%;
-}
-
-.main-column-left, .main-column-right {
-    width: 20%;
-    padding: 0 2rem;
-    min-width: 11rem;
-}
-
-.main-column-middle, .main-column-left, .main-column-right {
-    margin-top: 2rem;
-}
-
 /* --------------------------------------- Cards */
 .cardsContainer {
     display: flex;
     flex-flow: row wrap;
+    width: 42.1rem;
 }
 
 .cardWrapper {
@@ -318,7 +299,7 @@ input[type="date"] {
 }
 
 .card h4 {
-    font-family: 'Baloo 2', cursive;
+
 }
 
 .cardWrapper, .card {
@@ -331,15 +312,15 @@ input[type="date"] {
 
 .card-line {
     position: absolute;
-    width: .5rem;
-    height: 1rem;
+    width: .6rem;
+    height: 1.2rem;
     background-color: var(--primary-color);
-    transition: .2s;
+    transition: .1s;
     border-radius: 0 1rem;
 }
 
 .card:hover .card-line {
-    width: 1rem;
+    width: 1.2rem;
 }
 
 .card-icon {
@@ -372,5 +353,5 @@ input[type="date"] {
 }
 
 #toTopButton:hover {
-    background-color: var(--light-grey);
+    background-color: var(--gray);
 }

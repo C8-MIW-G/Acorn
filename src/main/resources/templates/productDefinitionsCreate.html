@@ -11,14 +11,14 @@
 <main>
     <div class="container">
         <div class="row">
+
             <div class="col">
             </div>
-            <div class="col-6">
-                <div class="content-medium basket overflow-auto">
 
+            <div class="col-6">
+                <div class="basket">
                     <h2 th:if="${product.id == -1}">Create a new product</h2>
                     <h2 th:unless="${product.id == -1}">Edit product</h2>
-
                     <form th:action="@{/admin/products/create}" method="post" th:object="${product}">
                         <input type="hidden" th:field="*{id}">
                         <div class="form-group row">
@@ -30,16 +30,17 @@
                         <div th:each="error: ${#fields.errors('name')}" class="alert alert-info" role="alert" >
                             <span th:text="${error}">errorMessage</span>
                         </div>
-                        <div>
+                        <div class="overflow-auto">
                             <a th:href="@{/admin/products}" class="btn btn-secondary">Return</a>
                             <button type="submit" class="btn btn-primary float-right">Submit</button>
                         </div>
                     </form>
-
                 </div>
             </div>
+
             <div class="col">
             </div>
+
         </div>
     </div>
 

@@ -11,19 +11,14 @@
 <main>
 
 
-    <div id="toTopTarget"></div>
-
     <div class = "container">
         <div class="row">
 
             <div class="col">
                 <div class="position-fixed">
                     <div class="mb-5">
-                        <span>Your pantrymember profile</span>  <!-- TODO make this text make sense -->
-                        <h2 th:text="${userName}">userName</h2>
-                    </div>
-                    <div class="sidebar-button-container">
-                        <button class="btn btn-outline-secondary" onclick="scrollToEmail()">Make admin</button>   <!-- TODO make fitting for page-->
+                        <span>Pantry-member profile for:</span>
+                        <h2 th:text="${pantryMember.getUserName()}"></h2>
                     </div>
                 </div>
             </div>
@@ -37,36 +32,37 @@
                 </div>
 
                 <div id="makeAdmin" class="basket form-group">
-                    <h3>Email</h3>
+                    <h3 th:text="${pantryMember.getUserName()}"></h3>
+                    <br th:if="${pantryMember.isAdministrator == true}">
+                    <h5 th:if="${pantryMember.isAdministrator == true}">administrator</h5>
                     <form th:action="@{/profile}" method="post" th:object="${pantryMember}">
                         <input type ="hidden" th:field="*{pantryUserId}">
                         <input type ="hidden" th:field="*{isAdministrator}">
-                        <div class="form-group">
-                            <label>Your e-mailaddress</label>
-                            <div>
-<!--                                /<input type="text" id="email" th:field="*{email}" th:placeholder="${email}" class="input-text">-->
-                                <a  th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
-                                    th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryUserId})}">
-                                    Make admin </a>
-                            </div>
-                        </div>
-                        <div class="overflow-auto">
-                            <button type="submit" class="btn btn-primary mt-4 btn-small float-right">Save</button>
-                        </div>
                     </form>
                 </div>
 
 
 
                 </div>
-            </div>
 
             <div class="col">
-                <button class="btn-secondary" onclick="scrollToTop()" id="toTopButton" title="Go to top">
-                    <!--                    <span class="material-symbols-outlined">expand_less</span>-->
-                    <span></span>
-                </button>
+                <div class="position-fixed">
+                    <div class =" sidebar-button-container">
+                        <div class="sidebar-button-container"></div>
+                        <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Return</button>
+                        <button class="btn-secondary" onclick="scrollToTop()" id="toTopButton" title="Go to top"></button>
+                        <a  th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
+                            class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryUserId})}">
+                            Make admin </a>
+                        <a class="" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">
+                            <button type="button" class="btn btn-secondary mt-4 mr-2 btn-small">Return</button>
+                        </a>
+
+                    </div>
+                </div>
             </div>
+
+
 
         </div>
     </div>
