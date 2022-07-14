@@ -3,7 +3,6 @@ $(document).ready(function () {
     // Find the search form submit and input fields and assign them a custom JavaScript function
     $("#searchForm").submit(function (event) {
         event.preventDefault();
-        ajaxSearchProduct();
     });
 
     $('#searchInput').on('input', function() {
@@ -12,30 +11,44 @@ $(document).ready(function () {
 });
 
 function ajaxSearchProduct() {
-    var searchData = {};
-    searchData["keywords"] = $("#searchInput").val();
+    let keyword = $("#searchInput").val();
 
     $.ajax({
-            type: "POST",
-            url: "/ajaxSearchProduct",
-            data: JSON.stringify(searchData),
-            dataType: 'json',
-            contentType: "application/json",
-            cache: false,
-            timeout: 6000,
-            succes: fillTable(),
-            error: function (e) {
-                console.log("Error fetching AJAX data.");
-            }
-        });
+        type: "POST",
+        url: "/ajaxSearchProduct",
+        data: JSON.stringify(keyword),
+        dataType: "json",
+        contentType: "application/json",
+        cache: false,
+        timeout: 6000,
+        success: function (result) {
+            console.log("AJAX Success");
+            fillTable(result);
+        },
+        error: function () {
+            console.log("AJAX Error");
+        }
+    });
 }
 
-function fillTable() {
-    const newButtonContainer = document.createElement("div");
-    newButtonContainer.classList.add("table-container", "scrollbar-thin")
+function fillTable(result) {
+    let newButtonContainer = document.createElement("div");
+    newButtonContainer.id = "buttonContainer";
+    newButtonContainer.classList.add("table-container", "scrollbar-thin");
 
-    const newContent = document.createTextNode("Hi there and greetings!");
-    newButtonContainer.appendChild(newContent);
+    result.productDefinitionDTOS.forEach(productDefinitionDTO => {
+        let newDiv = document.createElement("div");
+        let button = document.createElement("button");
+        button.classList.add("pantryProductButton");
+        button.type = "button";
+        button.dataset.toggle = "modal";
+        button.dataset.target = "#productAddModal";
+        button.setAttribute("data-product-id", productDefinitionDTO.id);
+        button.setAttribute("data-product-name", productDefinitionDTO.name);
+        button.textContent = productDefinitionDTO.name;
+        newDiv.append(button);
+        newButtonContainer.append(newDiv);
+    });
 
     $("#buttonContainer").replaceWith(newButtonContainer);
 }

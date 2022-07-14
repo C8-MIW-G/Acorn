@@ -88,6 +88,10 @@ public class PantryProductController {
         List<ProductDefinition> productDefinitions = productDefinitionService.findAll();
         model.addAttribute("productDefinitions", productDefinitions);
 
+        // Add pantry name to model
+        Optional<Pantry> pantry = pantryService.findById(pantryId);
+        pantry.ifPresent(value -> model.addAttribute("pantryName", value.getName()));
+
         // Load the page using the model
         return "pantryProductAdd";
     }

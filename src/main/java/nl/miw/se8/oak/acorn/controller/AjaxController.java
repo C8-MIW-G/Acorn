@@ -7,14 +7,10 @@ import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Author: Thijs van Blanken
@@ -30,19 +26,20 @@ public class AjaxController {
         this.productDefinitionService = productDefinitionService;
     }
 
-//    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/ajaxSearchProduct")
-    public ResponseEntity<?> getSearchResultViaAjax(@RequestBody SearchStringDTO search, Errors errors) {
+    public ResponseEntity<?> getSearchResultViaAjax(@RequestBody SearchStringDTO search) {
+        System.out.printf("Reached AJAX Controller: \"%s\"\n", search.getKeyword());
 
         ProductDefinitionAjaxResponse result = new ProductDefinitionAjaxResponse();
 
-        List<ProductDefinition> productDefinitions = productDefinitionService.findByNameContains(search.getKeywords());
-        List<ProductDefinitionDTO> productDefinitionDTOS = new ArrayList<>();
-        for (ProductDefinition productDefinition : productDefinitions) {
-            productDefinitionDTOS.add(Mapper.productDefinitionToDTO(productDefinition));
+        List<ProductDefinition> allProducts = productDefinitionService.findByNameContains(search.getKeyword());
+        List<ProductDefinitionDTO> productDTOS = new ArrayList<>();
+        for (ProductDefinition product : allProducts) {
+            System.out.println("\t" + product.getName());
+            productDTOS.add(Mapper.productDefinitionToDTO(product));
         }
 
-        result.setProductDefinitionDTOS(productDefinitionDTOS);
+        result.setProductDefinitionDTOS(productDTOS);
         return ResponseEntity.ok(result);
     }
 

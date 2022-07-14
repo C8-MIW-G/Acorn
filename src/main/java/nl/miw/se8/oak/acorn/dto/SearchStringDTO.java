@@ -6,11 +6,13 @@ import lombok.Setter;
 /**
  * Auteur: Thijs van Blanken
  * Aangemaakt op: 13-7-2022
- * OMSCHRIJVING
  */
 @Getter @Setter
 public class SearchStringDTO {
 
-    private String keywords;
+    private String keyword;
 
+    public SearchStringDTO(String keywords) {
+        this.keyword = keywords;
+    }
 }

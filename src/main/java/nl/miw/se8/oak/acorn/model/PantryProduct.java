@@ -41,7 +41,13 @@ public class PantryProduct implements Comparable <PantryProduct>{
 
     @Override
     public int compareTo(PantryProduct pantryProduct) {
-        return
-        getExpirationDate().compareTo(pantryProduct.getExpirationDate());
+        // You have to consider pantry products that do not have an expiration date!
+        if (getExpirationDate() == null) {
+            return 1;
+        } else if (pantryProduct.getExpirationDate() == null) {
+            return -1;
+        } else {
+            return getExpirationDate().compareTo(pantryProduct.getExpirationDate());
+        }
     }
 }
