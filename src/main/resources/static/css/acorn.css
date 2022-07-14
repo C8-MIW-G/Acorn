@@ -237,7 +237,7 @@ input[type="date"] {
     border-left: .4rem solid var(--primary-color) !important;
     border-top-right-radius: .3rem !important;
     border-bottom-right-radius: .3rem !important;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
 }
 
 .scrollbar-thin {
@@ -372,5 +372,5 @@ input[type="date"] {
 }
 
 #toTopButton:hover {
-    background-color: var(--light-grey);
+    background-color: var(--gray);
 }
