@@ -168,7 +168,7 @@ h2 {
 
 /* --------------------------------------- Tables */
 .table-container {
-    max-height: 70vh;
+    max-height: calc(100vh - 4.5rem - 4.9rem);
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -243,7 +243,6 @@ input[type="date"] {
 .scrollbar-thin {
     scrollbar-color: var(--primary-color-extralight) var(--light-grey);
     scrollbar-width: thin;
-    max-height: 30rem;
 }
 
 /* --------------------------------------- Bootstrap overrides */
