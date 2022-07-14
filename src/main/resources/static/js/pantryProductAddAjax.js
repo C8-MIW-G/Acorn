@@ -40,11 +40,11 @@ function fillTable(result) {
         let newDiv = document.createElement("div");
         let button = document.createElement("button");
         button.classList.add("pantryProductButton");
-        button.setAttribute("type", "button");
-        button.setAttribute("data-toggle", "modal");
-        button.setAttribute("data-target", "productAddModal");
-        button.setAttribute("th:product-data-id", productDefinitionDTO.id);
-        button.setAttribute("th:data-product-name", productDefinitionDTO.name);
+        button.type = "button";
+        button.dataset.toggle = "modal";
+        button.dataset.target = "#productAddModal";
+        button.setAttribute("data-product-id", productDefinitionDTO.id);
+        button.setAttribute("data-product-name", productDefinitionDTO.name);
         button.textContent = productDefinitionDTO.name;
         newDiv.append(button);
         newButtonContainer.append(newDiv);
