@@ -12,24 +12,23 @@
         <div class="row">
 
             <div class="col">
-                <h2>Add product</h2>
+                <div class="position-fixed">
+                    <span>pantryName</span>
+                    <h2>Add product</h2>
+                    <form class="form-inline my-3" id="searchForm">
+                        <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search..."/>
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                    <div class="sidebar-button-container">
+                        <a th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}" type="button" class="btn btn-secondary btn-small">Return</a>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-6">
-
-                <div class="d-flex flex-row my-4">
-                    <a th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}"><button type="button" class="btn btn-secondary">Return</button></a>
-                </div>
-
-                <form class="form-inline my-3" id="searchForm">
-                    <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search..."/>
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-
+            <div class="col-5">
                 <form th:action="@{/pantry/{pantryId}/add(pantryId=${pantryProduct.pantryId})}" method="post" th:object="${pantryProduct}" id ="the-form">
                     <input type="hidden" th:field="*{id}">
                     <input type="hidden" th:field="*{pantryId}">
-
                     <div id="buttonContainer" class="table-container scrollbar-thin" th:if="${pantryProduct.id == -1}">
                         <div th:each="product : ${productDefinitions}">
                             <button type="button"

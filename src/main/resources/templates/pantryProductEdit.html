@@ -12,11 +12,11 @@
         <div class="row">
 
             <div class="col">
-                <h2>Edit a product</h2>
             </div>
 
-            <div class="col-6">
+            <div class="col-5">
                 <div class="basket">
+                    <h2>Edit a product</h2>
                     <form th:action="@{/pantry/{pantryId}/edit(pantryId=${pantryProduct.pantryId})}" method="post" th:object="${pantryProduct}" id ="the-form">
                         <input type="hidden" th:field="*{id}">
                         <div class="my-5">

@@ -19,15 +19,14 @@
                 </div>
             </div>
 
-            <div class="col-8">
+            <div>
                 <div th:if="${pantries.size > 0}" class="cardsContainer">
                     <div th:each="pantry : ${pantries}" class="cardWrapper">
                         <a th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}">
                             <div class="card">
                                 <div class="card-line"></div>
                                 <div class="card-body">
-                                    <p class="m-0">Pantry</p>
-                                    <h4 th:text="${pantry.name}" class="title">pantryName</h4>
+                                    <h4 th:text="${pantry.name}" class="title mt-4">pantryName</h4>
                                     <div>
                                         <span class="material-symbols-outlined card-icon">kitchen</span>
                                     </div>
