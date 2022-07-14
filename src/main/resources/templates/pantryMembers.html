@@ -11,13 +11,14 @@
 <main>
     <div class="container">
         <div class="row">
+
             <div class="col">
                 <div>
                     <h2>Pantry Members</h2>
                 </div>
             </div>
+
             <div class="col-6">
-                <div class="content-medium">
                     <div class="table-container scrollbar-thin">
 
                         <div class="d-flex my-4">
@@ -44,36 +45,35 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="pantryMember : ${pantryMembers}">
-                                <td>
-                                    <span th:text="${pantryMember.acornUserName}">userName</span>
-                                    <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
-                                </td>
-                                <td>
-                                    <a th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
-                                       th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
-                                        Make admin </a>
-                                    <span th:if="${pantryMember.isAdministrator}">
-                                    <span class="material-symbols-outlined" text-align:center >manage_accounts</span>
-                                </td>
-                                <td>
-                                    <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"
-                                       th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
-                                        remove</a>
-                                </td>
-                            </tr>
-                </tbody>
+                                <tr th:each="pantryMember : ${pantryMembers}">
+                                    <td>
+                                        <span th:text="${pantryMember.acornUserName}">userName</span>
+                                        <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
+                                    </td>
+                                    <td>
+                                        <a th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
+                                           th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
+                                            Make admin </a>
+                                        <span th:if="${pantryMember.isAdministrator}">
+                                        <span class="material-symbols-outlined" text-align:center >manage_accounts</span>
+                                    </td>
+                                    <td>
+                                        <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"
+                                           th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
+                                            remove</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-            </table>
+                    </div>
+            </div>
 
         </div>
 
-    </div>
-            </div>
-            <div class="col">
-
-            </div>
+        <div class="col">
         </div>
+
     </div>
 </main>
 
