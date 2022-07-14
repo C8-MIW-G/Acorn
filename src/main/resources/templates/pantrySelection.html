@@ -9,36 +9,38 @@
 <nav th:replace="fragments/template :: navbar"></nav>
 
 <main>
-    <div class="mainWrapper">
+    <div class="container">
+        <div class="row">
 
-        <div class="main-column-left">
-            <h2>My Pantries</h2>
-            <div class="d-flex flex-column my-4">
-                <a href="/pantry/create"><button type="button" class="btn btn-primary">New pantry</button></a>
-            </div>
-        </div>
-
-        <div class="main-column-middle">
-            <div th:if="${pantries.size > 0}" class="cardsContainer">
-                <div th:each="pantry : ${pantries}" class="cardWrapper">
-                    <a th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}">
-                        <div class="card">
-                            <div class="card-line"></div>
-                            <div class="card-body">
-                                <p class="m-0">Pantry</p>
-                                <h4 th:text="${pantry.name}" class="title">pantryName</h4>
-                                <div>
-                                    <span class="material-symbols-outlined card-icon">kitchen</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+            <div class="col">
+                <h2>My Pantries</h2>
+                <div class="d-flex flex-column my-4">
+                    <a href="/pantry/create"><button type="button" class="btn btn-primary">New pantry</button></a>
                 </div>
             </div>
-            <p th:unless="${pantries.size != 0}" class="text-center">You do not seem to have any pantries...</p>
-        </div>
 
-        <div class="main-column-right">
+            <div class="col-8">
+                <div th:if="${pantries.size > 0}" class="cardsContainer">
+                    <div th:each="pantry : ${pantries}" class="cardWrapper">
+                        <a th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}">
+                            <div class="card">
+                                <div class="card-line"></div>
+                                <div class="card-body">
+                                    <p class="m-0">Pantry</p>
+                                    <h4 th:text="${pantry.name}" class="title">pantryName</h4>
+                                    <div>
+                                        <span class="material-symbols-outlined card-icon">kitchen</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <p th:unless="${pantries.size != 0}" class="text-center">You do not seem to have any pantries...</p>
+            </div>
+
+            <div class="col">
+            </div>
 
         </div>
     </div>

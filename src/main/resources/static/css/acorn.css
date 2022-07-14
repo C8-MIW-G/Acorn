@@ -266,26 +266,6 @@ input[type="date"] {
     letter-spacing: .1rem;
 }
 
-
-/* --------------------------------------- Main Columns */
-.mainWrapper {
-    display: flex;
-}
-
-.main-column-middle {
-    width: 60%;
-}
-
-.main-column-left, .main-column-right {
-    width: 20%;
-    padding: 0 2rem;
-    min-width: 11rem;
-}
-
-.main-column-middle, .main-column-left, .main-column-right {
-    margin-top: 2rem;
-}
-
 /* --------------------------------------- Cards */
 .cardsContainer {
     display: flex;

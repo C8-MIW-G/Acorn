@@ -17,7 +17,7 @@
 
             <div class="col-6">
                 <div class="basket form-group overflow-auto">
-                    <h2 th:if="${pantryVM.id == -1}">Create a new pantry</h2>
+                    <h2 th:if="${pantryVM.id == -1}">Create a pantry</h2>
                     <h2 th:unless="${pantryVM.id == -1}">Edit your pantry</h2>
                     <form th:action="@{/pantry/edit}" method="post" th:object="${pantryVM}">
                         <div class ="form-group">
@@ -26,7 +26,7 @@
                             </div>
                             <div class="">
                                 <input type ="hidden" id="ID" th:field="*{id}">
-                                <input autofocus type ="text" id="name" th:field="*{name}" class="input-text" placeholder="Write the name of your new pantry here">
+                                <input autofocus type ="text" id="name" th:field="*{name}" class="input-text" placeholder="Enter the name of your pantry.">
                             </div>
                         </div>
                         <div th:each="error: ${#fields.errors('name')}" class="alert alert-info" role="alert" >
