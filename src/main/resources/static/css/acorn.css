@@ -168,7 +168,7 @@ h2 {
 
 /* --------------------------------------- Tables */
 .table-container {
-    max-height: calc(100vh - 4.5rem - 4.9rem);
+    max-height: 30rem;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -221,10 +221,9 @@ input[type="date"] {
     background-color: var(--body);
     border: 1px solid var(--primary-color-extralight);
     border-radius: 0 1rem 1rem 0;
-    transition: .04s;
 }
 
-.pantryProductButton:hover {
+.pantryProductButton:hover, .pantryProductButton:focus {
     background-color: var(--primary-color-extralight);
     border-color: var(--primary-color-light);
     border-left: .4rem solid var(--primary-color);
@@ -356,4 +355,30 @@ input[type="date"] {
 }
 #deletePantryProductBtn {
     color: indianred;
+}
+
+.returnDiv {
+    position: absolute;
+    left: -4.4rem;
+    display: block;
+    padding: 0 .5rem;
+    border: 1px solid var(--primary-color-matte);
+    border-radius: 1rem 0 0 1rem;
+    color: var(--primary-color);
+    transition: .05s;
+}
+
+.returnDiv:hover {
+    background-color: var(--primary-color-extralight);
+    border-color: var(--primary-color-light);
+    color: var(--primary-color);
+    border-right: .4rem solid var(--primary-color);
+}
+
+.returnIcon {
+    line-height: 62.4px;
+}
+
+#searchInput {
+    width: 100%;
 }
