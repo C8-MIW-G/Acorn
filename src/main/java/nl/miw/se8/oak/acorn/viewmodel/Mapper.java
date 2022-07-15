@@ -132,7 +132,7 @@ public class Mapper {
         makePantryAdminVM.setPantryUserId(pantryUser.getId());
         makePantryAdminVM.setIsAdministrator(pantryUser.isAdministrator());
         makePantryAdminVM.setUserName((pantryUser.getUser().getName()));
-//        makePantryAdminVM.setPantryId(pantryUser.getPantry().getId());
+        makePantryAdminVM.setPantryName(pantryUser.getPantry().getName());
        return makePantryAdminVM;
     }
 

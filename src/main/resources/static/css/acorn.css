@@ -224,7 +224,7 @@ input[type="date"] {
     transition: .04s;
 }
 
-.pantryProductButton:hover {
+.pantryProductButton:hover, .pantryProductButton:focus {
     background-color: var(--primary-color-extralight);
     border-color: var(--primary-color-light);
     border-left: .4rem solid var(--primary-color);
