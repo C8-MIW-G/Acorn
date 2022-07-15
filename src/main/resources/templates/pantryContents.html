@@ -13,10 +13,8 @@
 
             <div class="col">
                 <div>
+                    <span>Pantry</span>
                     <h2 th:text="${pantryName}"></h2>
-                    <div>
-                        <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
-                    </div>
                 </div>
             </div>
 
@@ -24,7 +22,9 @@
                 <div th:if="${errorMessage}" class="alert alert-info" role="alert">
                     <span th:text="${errorMessage}">errorMessage</span>
                 </div>
-
+                <div id="addProductInPantryBtn">
+                    <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
+                </div>
                 <div class="table-container scrollbar-thin">
                     <table th:if="${pantryProducts.size > 0}" class="table">
                         <tr>
