@@ -12,7 +12,11 @@
         <div class="row">
 
             <div class="col">
-                <div>
+                <div class="position-relative">
+                    <a class="returnDiv" href="/pantrySelection">
+                        <span class="material-symbols-outlined returnIcon">arrow_back</span>
+                    </a>
+                    <span>Pantry</span>
                     <h2 th:text="${pantryName}"></h2>
                     <div>
                         <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>

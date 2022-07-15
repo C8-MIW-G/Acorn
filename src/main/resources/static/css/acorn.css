@@ -168,7 +168,7 @@ h2 {
 
 /* --------------------------------------- Tables */
 .table-container {
-    max-height: calc(100vh - 4.5rem - 4.9rem);
+    max-height: 30rem;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -221,7 +221,6 @@ input[type="date"] {
     background-color: var(--body);
     border: 1px solid var(--primary-color-extralight);
     border-radius: 0 1rem 1rem 0;
-    transition: .04s;
 }
 
 .pantryProductButton:hover {
@@ -360,13 +359,13 @@ input[type="date"] {
 
 .returnDiv {
     position: absolute;
-    left: -3.4rem;
+    left: -4.4rem;
     display: block;
     padding: 0 .5rem;
     border: 1px solid var(--primary-color-matte);
     border-radius: 1rem 0 0 1rem;
     color: var(--primary-color);
-    transition: .2s;
+    transition: .05s;
 }
 
 .returnDiv:hover {
@@ -378,4 +377,8 @@ input[type="date"] {
 
 .returnIcon {
     line-height: 62.4px;
+}
+
+#searchInput {
+    width: 100%;
 }
