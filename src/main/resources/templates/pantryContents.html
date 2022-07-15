@@ -12,9 +12,15 @@
         <div class="row">
 
             <div class="col">
-                <div>
-                    <span>Pantry</span>
+                <div class="position-relative">
+                    <a class="returnDiv" href="/pantrySelection">
+                        <span class="material-symbols-outlined returnIcon">arrow_back</span>
+                    </a>
                     <h2 th:text="${pantryName}"></h2>
+                    <div>
+                        <span>Pantry</span>
+                        <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
+                    </div>
                 </div>
             </div>
 
@@ -91,14 +97,11 @@
                 </div>
             </div>
             <div class="col">
-                <div class="position-fixed">
-                    <div class =" sidebar-button-container">
-                        <div class="sidebar-button-container"></div>
+                <div class="position-fixed sidebar-button-container">
                         <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Pantry members</a>
                         <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}">Edit pantry</a>
                         <button class="btn btn-outline-secondary" th:if="${userCanEditPantry}" data-toggle="modal" data-target="#myModal">Delete pantry</button>
                         <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
-                    </div>
                 </div>
             </div>
         </div>

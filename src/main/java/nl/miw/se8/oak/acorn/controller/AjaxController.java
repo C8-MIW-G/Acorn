@@ -6,9 +6,13 @@ import nl.miw.se8.oak.acorn.dto.SearchStringDTO;
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,18 +31,30 @@ public class AjaxController {
     }
 
     @PostMapping("/ajaxSearchProduct")
-    public ResponseEntity<?> getSearchResultViaAjax(@RequestBody SearchStringDTO search) {
-        System.out.printf("Reached AJAX Controller: \"%s\"\n", search.getKeyword());
+    public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody SearchStringDTO search, Errors errors) {
+        // Check for errors
+        if (errors.hasErrors()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
 
+        // Prepare ajax response
         ProductDefinitionAjaxResponse result = new ProductDefinitionAjaxResponse();
 
-        List<ProductDefinition> allProducts = productDefinitionService.findByNameContains(search.getKeyword());
+        // Fetch products from database
+        List<ProductDefinition> products;
+        if (search.getKeyword().length() != 0) {
+            products = productDefinitionService.findByNameContains(search.getKeyword());
+        } else {
+            products = productDefinitionService.findAll();
+        }
+
+        // Convert to DTOs
         List<ProductDefinitionDTO> productDTOS = new ArrayList<>();
-        for (ProductDefinition product : allProducts) {
-            System.out.println("\t" + product.getName());
+        for (ProductDefinition product : products) {
             productDTOS.add(Mapper.productDefinitionToDTO(product));
         }
 
+        // Send it
         result.setProductDefinitionDTOS(productDTOS);
         return ResponseEntity.ok(result);
     }

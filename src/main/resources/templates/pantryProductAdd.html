@@ -12,19 +12,22 @@
         <div class="row">
 
             <div class="col">
+
                 <div class="position-fixed">
-                    <span th:text="${pantryName}">pantryName</span>
-                    <h2>Add product</h2>
-                    <form class="form-inline my-3" id="searchForm">
-                        <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search..."/>
-                    </form>
-                    <div class="sidebar-button-container">
-                        <a th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}" type="button" class="btn btn-secondary btn-small">Return</a>
+                    <div class="position-relative">
+                        <a class="returnDiv" th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}">
+                            <span class="material-symbols-outlined returnIcon">arrow_back</span>
+                        </a>
+                        <span th:text="${pantryName}">pantryName</span>
+                        <h2>Add product</h2>
                     </div>
                 </div>
             </div>
 
             <div class="col-5">
+                <form class="form-inline mb-4" id="searchForm">
+                    <input class="form-control mr-sm-2" id="searchInput" type="search" autocomplete="off" placeholder="Search..."/>
+                </form>
                 <form th:action="@{/pantry/{pantryId}/add(pantryId=${pantryProduct.pantryId})}" method="post" th:object="${pantryProduct}" id ="the-form">
                     <input type="hidden" th:field="*{id}">
                     <input type="hidden" th:field="*{pantryId}">
