@@ -13,11 +13,10 @@
 
             <div class="col">
                 <div class="position-fixed">
-                    <span>pantryName</span>
+                    <span th:text="${pantryName}">pantryName</span>
                     <h2>Add product</h2>
                     <form class="form-inline my-3" id="searchForm">
                         <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search..."/>
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                     <div class="sidebar-button-container">
                         <a th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}" type="button" class="btn btn-secondary btn-small">Return</a>
@@ -34,7 +33,7 @@
                             <button type="button"
                                     class="pantryProductButton"
                                     data-toggle="modal"
-                                    data-target="#myModal"
+                                    data-target="#productAddModal"
                                     th:data-product-id="${product.id}"
                                     th:data-product-name="${product.name}"
                                     th:text="${product.name}">
@@ -42,7 +41,7 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+                    <div class="modal fade" id="productAddModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">

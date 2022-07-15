@@ -1,5 +1,5 @@
 // CONFIRMATION MODAL
-let modal = $('#myModal')
+let modal = $('#productAddModal')
 
 // Before the modal is shown
 modal.on('show.bs.modal', function (event) {
