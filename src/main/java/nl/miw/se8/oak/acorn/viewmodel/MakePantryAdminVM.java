@@ -10,5 +10,6 @@ public class MakePantryAdminVM {
     private Long pantryUserId;
     private Boolean isAdministrator;
     private String userName;
+    private String pantryName;
 //    private Long pantryId;
     }
