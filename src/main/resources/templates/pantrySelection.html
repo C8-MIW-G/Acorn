@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
 
 <head th:replace="fragments/template :: head">
 </head>
@@ -13,6 +13,7 @@
         <div class="row">
 
             <div class="col">
+                <span sec:authentication="name">userName</span>
                 <h2>My Pantries</h2>
                 <div class="d-flex flex-column my-4">
                     <a href="/pantry/create"><button type="button" class="btn btn-primary">New pantry</button></a>
