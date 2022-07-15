@@ -17,8 +17,7 @@
             <div class="col">
                 <div class="position-fixed">
                     <div class="mb-5">
-                        <span>Pantry-member profile for:</span>
-                        <h2 th:text="${pantryMember.getUserName()}"></h2>
+                        <h2 th:text="${pantryMember.getPantryName()}"></h2>
                     </div>
                 </div>
             </div>
@@ -32,41 +31,60 @@
                 </div>
 
                 <div id="makeAdmin" class="basket form-group">
-                    <h3 th:text="${pantryMember.getUserName()}"></h3>
-                    <br th:if="${pantryMember.isAdministrator == true}">
-                    <h5 th:if="${pantryMember.isAdministrator == true}">administrator</h5>
+                    <h3 th:text="'Pantry-member ' + ${pantryMember.getUserName()}"></h3>
+                    <br>
+                    <br>
+                    <br>
+                    <span th:if="${pantryMember.isAdministrator == true}"
+                        th:text="${pantryMember.getUserName()} + ' is an administrator in this pantry'">
+                    </span>
+                    <button th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
+                            class="btn btn-primary" type="button" data-toggle="modal" data-target="#adminModal">Make admin</button>
+
                     <form th:action="@{/profile}" method="post" th:object="${pantryMember}">
                         <input type ="hidden" th:field="*{pantryUserId}">
                         <input type ="hidden" th:field="*{isAdministrator}">
                     </form>
                 </div>
 
-
-
-                </div>
+            </div>
 
             <div class="col">
                 <div class="position-fixed">
                     <div class =" sidebar-button-container">
                         <div class="sidebar-button-container"></div>
-                        <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Return</button>
-                        <button class="btn-secondary" onclick="scrollToTop()" id="toTopButton" title="Go to top"></button>
-                        <a  th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
-                            class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryUserId})}">
-                            Make admin </a>
-                        <a class="" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">
-                            <button type="button" class="btn btn-secondary mt-4 mr-2 btn-small">Return</button>
+                        <button class="btn-secondary" onclick="scrollToTop()" id="toTopButton" title="Go to top"></button>  <!-- TODO werkend maken -->
+                        <a th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}"type="button" class="btn btn-secondary">Return
                         </a>
 
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 
+    <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you sure?</h5>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <span th:block th:text="'You are about to make ' + ${pantryMember.getUserName()} + ' an administrator for this pantry '"></span>.
+                        <br>
+                        Are you sure?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a  th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
+                        class="btn btn-primary" th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryUserId})}">
+                        Make admin </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </main>
 
