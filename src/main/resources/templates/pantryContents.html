@@ -25,7 +25,7 @@
                 <div th:if="${errorMessage}" class="alert alert-info" role="alert">
                     <span th:text="${errorMessage}">errorMessage</span>
                 </div>
-                <div id="addProductInPantryBtn">
+                <div class="row mb-3 px-3 d-flex flex-row-reverse btn-container">
                     <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
                 </div>
                 <div class="table-container scrollbar-thin">
@@ -47,7 +47,7 @@
                     </table>
                 </div>
 
-                <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
+                <p th:unless="${pantryProducts.size != 0}" class="text-center my-5">This seems to be a bit empty... try to add some products!</p>
 
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">

@@ -357,12 +357,7 @@ input[type="date"] {
 #deletePantryProductBtn {
     color: indianred;
 }
-#addProductInPantryBtn {
-    padding-left: 425px;
-    position: relative;
-    padding-bottom: 20px;
-    padding-top: 17px;
-}
+
 .returnDiv {
     position: absolute;
     left: -4.4rem;
