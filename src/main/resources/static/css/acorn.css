@@ -223,7 +223,7 @@ input[type="date"] {
     border-radius: 0 1rem 1rem 0;
 }
 
-.pantryProductButton:hover {
+.pantryProductButton:hover, .pantryProductButton:focus {
     background-color: var(--primary-color-extralight);
     border-color: var(--primary-color-light);
     border-left: .4rem solid var(--primary-color);

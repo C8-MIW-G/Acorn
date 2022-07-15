@@ -26,7 +26,7 @@
 
             <div class="col-5">
                 <form class="form-inline mb-4" id="searchForm">
-                    <input class="form-control mr-sm-2" id="searchInput" type="search" autocomplete="off" placeholder="Search..."/>
+                    <input class="form-control mr-sm-2" id="searchInput" type="search" autocomplete="off" placeholder="Search..." autofocus/>
                 </form>
                 <form th:action="@{/pantry/{pantryId}/add(pantryId=${pantryProduct.pantryId})}" method="post" th:object="${pantryProduct}" id ="the-form">
                     <input type="hidden" th:field="*{id}">
