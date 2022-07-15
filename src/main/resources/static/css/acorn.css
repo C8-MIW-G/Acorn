@@ -357,3 +357,25 @@ input[type="date"] {
 #deletePantryProductBtn {
     color: indianred;
 }
+
+.returnDiv {
+    position: absolute;
+    left: -3.4rem;
+    display: block;
+    padding: 0 .5rem;
+    border: 1px solid var(--primary-color-matte);
+    border-radius: 1rem 0 0 1rem;
+    color: var(--primary-color);
+    transition: .2s;
+}
+
+.returnDiv:hover {
+    background-color: var(--primary-color-extralight);
+    border-color: var(--primary-color-light);
+    color: var(--primary-color);
+    border-right: .4rem solid var(--primary-color);
+}
+
+.returnIcon {
+    line-height: 62.4px;
+}

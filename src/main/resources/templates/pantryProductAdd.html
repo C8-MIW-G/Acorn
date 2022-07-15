@@ -12,15 +12,18 @@
         <div class="row">
 
             <div class="col">
+
                 <div class="position-fixed">
-                    <span th:text="${pantryName}">pantryName</span>
-                    <h2>Add product</h2>
+                    <div class="position-relative">
+                        <a class="returnDiv" th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}">
+                            <span class="material-symbols-outlined returnIcon">arrow_back</span>
+                        </a>
+                        <span th:text="${pantryName}">pantryName</span>
+                        <h2>Add product</h2>
+                    </div>
                     <form class="form-inline my-3" id="searchForm">
                         <input class="form-control mr-sm-2" id="searchInput" type="search" placeholder="Search..."/>
                     </form>
-                    <div class="sidebar-button-container">
-                        <a th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}" type="button" class="btn btn-secondary btn-small">Return</a>
-                    </div>
                 </div>
             </div>
 
