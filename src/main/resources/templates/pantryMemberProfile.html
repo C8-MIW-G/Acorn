@@ -49,13 +49,11 @@
                 <div class="position-fixed">
                     <div class =" sidebar-button-container">
                         <div class="sidebar-button-container"></div>
-                        <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Return</button>
-                        <button class="btn-secondary" onclick="scrollToTop()" id="toTopButton" title="Go to top"></button>
+                        <button class="btn-secondary" onclick="scrollToTop()" id="toTopButton" title="Go to top"></button>  <!-- TODO werkend maken -->
                         <a  th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
                             class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members/{pantryUserId}/makeAdmin(pantryId=${pantryId}, pantryUserId=${pantryUserId})}">
                             Make admin </a>
-                        <a class="" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">
-                            <button type="button" class="btn btn-secondary mt-4 mr-2 btn-small">Return</button>
+                        <a th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}"type="button" class="btn btn-secondary">Return
                         </a>
 
                     </div>
