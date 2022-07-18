@@ -213,14 +213,12 @@ public class DataLoader {
     }
 
     private void seedShoppingListProducts() {
-        List<Pantry> allPantries = pantryService.findAll();
+        Pantry pantry = pantryService.findByName("Thijs' Pantry").get();
         List<ProductDefinition> allProductDefinitions = productDefinitionService.findAll();
 
-        for (Pantry pantry : allPantries) {
-            for (int i = 0; i < 10; i++) {
-                ShoppingListProduct shoppingListProduct = new ShoppingListProduct(pantry, allProductDefinitions.get((int) (Math.random() * allProductDefinitions.size())));
-                shoppingListProductService.save(shoppingListProduct);
-            }
+        for (int i = 0; i < 40; i++) {
+               ShoppingListProduct shoppingListProduct = new ShoppingListProduct(pantry, allProductDefinitions.get((int) (Math.random() * allProductDefinitions.size())));
+            shoppingListProductService.save(shoppingListProduct);
         }
     }
 

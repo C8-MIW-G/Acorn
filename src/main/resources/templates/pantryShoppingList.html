@@ -25,16 +25,21 @@
                 <div th:if="${errorMessage}" class="alert alert-info" role="alert">
                     <span th:text="${errorMessage}">errorMessage</span>
                 </div>
-                <div class="table-container scrollbar-thin">
-                    <table th:if="${products.size > 0}" class="table">
+                <div th:if="${products.size > 0}">
+                    <table class="table m-0">
                         <tr>
                             <th scope="col">Product</th>
                         </tr>
-                        <tr th:each="product : ${products}">
-                            <td th:text="${product.name}"></td>
-                        </tr>
                     </table>
+                    <div class="table-container scrollbar-thin">
+                        <table class="table">
+                            <tr th:each="product : ${products}">
+                                <td th:text="${product.name}"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
+                <p th:unless="${products.size > 0}" class="text-center my-5">This seems to be a bit empty... try to add some products!</p>
             </div>
 
             <div class="col"></div>
