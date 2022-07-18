@@ -178,7 +178,6 @@ public class PantryUserController {
         }
 
         Optional<PantryUser> pantryMember = pantryUserService.findById(pantryUserId);
-
         if (pantryMember.isPresent()) {
             MakePantryAdminVM makePantryAdminVM = Mapper.pantryUsertoMakePantryAdminVM(pantryMember.get());
             model.addAttribute("pantryMember", makePantryAdminVM);

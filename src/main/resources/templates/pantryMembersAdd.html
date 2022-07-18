@@ -17,7 +17,7 @@
 
             <div class="col-6">
                 <div class="basket">
-                    <h2 >Add a member</h2>
+                    <h2 >Add member</h2>
                     <form th:action="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}" method="post">
                         <div class="my-5">
                             <div>
@@ -26,7 +26,7 @@
                             <input id="email" type="text"  th:name="userEmail" placeholder="Enter an email address." class="input-text">
                         </div>
                         <div class="overflow-auto">
-                            <a th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}"><button type="button" class="btn btn-secondary">Cancel</button></a>
+                            <a th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}"><button type="button" class="btn btn-secondary">Return</button></a>
                             <button type="submit" class="btn btn-primary float-right">Add member</button>
                         </div>
                     </form>
