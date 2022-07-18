@@ -176,7 +176,6 @@ public class PantryUserController {
         if (!authorizationService.userCanEditPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-
         Optional<PantryUser> pantryMember = pantryUserService.findById(pantryUserId);
         if (pantryMember.isPresent()) {
             MakePantryAdminVM makePantryAdminVM = Mapper.pantryUsertoMakePantryAdminVM(pantryMember.get());
@@ -186,4 +185,15 @@ public class PantryUserController {
         model.addAttribute("currentUserId", SecurityController.getCurrentUser().getId());
         return "pantryMemberProfile";
     }
+
+    @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/unmakeAdmin/")
+    protected String unmakeAdmin(@PathVariable("pantryId") Long pantryId, PantryUser pantryUser){                                          //@PathVariable ("pantryUserId") Long pantryUserId) {
+        if (authorizationService.currentUserIsAdminOfPantry(pantryId) == true && pantryUser.getUser().getId() == SecurityController.getCurrentUser().getId());
+
+
+
+        return "pantryMemberProfile";
+    }
+
+
 }
