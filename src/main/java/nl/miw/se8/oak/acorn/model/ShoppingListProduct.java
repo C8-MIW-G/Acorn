@@ -17,13 +17,13 @@ public class ShoppingListProduct {
     Long id;
 
     @ManyToOne
-    private PantryShoppingList pantryShoppingList;
+    private Pantry pantry;
 
     @ManyToOne
     private ProductDefinition productDefinition;
 
-    public ShoppingListProduct(PantryShoppingList pantryShoppingList, ProductDefinition productDefinition) {
-        this.pantryShoppingList = pantryShoppingList;
+    public ShoppingListProduct(Pantry pantry, ProductDefinition productDefinition) {
+        this.pantry = pantry;
         this.productDefinition = productDefinition;
     }
 
