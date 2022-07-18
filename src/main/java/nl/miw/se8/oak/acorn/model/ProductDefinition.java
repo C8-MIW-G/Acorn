@@ -31,6 +31,8 @@ public class ProductDefinition implements Comparable<ProductDefinition>{
     private String name;
     @OneToMany(mappedBy = "productDefinition", cascade = ALL)
     private Set<PantryProduct> pantryProducts;
+    @OneToMany(mappedBy = "productDefinition", cascade = ALL)
+    private Set<ShoppingListProduct> shoppingListProducts;
 
     // Used for seeding
     public ProductDefinition(String name) {
