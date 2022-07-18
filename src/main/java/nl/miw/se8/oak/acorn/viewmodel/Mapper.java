@@ -137,4 +137,11 @@ public class Mapper {
        return makePantryAdminVM;
     }
 
+    public static ShoppingListProductVM shoppingListProductToVM(ShoppingListProduct shoppingListProduct) {
+        ShoppingListProductVM shoppingListProductVM = new ShoppingListProductVM();
+        shoppingListProductVM.setId(shoppingListProduct.getId());
+        shoppingListProductVM.setName(shoppingListProduct.getProductDefinition().getName());
+        return shoppingListProductVM;
+    }
+
 }

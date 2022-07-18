@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ShoppingListProductService {
     ShoppingListProduct save(ShoppingListProduct shoppingListProduct);
+    List<ShoppingListProduct> findByPantryId(Long pantryId);
 }

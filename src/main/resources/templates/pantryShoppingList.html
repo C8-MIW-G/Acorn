@@ -26,17 +26,16 @@
                     <span th:text="${errorMessage}">errorMessage</span>
                 </div>
                 <div class="table-container scrollbar-thin">
-<!--                    <table th:if="${shoppingList.size > 0}" class="table">-->
-<!--                        <tr>-->
-<!--                            <th scope="col">Product</th>-->
-<!--                        </tr>-->
-<!--                        <tr th:each="product : ${shoppingListProducts}">-->
-<!--                            <td>-->
-<!--                                test-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                    </table>-->
+                    <table th:if="${products.size > 0}" class="table">
+                        <tr>
+                            <th scope="col">Product</th>
+                        </tr>
+                        <tr th:each="product : ${products}">
+                            <td th:text="${product.name}"></td>
+                        </tr>
+                    </table>
                 </div>
+            </div>
 
             <div class="col"></div>
 

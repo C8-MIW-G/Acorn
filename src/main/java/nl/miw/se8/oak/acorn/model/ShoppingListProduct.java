@@ -1,5 +1,8 @@
 package nl.miw.se8.oak.acorn.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,7 +13,7 @@ import javax.persistence.ManyToOne;
  * Created on: 18-7-2022
  * Describes a product on a shopping list
  */
-@Entity
+@Entity @Getter @Setter
 public class ShoppingListProduct {
 
     @Id @GeneratedValue
