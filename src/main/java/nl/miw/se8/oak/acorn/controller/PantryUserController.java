@@ -186,13 +186,34 @@ public class PantryUserController {
         return "pantryMemberProfile";
     }
 
-    @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/unmakeAdmin/")
-    protected String unmakeAdmin(@PathVariable("pantryId") Long pantryId, PantryUser pantryUser){                                          //@PathVariable ("pantryUserId") Long pantryUserId) {
-        if (authorizationService.currentUserIsAdminOfPantry(pantryId) == true && pantryUser.getUser().getId() == SecurityController.getCurrentUser().getId());
+    @GetMapping("/pantry/{pantryId}/members/{pantryUserId}/unmakeAdmin")
+    protected String unmakeAdmin(@PathVariable("pantryId") Long pantryId,
+                                 @PathVariable("pantryUserId") Long pantryUserId,
+                                 RedirectAttributes redirectAttributes) {
+        if (!authorizationService.userCanEditPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
 
 
+        Optional<PantryUser> pantryUser = pantryUserService.findById(pantryUserId);
 
-        return "pantryMemberProfile";
+        if (pantryUser.isPresent()) {
+            PantryUser formerAdmin = pantryUser.get();
+
+            if (pantryUserService.userIsTheOnlyPantryAdmin(formerAdmin.getUser().getId(), pantryId)) {
+                redirectAttributes.addFlashAttribute("errorMessage",
+                        "You cannot leave a pantry if you are the only pantry administrator.\n");
+                return "redirect:/pantry/{pantryId}/members";
+            }
+            formerAdmin.setAdministrator(false);
+            pantryUserService.save(formerAdmin);
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "You have succesfully revoked your admin rights.");
+        } else {
+        redirectAttributes.addFlashAttribute("errorMessage", "Your admin rights could not be revoked");
+    }
+
+        return "redirect:/pantry/" + pantryId + "/members";
     }
 
 
