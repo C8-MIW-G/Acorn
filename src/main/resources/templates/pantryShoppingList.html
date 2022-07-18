@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head"></head>
+
+<body>
+
+<nav th:replace="fragments/template :: navbar"></nav>
+
+<main>
+    <div class = "container">
+        <div class="row">
+
+            <div class="col">
+                <div class="position-relative">
+                  <a class="returnDiv" th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}">
+                    <span class="material-symbols-outlined returnIcon">arrow_back</span>
+                  </a>
+                  <span th:text="${pantry.name}"></span>
+                  <h2>Shopping List</h2>
+                </div>
+            </div>
+
+            <div class="col-6"></div>
+
+            <div class="col"></div>
+
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/template :: footer"></footer>
+
+</body>
+
+</html>

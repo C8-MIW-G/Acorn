@@ -30,6 +30,8 @@ public class Pantry {
     private List<PantryProduct> pantryProducts;
     @OneToMany(mappedBy = "pantry",  cascade = ALL)
     private List<PantryUser> pantryUsers;
+    @OneToOne
+    private PantryShoppingList pantryShoppingList;
 
     public Pantry() {
         this.id = DEFAULT_ID;

@@ -57,6 +57,7 @@ public class PantryUserController {
             model.addAttribute("pantryMembers", pantryMemberVMS);
             model.addAttribute("currentUserIsAdmin", authorizationService.userCanEditPantry(pantryId));
             model.addAttribute("currentUserId", SecurityController.getCurrentUser().getId());
+            model.addAttribute("pantryName", pantry.get().getName());
         }
         return "pantryMembers";
     }

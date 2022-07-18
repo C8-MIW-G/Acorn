@@ -13,22 +13,21 @@
         <div class="row">
 
             <div class="col">
+                <div class="position-relative">
+                    <a class="returnDiv" th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}">
+                        <span class="material-symbols-outlined returnIcon">arrow_back</span>
+                    </a>
+                    <span th:text="${pantryName}">pantryName</span>
+                    <h2>Pantry Members</h2>
+                </div>
             </div>
 
             <div class="col-5">
-                <h2>Pantry Members</h2>
-
                 <div class="table-container scrollbar-thin">
 
-                        <div class="d-flex my-4">
-                            <div class="d-flex flex-row w-50 btn-container">
-                                <a th:href="@{/pantry/{pantryId}(pantryId=${pantryId})}" class="btn btn-secondary">Return</a>
-                            </div>
-                            <div class="d-flex flex-row-reverse w-50 btn-container">
-                                <a th:href="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}"
-                                   th:if="${currentUserIsAdmin}"
-                                   class="btn btn-primary ml-2">Add member</a>
-                            </div>
+                        <div class="d-flex flex-row-reverse btn-container mb-3">
+                            <a th:href="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}"
+                               th:if="${currentUserIsAdmin}" class="btn btn-primary ml-2">Add member</a>
                         </div>
 
                         <div th:if="${errorMessage}" class="alert alert-info" role="alert">
@@ -39,7 +38,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Name</th>
-                                <th class="th-fixed-width-smallmed"></th>
+                                <th class="th-fixed-width-small"></th>
                                 <th class="th-fixed-width-small"></th>
                             </tr>
                             </thead>
@@ -49,9 +48,8 @@
                                     <a th:href="@{/pantry/{pantryId}/members/{pantryUserId}/pantryUserProfile(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}"th:text="${pantryMember.acornUserName}">userName</a>
                                     <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
                                 </td>
-                                <td>>
-<!--                                    <span th:if="${pantryMember.isAdministrator}">-->
-                                    <span th:if="${pantryMember.isAdministrator}" class="material-symbols-outlined"> manage_accounts </span>
+                                <td>
+                                    <span th:if="${pantryMember.isAdministrator}" class="material-symbols-outlined">manage_accounts</span>
                                 </td>
                                 <td>
                                     <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"

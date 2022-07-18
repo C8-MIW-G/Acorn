@@ -18,9 +18,6 @@
                     </a>
                     <span>Pantry</span>
                     <h2 th:text="${pantryName}"></h2>
-                    <div>
-                        <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
-                    </div>
                 </div>
             </div>
 
@@ -28,7 +25,9 @@
                 <div th:if="${errorMessage}" class="alert alert-info" role="alert">
                     <span th:text="${errorMessage}">errorMessage</span>
                 </div>
-
+                <div class="row mb-3 px-3 d-flex flex-row-reverse btn-container">
+                    <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
+                </div>
                 <div class="table-container scrollbar-thin">
                     <table th:if="${pantryProducts.size > 0}" class="table">
                         <tr>
@@ -48,7 +47,7 @@
                     </table>
                 </div>
 
-                <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
+                <p th:unless="${pantryProducts.size != 0}" class="text-center my-5">This seems to be a bit empty... try to add some products!</p>
 
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -95,11 +94,12 @@
                 </div>
             </div>
             <div class="col">
-                <div class ="position-fixed sidebar-button-container">
-                    <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Pantry members</a>
-                    <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}">Edit pantry</a>
-                    <button class="btn btn-outline-secondary" th:if="${userCanEditPantry}" data-toggle="modal" data-target="#myModal">Delete pantry</button>
-                    <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
+                <div class="position-fixed sidebar-button-container">
+                        <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/shopping-list(pantryId=${pantryId})}">Shopping list</a>
+                        <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Pantry members</a>
+                        <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}">Edit pantry</a>
+                        <button class="btn btn-outline-secondary" th:if="${userCanEditPantry}" data-toggle="modal" data-target="#myModal">Delete pantry</button>
+                        <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
                 </div>
             </div>
         </div>

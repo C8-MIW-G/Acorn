@@ -221,6 +221,7 @@ input[type="date"] {
     background-color: var(--body);
     border: 1px solid var(--primary-color-extralight);
     border-radius: 0 1rem 1rem 0;
+    transition: .04s;
 }
 
 .pantryProductButton:hover, .pantryProductButton:focus {
@@ -381,4 +382,9 @@ input[type="date"] {
 
 #searchInput {
     width: 100%;
+}
+
+#expirationDate {
+    height: 38.4px;
+    padding: 0 2rem;
 }
