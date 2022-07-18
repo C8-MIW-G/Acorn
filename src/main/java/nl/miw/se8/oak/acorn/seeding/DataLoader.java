@@ -25,6 +25,7 @@ public class DataLoader {
     private final RoleService roleService;
     private final PrivilegeService privilegeService;
     private final PasswordEncoder passwordEncoder;
+    private final PantryShoppingListService pantryShoppingListService;
 
     public DataLoader(ProductDefinitionService productDefinitionService,
                       AcornUserService userService,
@@ -33,7 +34,8 @@ public class DataLoader {
                       PantryProductService pantryProductService,
                       RoleService roleService,
                       PrivilegeService privilegeService,
-                      PasswordEncoder passwordEncoder) {
+                      PasswordEncoder passwordEncoder,
+                      PantryShoppingListService pantryShoppingListService) {
         this.productDefinitionService = productDefinitionService;
         this.userService = userService;
         this.pantryService = pantryService;
@@ -42,6 +44,7 @@ public class DataLoader {
         this.roleService = roleService;
         this.privilegeService = privilegeService;
         this.passwordEncoder = passwordEncoder;
+        this.pantryShoppingListService = pantryShoppingListService;
     }
 
     @EventListener
@@ -51,6 +54,7 @@ public class DataLoader {
         seedPantryUsers();
         seedProductDefinitions();
         seedPantryProducts();
+        seedPantryShoppingLists();
     }
 
     private void seedUsers() {
@@ -206,6 +210,13 @@ public class DataLoader {
         Role role = new Role(name);
         role.setPrivileges(privileges);
         return roleService.save(role);
+    }
+
+    private void seedPantryShoppingLists() {
+        List<Pantry> allPantries = pantryService.findAll();
+        for (Pantry pantry : allPantries) {
+            pantryShoppingListService.save(new PantryShoppingList(pantry));
+        }
     }
 
 }

@@ -18,4 +18,11 @@ public class PantryShoppingList {
     @OneToOne
     private Pantry pantry;
 
+    public PantryShoppingList(Pantry pantry) {
+        this.pantry = pantry;
+    }
+
+    public PantryShoppingList() {
+
+    }
 }
