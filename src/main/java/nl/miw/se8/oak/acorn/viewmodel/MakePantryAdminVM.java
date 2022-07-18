@@ -8,8 +8,10 @@ import lombok.Setter;
 public class MakePantryAdminVM {
 
     private Long pantryUserId;
+    private Long acornUserId;
     private Boolean isAdministrator;
     private String userName;
     private String pantryName;
+;
 //    private Long pantryId;
     }

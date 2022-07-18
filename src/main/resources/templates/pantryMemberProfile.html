@@ -35,7 +35,13 @@
                     <br>
                     <br>
                     <br>
-                    <span th:if="${pantryMember.isAdministrator == true}"
+                    <span th:if="${pantryMember.isAdministrator == true} and ${currentUserId == pantryMember.getAcornUserId}">
+                        you are an admin in this pantry.
+                        <a class="btn btn-primary" th:href="@{/pantry/{pantryId}/members/{pantryUserId}/unmakeAdmin(pantryId=${pantryId},
+                        pantryUserId=${pantryUserId})}"> unmake admin </a>
+
+                    </span>
+                    <span th:if="${pantryMember.isAdministrator == true} and ${currentUserId != pantryMember.getAcornUserId}"
                         th:text="${pantryMember.getUserName()} + ' is an administrator in this pantry'">
                     </span>
                     <button th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"

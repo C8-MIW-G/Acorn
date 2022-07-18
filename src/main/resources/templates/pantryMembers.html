@@ -50,8 +50,8 @@
                                     <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
                                 </td>
                                 <td>>
-                                    <span th:if="${pantryMember.isAdministrator}">
-                                    <span class="material-symbols-outlined" >manage_accounts</span>
+<!--                                    <span th:if="${pantryMember.isAdministrator}">-->
+                                    <span th:if="${pantryMember.isAdministrator}" class="material-symbols-outlined"> manage_accounts </span>
                                 </td>
                                 <td>
                                     <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"
