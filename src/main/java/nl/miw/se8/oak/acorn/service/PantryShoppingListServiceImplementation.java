@@ -5,6 +5,7 @@ import nl.miw.se8.oak.acorn.model.PantryShoppingList;
 import nl.miw.se8.oak.acorn.repository.PantryShoppingListRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,5 +29,10 @@ public class PantryShoppingListServiceImplementation implements PantryShoppingLi
     @Override
     public Optional<PantryShoppingList> findByPantryId(Long pantryId) {
         return pantryShoppingListRepository.findByPantryId(pantryId);
+    }
+
+    @Override
+    public List<PantryShoppingList> findAll() {
+        return pantryShoppingListRepository.findAll();
     }
 }

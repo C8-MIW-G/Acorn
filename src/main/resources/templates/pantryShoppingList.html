@@ -21,7 +21,22 @@
                 </div>
             </div>
 
-            <div class="col-6"></div>
+            <div class="col-6">
+                <div th:if="${errorMessage}" class="alert alert-info" role="alert">
+                    <span th:text="${errorMessage}">errorMessage</span>
+                </div>
+                <div class="table-container scrollbar-thin">
+<!--                    <table th:if="${shoppingList.size > 0}" class="table">-->
+<!--                        <tr>-->
+<!--                            <th scope="col">Product</th>-->
+<!--                        </tr>-->
+<!--                        <tr th:each="product : ${shoppingListProducts}">-->
+<!--                            <td>-->
+<!--                                test-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+                </div>
 
             <div class="col"></div>
 

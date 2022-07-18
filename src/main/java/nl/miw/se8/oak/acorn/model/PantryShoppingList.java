@@ -3,10 +3,10 @@ package nl.miw.se8.oak.acorn.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
+
+import static javax.persistence.CascadeType.ALL;
 
 /**
  * Author: Thijs van Blanken
@@ -20,6 +20,8 @@ public class PantryShoppingList {
     private Long id;
     @OneToOne
     private Pantry pantry;
+    @OneToMany(mappedBy = "pantryShoppingList",  cascade = ALL)
+    private List<ShoppingListProduct> products;
 
     public PantryShoppingList(Pantry pantry) {
         this.pantry = pantry;
