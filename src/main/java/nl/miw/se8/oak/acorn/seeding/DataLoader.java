@@ -25,7 +25,6 @@ public class DataLoader {
     private final RoleService roleService;
     private final PrivilegeService privilegeService;
     private final PasswordEncoder passwordEncoder;
-    private final PantryShoppingListService pantryShoppingListService;
     private final ShoppingListProductService shoppingListProductService;
 
     public DataLoader(ProductDefinitionService productDefinitionService,
@@ -36,7 +35,6 @@ public class DataLoader {
                       RoleService roleService,
                       PrivilegeService privilegeService,
                       PasswordEncoder passwordEncoder,
-                      PantryShoppingListService pantryShoppingListService,
                       ShoppingListProductService shoppingListProductService) {
         this.productDefinitionService = productDefinitionService;
         this.userService = userService;
@@ -46,7 +44,6 @@ public class DataLoader {
         this.roleService = roleService;
         this.privilegeService = privilegeService;
         this.passwordEncoder = passwordEncoder;
-        this.pantryShoppingListService = pantryShoppingListService;
         this.shoppingListProductService = shoppingListProductService;
     }
 
@@ -57,7 +54,6 @@ public class DataLoader {
         seedPantryUsers();
         seedProductDefinitions();
         seedPantryProducts();
-        seedPantryShoppingLists();
         seedShoppingListProducts();
     }
 
@@ -216,22 +212,13 @@ public class DataLoader {
         return roleService.save(role);
     }
 
-    private void seedPantryShoppingLists() {
-        List<Pantry> allPantries = pantryService.findAll();
-        for (Pantry pantry : allPantries) {
-            pantryShoppingListService.save(new PantryShoppingList(pantry));
-        }
-    }
-
     private void seedShoppingListProducts() {
-        List<PantryShoppingList> allShoppingLists = pantryShoppingListService.findAll();
+        Pantry pantry = pantryService.findByName("Thijs' Pantry").get();
         List<ProductDefinition> allProductDefinitions = productDefinitionService.findAll();
 
-        for (PantryShoppingList list : allShoppingLists) {
-            for (int i = 0; i < 10; i++) {
-                ShoppingListProduct shoppingListProduct = new ShoppingListProduct(list, allProductDefinitions.get((int) (Math.random() * allProductDefinitions.size())));
-                shoppingListProductService.save(shoppingListProduct);
-            }
+        for (int i = 0; i < 40; i++) {
+               ShoppingListProduct shoppingListProduct = new ShoppingListProduct(pantry, allProductDefinitions.get((int) (Math.random() * allProductDefinitions.size())));
+            shoppingListProductService.save(shoppingListProduct);
         }
     }
 
