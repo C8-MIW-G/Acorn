@@ -33,7 +33,7 @@
                             <span th:text="${error}">errorMessage</span>
                         </div>
                         <div class="">
-                            <a th:href="@{/pantrySelection}" class="btn btn-secondary">Cancel</a>
+                            <a th:href="@{/pantry/{pantryId}(pantryId=${pantryVM.id})}" class="btn btn-secondary">Cancel</a>
                             <button type="submit" class="btn btn-primary float-right">Save</button>
                         </div>
                     </form>
@@ -41,6 +41,33 @@
             </div>
 
             <div class="col">
+                <div class="position-fixed sidebar-button-container">
+                    <button class="btn btn-delete" data-toggle="modal" data-target="#deleteModal">Delete pantry</button>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmationTitle">Are you sure?</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                You are about to remove pantry <b><span th:block th:text="${pantryVM.name}"></span></b>
+                                that has <b><span th:block th:text="${productCount}"></span> product(s)</b> in it,
+                                and has <b><span th:block th:text="${memberCount}">memberCount</span> member(s).</b>
+                                <br><br>
+                                This action cannot be undone! Do you want to delete it anyway?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantryId})}" class="btn btn-delete" data-pantry-id="${pantry.id}">Delete pantry</a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
