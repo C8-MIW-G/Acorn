@@ -30,17 +30,17 @@ import java.util.Optional;
  * Created on: 18-7-2022
  */
 @Controller
-public class ShoppingListController {
+public class PantryStockRequirementsController {
 
     private final PantryService pantryService;
     private final RequiredProductService requiredProductService;
     private final AuthorizationService authorizationService;
     private final ProductDefinitionService productDefinitionService;
 
-    public ShoppingListController(PantryService pantryService,
-                                  RequiredProductService requiredProductService,
-                                  AuthorizationService authorizationService,
-                                  ProductDefinitionService productDefinitionService) {
+    public PantryStockRequirementsController(PantryService pantryService,
+                                             RequiredProductService requiredProductService,
+                                             AuthorizationService authorizationService,
+                                             ProductDefinitionService productDefinitionService) {
         this.pantryService = pantryService;
         this.requiredProductService = requiredProductService;
         this.authorizationService = authorizationService;
@@ -128,7 +128,9 @@ public class ShoppingListController {
         // Store new requirement
         RequiredProduct requiredProduct = requiredProductService.VMToModel(requiredProductVM);
         if (requiredProduct != null) {
-            requiredProductService.save(requiredProduct);
+            if (requiredProductService.validAmount(requiredProduct.getAmount())) {
+                requiredProductService.save(requiredProduct);
+            }
         }
 
         return "redirect:/pantry/" + pantryId + "/stock-requirements";
@@ -145,6 +147,5 @@ public class ShoppingListController {
         requiredProductService.deleteById(requiredProductId);
         return "redirect:/pantry/" + pantryId + "/stock-requirements";
     }
-
 
 }

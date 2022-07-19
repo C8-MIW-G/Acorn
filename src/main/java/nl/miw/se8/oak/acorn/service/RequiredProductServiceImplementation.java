@@ -61,4 +61,13 @@ public class RequiredProductServiceImplementation implements RequiredProductServ
         requiredProductRepository.deleteById(requiredProductId);
     }
 
+    @Override
+    public boolean validAmount(int amount) {
+        if (amount > 0 && amount <= RequiredProduct.MAX_AMOUNT) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -31,17 +31,17 @@
         <div th:if="${products.size > 0}">
           <table class="table m-0">
             <tr>
+              <th scope="col" class="th-fixed-width-small"></th>
               <th scope="col">Product</th>
-              <th scope="col th-fixed-width-small"></th>
-              <th scope="col th-fixed-width-small"></th>
+              <th scope="col" class="th-fixed-width-small"></th>
             </tr>
           </table>
           <div class="table-container scrollbar-thin">
             <table class="table">
               <tr th:each="product : ${products}">
+                <td th:text="${product.amount}" class="th-fixed-width-small text-align-right"></td>
                 <td th:text="${product.productDefinitionName}"></td>
-                <td th:text="${product.amount}"></td>
-                <td class="text-center">
+                <td class="text-center th-fixed-width-small">
                   <a th:href="@{/pantry/{pantryId}/stock-requirements/{productId}/delete(pantryId=${pantry.id}, productId=${product.id})}">
                     <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
                   </a>

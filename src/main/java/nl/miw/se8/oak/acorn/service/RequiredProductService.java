@@ -10,4 +10,5 @@ public interface RequiredProductService {
     List<RequiredProduct> findByPantryId(Long pantryId);
     RequiredProduct VMToModel(RequiredProductVM requiredProductVM);
     void deleteById(Long requiredProductId);
+    boolean validAmount(int amount);
 }
