@@ -5,12 +5,11 @@ import lombok.Setter;
 
 /**
  * Author: Thijs van Blanken
- * Created on: 18-7-2022
+ * Created on: 19-7-2022
  */
 @Getter @Setter
-public class RequiredProductVM {
+public class RequiredProductListVM {
     private Long id;
-    private Long pantryId;
-    private Long productDefinitionId;
+    private String productDefinitionName;
     private int amount;
 }

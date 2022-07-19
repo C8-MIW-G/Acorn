@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 @Entity @Getter @Setter
 public class RequiredProduct {
 
+    public static final long DEFAULT_ID = -1L;
+
     @Id @GeneratedValue
     private Long id;
 
@@ -34,6 +36,6 @@ public class RequiredProduct {
     }
 
     public RequiredProduct() {
-
+        this.id = DEFAULT_ID;
     }
 }

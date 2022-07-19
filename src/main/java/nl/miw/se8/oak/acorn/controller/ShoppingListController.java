@@ -1,17 +1,24 @@
 package nl.miw.se8.oak.acorn.controller;
 
+import nl.miw.se8.oak.acorn.dto.ProductDefinitionDTO;
 import nl.miw.se8.oak.acorn.model.Pantry;
+import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.model.RequiredProduct;
 import nl.miw.se8.oak.acorn.service.AuthorizationService;
 import nl.miw.se8.oak.acorn.service.PantryService;
+import nl.miw.se8.oak.acorn.service.ProductDefinitionService;
 import nl.miw.se8.oak.acorn.service.RequiredProductService;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
+import nl.miw.se8.oak.acorn.viewmodel.RequiredProductListVM;
 import nl.miw.se8.oak.acorn.viewmodel.RequiredProductVM;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -28,13 +35,16 @@ public class ShoppingListController {
     private final PantryService pantryService;
     private final RequiredProductService requiredProductService;
     private final AuthorizationService authorizationService;
+    private final ProductDefinitionService productDefinitionService;
 
     public ShoppingListController(PantryService pantryService,
                                   RequiredProductService requiredProductService,
-                                  AuthorizationService authorizationService) {
+                                  AuthorizationService authorizationService,
+                                  ProductDefinitionService productDefinitionService) {
         this.pantryService = pantryService;
         this.requiredProductService = requiredProductService;
         this.authorizationService = authorizationService;
+        this.productDefinitionService = productDefinitionService;
     }
 
     @GetMapping("/pantry/{pantryId}/shopping-list")
@@ -57,15 +67,15 @@ public class ShoppingListController {
             return "redirect:/pantry/" + pantryId;
         }
 
-        // Fetch shopping list products
+        // Fetch required products
         List<RequiredProduct> requiredProducts = requiredProductService.findByPantryId(pantryId);
-        List<RequiredProductVM> requiredProductVMS = new ArrayList<>();
+        List<RequiredProductListVM> requiredProductListVMS = new ArrayList<>();
         for (RequiredProduct product : requiredProducts) {
-            requiredProductVMS.add(Mapper.requiredProductToVM(product));
+            requiredProductListVMS.add(Mapper.requiredProductToListVM(product));
         }
 
         // Load new page with model
-        model.addAttribute("products", requiredProductVMS);
+        model.addAttribute("products", requiredProductListVMS);
         model.addAttribute("pantry", Mapper.pantryToPantryEditVM(pantry.get()));
         return "requirementsPantryStock";
     }
@@ -73,17 +83,56 @@ public class ShoppingListController {
     @GetMapping("/pantry/{pantryId}/stock-requirements/add")
     protected String addStockRequirements(@PathVariable("pantryId") Long pantryId,
                                           Model model) {
+        // Check authorization
         if (!authorizationService.userCanEditPantry(pantryId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
+        // Look up pantry
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isEmpty()) {
             return "redirect:/pantry/" + pantryId;
         }
 
+        // Create required product VM for form
+        RequiredProductVM requiredProductVM = Mapper.requiredProductToVM(new RequiredProduct());
+        requiredProductVM.setPantryId(pantryId);
+
+        // Fetch product definitions
+        List<ProductDefinition> productDefinitions = productDefinitionService.findAll();
+        List<ProductDefinitionDTO> productDefinitionDTOS = new ArrayList<>();
+        for (ProductDefinition product : productDefinitions) {
+            productDefinitionDTOS.add(Mapper.productDefinitionToDTO(product));
+        }
+
+        // Load new page with model
         model.addAttribute("pantry", Mapper.pantryToPantryEditVM(pantry.get()));
+        model.addAttribute("product", requiredProductVM);
+        model.addAttribute("productDefinitions", productDefinitionDTOS);
         return "requirementsPantryStockAdd";
     }
+
+    @PostMapping("/pantry/{pantryId}/stock-requirements/add")
+    protected String addStockRequirementPOST(@PathVariable("pantryId") Long pantryId,
+                                             @ModelAttribute("product") RequiredProductVM requiredProductVM,
+                                             BindingResult result,
+                                             Model model) {
+        // Check authorization
+        if (!authorizationService.userCanEditPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        // Check for errors
+        } else if (result.hasErrors()) {
+            return "redirect:/pantry/" + pantryId + "/stock-requirements";
+        }
+
+        // Store new requirement
+        RequiredProduct requiredProduct = requiredProductService.VMToModel(requiredProductVM);
+        if (requiredProduct != null) {
+            requiredProductService.save(requiredProduct);
+        }
+
+        return "redirect:/pantry/" + pantryId + "/stock-requirements";
+    }
+
 
 }

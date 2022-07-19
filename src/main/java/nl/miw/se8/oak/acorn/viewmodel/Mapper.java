@@ -140,9 +140,16 @@ public class Mapper {
     public static RequiredProductVM requiredProductToVM(RequiredProduct requiredProduct) {
         RequiredProductVM requiredProductVM = new RequiredProductVM();
         requiredProductVM.setId(requiredProduct.getId());
-        requiredProductVM.setName(requiredProduct.getProductDefinition().getName());
         requiredProductVM.setAmount(requiredProduct.getAmount());
         return requiredProductVM;
+    }
+
+    public static RequiredProductListVM requiredProductToListVM(RequiredProduct requiredProduct) {
+        RequiredProductListVM requiredProductListVM = new RequiredProductListVM();
+        requiredProductListVM.setId(requiredProduct.getId());
+        requiredProductListVM.setProductDefinitionName(requiredProduct.getProductDefinition().getName());
+        requiredProductListVM.setAmount(requiredProduct.getAmount());
+        return requiredProductListVM;
     }
 
 }

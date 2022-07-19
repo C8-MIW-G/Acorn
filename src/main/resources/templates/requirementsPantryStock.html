@@ -32,12 +32,14 @@
           <table class="table m-0">
             <tr>
               <th scope="col">Product</th>
+              <th scope="col th-fixed-width-small"></th>
             </tr>
           </table>
           <div class="table-container scrollbar-thin">
             <table class="table">
               <tr th:each="product : ${products}">
-                <td th:text="${product.name}"></td>
+                <td th:text="${product.productDefinitionName}"></td>
+                <td th:text="${product.amount}"></td>
               </tr>
             </table>
           </div>
