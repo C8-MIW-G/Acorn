@@ -9,4 +9,5 @@ public interface RequiredProductService {
     RequiredProduct save(RequiredProduct requiredProduct);
     List<RequiredProduct> findByPantryId(Long pantryId);
     RequiredProduct VMToModel(RequiredProductVM requiredProductVM);
+    void deleteById(Long requiredProductId);
 }

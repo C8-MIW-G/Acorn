@@ -56,4 +56,9 @@ public class RequiredProductServiceImplementation implements RequiredProductServ
         return requiredProduct;
     }
 
+    @Override
+    public void deleteById(Long requiredProductId) {
+        requiredProductRepository.deleteById(requiredProductId);
+    }
+
 }

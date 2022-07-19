@@ -134,5 +134,17 @@ public class ShoppingListController {
         return "redirect:/pantry/" + pantryId + "/stock-requirements";
     }
 
+    @GetMapping("/pantry/{pantryId}/stock-requirements/{productId}/delete")
+    protected String removeStockRequirement(@PathVariable("pantryId") Long pantryId,
+                                            @PathVariable("productId") Long requiredProductId) {
+        // Check authorization
+        if (!authorizationService.userCanEditPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        requiredProductService.deleteById(requiredProductId);
+        return "redirect:/pantry/" + pantryId + "/stock-requirements";
+    }
+
 
 }
