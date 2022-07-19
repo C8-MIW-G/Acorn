@@ -70,4 +70,17 @@ public class RequiredProductServiceImplementation implements RequiredProductServ
         }
     }
 
+    @Override
+    public void addToStack(RequiredProduct requiredProduct) {
+        Optional<RequiredProduct> dbRequiredProduct = requiredProductRepository.findByPantryIdAndProductDefinitionId(
+                requiredProduct.getPantry().getId(), requiredProduct.getProductDefinition().getId());
+
+        if (dbRequiredProduct.isPresent()) {
+            dbRequiredProduct.get().addToAmount(requiredProduct.getAmount());
+            requiredProductRepository.save(dbRequiredProduct.get());
+        } else {
+            requiredProductRepository.save(requiredProduct);
+        }
+    }
+
 }

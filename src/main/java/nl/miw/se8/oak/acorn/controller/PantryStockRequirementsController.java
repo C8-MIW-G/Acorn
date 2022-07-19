@@ -129,7 +129,7 @@ public class PantryStockRequirementsController {
         RequiredProduct requiredProduct = requiredProductService.VMToModel(requiredProductVM);
         if (requiredProduct != null) {
             if (requiredProductService.validAmount(requiredProduct.getAmount())) {
-                requiredProductService.save(requiredProduct);
+                requiredProductService.addToStack(requiredProduct);
             }
         }
 

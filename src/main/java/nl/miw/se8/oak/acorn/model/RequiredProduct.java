@@ -41,4 +41,8 @@ public class RequiredProduct {
         this.id = DEFAULT_ID;
         this.amount = DEFAULT_AMOUNT;
     }
+
+    public void addToAmount(int amount) {
+        this.amount += amount;
+    }
 }

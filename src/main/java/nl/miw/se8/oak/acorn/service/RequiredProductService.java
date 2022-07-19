@@ -11,4 +11,5 @@ public interface RequiredProductService {
     RequiredProduct VMToModel(RequiredProductVM requiredProductVM);
     void deleteById(Long requiredProductId);
     boolean validAmount(int amount);
+    void addToStack(RequiredProduct requiredProduct);
 }
