@@ -1,6 +1,6 @@
 package nl.miw.se8.oak.acorn.controller;
-
 import nl.miw.se8.oak.acorn.dto.ProductDefinitionDTO;
+
 import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.ProductDefinition;
 import nl.miw.se8.oak.acorn.model.RequiredProduct;
@@ -71,6 +71,7 @@ public class PantryStockRequirementsController {
         // Load new page with model
         model.addAttribute("products", requiredProductListVMS);
         model.addAttribute("pantry", Mapper.pantryToPantryEditVM(pantry.get()));
+        model.addAttribute("requiredProduct", new RequiredProductVM());
         return "requirementsPantryStock";
     }
 
@@ -139,6 +140,22 @@ public class PantryStockRequirementsController {
         }
 
         requiredProductService.deleteById(requiredProductId);
+        return "redirect:/pantry/" + pantryId + "/stock-requirements";
+    }
+
+    @PostMapping("/pantry/{pantryId}/stock-requirements/editRequirement")
+    protected String editStockRequirement(@PathVariable("pantryId") Long pantryId,
+                                          @ModelAttribute("requiredProduct") RequiredProductVM requiredProductVM) {
+        if (!authorizationService.userCanEditPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        Optional<RequiredProduct> dbRequiredProduct = requiredProductService.findById(requiredProductVM.getId());
+        if (dbRequiredProduct.isPresent()) {
+            dbRequiredProduct.get().setAmount(requiredProductVM.getAmount());
+            requiredProductService.save(dbRequiredProduct.get());
+        }
+
         return "redirect:/pantry/" + pantryId + "/stock-requirements";
     }
 

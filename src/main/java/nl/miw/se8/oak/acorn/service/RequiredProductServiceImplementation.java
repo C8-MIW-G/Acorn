@@ -83,4 +83,9 @@ public class RequiredProductServiceImplementation implements RequiredProductServ
         }
     }
 
+    @Override
+    public Optional<RequiredProduct> findById(Long id) {
+        return requiredProductRepository.findById(id);
+    }
+
 }
