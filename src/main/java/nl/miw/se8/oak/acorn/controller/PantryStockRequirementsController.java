@@ -71,7 +71,7 @@ public class PantryStockRequirementsController {
         // Load new page with model
         model.addAttribute("products", requiredProductListVMS);
         model.addAttribute("pantry", Mapper.pantryToPantryEditVM(pantry.get()));
-        model.addAttribute("requiredProduct", new RequiredProductVM());
+        model.addAttribute("requiredProduct", new RequiredProductVM()); // For editing products using a modal
         return "requirementsPantryStock";
     }
 
