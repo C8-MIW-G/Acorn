@@ -1,5 +1,9 @@
 package nl.miw.se8.oak.acorn.service;
 
-public interface ShoppingListService {
+import nl.miw.se8.oak.acorn.viewmodel.ShoppingListProductVM;
 
+import java.util.List;
+
+public interface ShoppingListService {
+    List<ShoppingListProductVM> generateShoppingListForPantry(Long pantryId);
 }
