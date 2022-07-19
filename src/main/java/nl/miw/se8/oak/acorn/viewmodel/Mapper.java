@@ -149,6 +149,7 @@ public class Mapper {
         requiredProductListVM.setId(requiredProduct.getId());
         requiredProductListVM.setProductDefinitionName(requiredProduct.getProductDefinition().getName());
         requiredProductListVM.setAmount(requiredProduct.getAmount());
+        requiredProductListVM.setPantryId(requiredProduct.getPantry().getId());
         return requiredProductListVM;
     }
 

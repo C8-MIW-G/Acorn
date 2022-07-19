@@ -358,6 +358,10 @@ input[type="date"] {
     color: indianred;
 }
 
+#deletePantryProductBtn:hover {
+    color: #e77a7a;
+}
+
 .returnDiv {
     position: absolute;
     left: -4.4rem;

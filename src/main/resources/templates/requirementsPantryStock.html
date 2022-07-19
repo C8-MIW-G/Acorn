@@ -58,9 +58,15 @@
                   </button>
                 </td>
                 <td class="text-center th-fixed-width-small">
-                  <a th:href="@{/pantry/{pantryId}/stock-requirements/{productId}/delete(pantryId=${pantry.id}, productId=${product.id})}">
-                    <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
-                  </a>
+                  <button type="button"
+                          class="editButton"
+                          id="deletePantryProductBtn"
+                          data-toggle="modal"
+                          data-target="#deleteModal"
+                          th:data-product-id="${product.id}"
+                          th:data-pantry-id="${product.pantryId}">
+                    <span class="material-symbols-outlined">delete</span>
+                  </button>
                 </td>
               </tr>
             </table>
@@ -119,7 +125,26 @@
     </div>
   </div>
 
-  <div th:replace="fragments/modals :: deleteModal"></div>
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationTitle">Are you sure?</h5>
+        </div>
+        <div class="modal-body">
+          <p>
+            You are about to remove something. This cannot be undone!
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a id="deleteLink" class="btn btn-delete" href="#">
+            Confirm
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </main>
 
@@ -129,5 +154,6 @@
 
 <script type="text/javascript" src="/js/requiredProductEdit.js"></script>
 <script type="text/javascript" src="/js/modalButtons.js"></script>
+<script type="text/javascript" src="/js/deleteModal.js"></script>
 
 </html>

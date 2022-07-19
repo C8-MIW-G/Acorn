@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter @Setter
 public class RequiredProductListVM {
     private Long id;
+    private Long pantryId;
     private String productDefinitionName;
     private int amount;
 }
