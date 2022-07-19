@@ -6,7 +6,6 @@ import nl.miw.se8.oak.acorn.viewmodel.ShoppingListProductVM;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Author: Thijs van Blanken
@@ -32,7 +31,7 @@ public class ShoppingListServiceImplementation implements ShoppingListService{
         List<RequiredProduct> requiredProducts = requiredProductService.findByPantryId(pantryId);
 
 
-        // Compare the two lists and generate a new (shopping) list from the difference between the two
+        // Compare the two lists and generate a new (shopping) list based on the difference between the two
         List<ShoppingListProductVM> shoppingList = new ArrayList<>();
 
         for (RequiredProduct requiredProduct : requiredProducts) {

@@ -18,25 +18,27 @@
                     </a>
                     <span th:text="${pantry.name}"></span>
                     <h2>Shopping List</h2>
+                    <p>This is a list of all the products that you have too little of.</p>
+                    <p>This list is automatically generated based on your pantry stock requirements and what you have in your pantry!</p>
                 </div>
             </div>
 
             <div class="col-6">
-                <div th:if="${errorMessage}" class="alert alert-info" role="alert">
-                    <span th:text="${errorMessage}">errorMessage</span>
-                </div>
-                <div class="table-container scrollbar-thin">
-                    <table th:if="${shoppingList.size > 0}" class="table">
+                <div th:if="${shoppingList.size > 0}" class="table-container scrollbar-thin">
+                    <table  class="table">
                         <tr>
+                            <th scope="col" class="th-fixed-width-small text-align-right"></th>
                             <th scope="col">Product</th>
-                            <th scope="col" class="th-fixed-width-small">Amount</th>
                         </tr>
                         <tr th:each="product : ${shoppingList}">
+                            <td th:text="${product.amount}" class="th-fixed-width-small text-align-right">productAmount</td>
                             <td th:text="${product.name}">productName</td>
-                            <td th:text="${product.amount}">productAmount</td>
                         </tr>
                     </table>
-                    <p th:unless="${shoppingList.size != 0}" class="text-center my-5">It looks like your shopping list is empty!</p>
+                </div>
+                <div th:unless="${shoppingList.size != 0}" class="border pt-5 h-100">
+                    <p class="text-center">It looks like your shopping list is empty!</p>
+                    <p class="text-center">Did you set the pantry stock requirements?</p>
                 </div>
             </div>
 

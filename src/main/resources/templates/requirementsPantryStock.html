@@ -18,6 +18,9 @@
           </a>
           <span th:text="${pantry.name}"></span>
           <h2>Stock requirements</h2>
+          <p>Here you can set the products that your pantry should have at all times.</p>
+          <p>Your shopping list will be automatically generated based on what you put on this list and what you have in your pantry.</p>
+          <p>Add products that you always want to have in stock in order to have us generate convenient shopping lists!</p>
         </div>
       </div>
 
@@ -25,9 +28,11 @@
         <div th:if="${errorMessage}" class="alert alert-info" role="alert">
           <span th:text="${errorMessage}">errorMessage</span>
         </div>
+
         <div class="row mb-3 px-3 d-flex flex-row-reverse btn-container">
           <a th:href="@{/pantry/{pantryId}/stock-requirements/add(pantryId=${pantry.id})}" class="btn btn-primary">Add product</a>
         </div>
+
         <div th:if="${products.size > 0}">
           <table class="table m-0">
             <tr>
@@ -50,7 +55,10 @@
             </table>
           </div>
         </div>
-        <p th:unless="${products.size > 0}" class="text-center my-5">This seems to be a bit empty... try to add some products!</p>
+
+        <div th:unless="${products.size != 0}" class="border pt-5 h-75">
+          <p class="text-center">This seems to be a bit empty... try to add some products!</p>
+        </div>
       </div>
 
       <div class="col"></div>
