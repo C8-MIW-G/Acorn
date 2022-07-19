@@ -1,15 +1,18 @@
 package nl.miw.se8.oak.acorn.controller;
 
 import nl.miw.se8.oak.acorn.model.Pantry;
-import nl.miw.se8.oak.acorn.model.ShoppingListProduct;
+import nl.miw.se8.oak.acorn.model.RequiredProduct;
+import nl.miw.se8.oak.acorn.service.AuthorizationService;
 import nl.miw.se8.oak.acorn.service.PantryService;
-import nl.miw.se8.oak.acorn.service.ShoppingListProductService;
+import nl.miw.se8.oak.acorn.service.RequiredProductService;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
-import nl.miw.se8.oak.acorn.viewmodel.ShoppingListProductVM;
+import nl.miw.se8.oak.acorn.viewmodel.RequiredProductVM;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +26,31 @@ import java.util.Optional;
 public class ShoppingListController {
 
     private final PantryService pantryService;
-    private final ShoppingListProductService shoppingListProductService;
+    private final RequiredProductService requiredProductService;
+    private final AuthorizationService authorizationService;
 
     public ShoppingListController(PantryService pantryService,
-                                  ShoppingListProductService shoppingListProductService) {
+                                  RequiredProductService requiredProductService,
+                                  AuthorizationService authorizationService) {
         this.pantryService = pantryService;
-        this.shoppingListProductService = shoppingListProductService;
+        this.requiredProductService = requiredProductService;
+        this.authorizationService = authorizationService;
     }
 
     @GetMapping("/pantry/{pantryId}/shopping-list")
     protected String fetchShoppingList(@PathVariable("pantryId") Long pantryId,
                                        Model model) {
+        return "pantryShoppingList";
+    }
+
+    @GetMapping("/pantry/{pantryId}/stock-requirements")
+    protected String getStockRequirements(@PathVariable("pantryId") Long pantryId,
+                                          Model model) {
+        // Check authorization
+        if (!authorizationService.userCanEditPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
         // Look up pantry
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isEmpty()) {
@@ -41,14 +58,16 @@ public class ShoppingListController {
         }
 
         // Fetch shopping list products
-        List<ShoppingListProduct> shoppingListProducts = shoppingListProductService.findByPantryId(pantryId);
-        List<ShoppingListProductVM> shoppingListProductVMS = new ArrayList<>();
-        for (ShoppingListProduct product : shoppingListProducts) {
-            shoppingListProductVMS.add(Mapper.shoppingListProductToVM(product));
+        List<RequiredProduct> requiredProducts = requiredProductService.findByPantryId(pantryId);
+        List<RequiredProductVM> requiredProductVMS = new ArrayList<>();
+        for (RequiredProduct product : requiredProducts) {
+            requiredProductVMS.add(Mapper.requiredProductToVM(product));
         }
 
-        model.addAttribute("products", shoppingListProductVMS);
+        // Load new page with model
+        model.addAttribute("products", requiredProductVMS);
         model.addAttribute("pantry", Mapper.pantryToPantryEditVM(pantry.get()));
-        return "pantryShoppingList";
+        return "pantryStockRequirements";
     }
+
 }

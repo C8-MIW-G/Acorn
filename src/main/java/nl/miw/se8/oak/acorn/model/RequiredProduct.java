@@ -14,10 +14,10 @@ import javax.persistence.ManyToOne;
  * Describes a product on a shopping list
  */
 @Entity @Getter @Setter
-public class ShoppingListProduct {
+public class RequiredProduct {
 
     @Id @GeneratedValue
-    Long id;
+    private Long id;
 
     @ManyToOne
     private Pantry pantry;
@@ -25,12 +25,15 @@ public class ShoppingListProduct {
     @ManyToOne
     private ProductDefinition productDefinition;
 
-    public ShoppingListProduct(Pantry pantry, ProductDefinition productDefinition) {
+    private int amount;
+
+    public RequiredProduct(Pantry pantry, ProductDefinition productDefinition) {
         this.pantry = pantry;
         this.productDefinition = productDefinition;
+        this.amount = 1;
     }
 
-    public ShoppingListProduct() {
+    public RequiredProduct() {
 
     }
 }

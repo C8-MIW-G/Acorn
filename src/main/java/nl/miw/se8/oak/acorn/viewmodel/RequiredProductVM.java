@@ -8,7 +8,8 @@ import lombok.Setter;
  * Created on: 18-7-2022
  */
 @Getter @Setter
-public class ShoppingListProductVM {
+public class RequiredProductVM {
     private Long id;
     private String name;
+    private int amount;
 }
