@@ -40,7 +40,7 @@ public class ShoppingListController {
     @GetMapping("/pantry/{pantryId}/shopping-list")
     protected String fetchShoppingList(@PathVariable("pantryId") Long pantryId,
                                        Model model) {
-        return "pantryShoppingList";
+        return "redirect:/pantry/{pantryId}";
     }
 
     @GetMapping("/pantry/{pantryId}/stock-requirements")
@@ -67,7 +67,23 @@ public class ShoppingListController {
         // Load new page with model
         model.addAttribute("products", requiredProductVMS);
         model.addAttribute("pantry", Mapper.pantryToPantryEditVM(pantry.get()));
-        return "pantryStockRequirements";
+        return "requirementsPantryStock";
+    }
+
+    @GetMapping("/pantry/{pantryId}/stock-requirements/add")
+    protected String addStockRequirements(@PathVariable("pantryId") Long pantryId,
+                                          Model model) {
+        if (!authorizationService.userCanEditPantry(pantryId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        Optional<Pantry> pantry = pantryService.findById(pantryId);
+        if (pantry.isEmpty()) {
+            return "redirect:/pantry/" + pantryId;
+        }
+
+        model.addAttribute("pantry", Mapper.pantryToPantryEditVM(pantry.get()));
+        return "requirementsPantryStockAdd";
     }
 
 }
