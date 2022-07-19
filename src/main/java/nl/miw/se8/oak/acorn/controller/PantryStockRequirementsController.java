@@ -47,12 +47,6 @@ public class PantryStockRequirementsController {
         this.productDefinitionService = productDefinitionService;
     }
 
-    @GetMapping("/pantry/{pantryId}/shopping-list")
-    protected String fetchShoppingList(@PathVariable("pantryId") Long pantryId,
-                                       Model model) {
-        return "redirect:/pantry/{pantryId}";
-    }
-
     @GetMapping("/pantry/{pantryId}/stock-requirements")
     protected String getStockRequirements(@PathVariable("pantryId") Long pantryId,
                                           Model model) {

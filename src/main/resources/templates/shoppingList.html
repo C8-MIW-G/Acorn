@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head"></head>
+
+<body>
+
+<nav th:replace="fragments/template :: navbar"></nav>
+
+<main>
+    <div class = "container">
+        <div class="row">
+
+            <div class="col">
+                <div class="position-relative">
+                    <a class="returnDiv" th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}">
+                        <span class="material-symbols-outlined returnIcon">arrow_back</span>
+                    </a>
+                    <span th:text="${pantry.name}"></span>
+                    <h2>Shopping List</h2>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div th:if="${errorMessage}" class="alert alert-info" role="alert">
+                    <span th:text="${errorMessage}">errorMessage</span>
+                </div>
+                <div class="table-container scrollbar-thin">
+                    <table th:if="${shoppingList.size > 0}" class="table">
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col" class="th-fixed-width-small">Amount</th>
+                        </tr>
+                        <tr th:each="product : ${shoppingList}">
+                            <td th:text="${product.name}">productName</td>
+                            <td th:text="${product.amount}">productAmount</td>
+                        </tr>
+                    </table>
+                    <p th:unless="${shoppingList.size != 0}" class="text-center my-5">It looks like your shopping list is empty!</p>
+                </div>
+            </div>
+
+            <div class="col"></div>
+
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/template :: footer"></footer>
+
+</body>
+
+</html>
