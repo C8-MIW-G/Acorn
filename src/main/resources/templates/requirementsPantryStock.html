@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head"></head>
+
+<body>
+
+<nav th:replace="fragments/template :: navbar"></nav>
+
+<main>
+  <div class = "container">
+    <div class="row">
+
+      <div class="col">
+        <div class="position-relative">
+          <a class="returnDiv" th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}">
+            <span class="material-symbols-outlined returnIcon">arrow_back</span>
+          </a>
+          <span th:text="${pantry.name}"></span>
+          <h2>Stock requirements</h2>
+          <p>Here you can set the products that your pantry should have at all times.</p>
+          <p>Your shopping list will be automatically generated based on what you put on this list and what you have in your pantry.</p>
+          <p>Add products that you always want to have in stock in order to have us generate convenient shopping lists!</p>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div th:if="${errorMessage}" class="alert alert-info" role="alert">
+          <span th:text="${errorMessage}">errorMessage</span>
+        </div>
+
+        <div class="row mb-3 px-3 d-flex flex-row-reverse btn-container">
+          <a th:href="@{/pantry/{pantryId}/stock-requirements/add(pantryId=${pantry.id})}" class="btn btn-primary">Add product</a>
+        </div>
+
+        <div th:if="${products.size > 0}">
+          <table class="table m-0">
+            <tr>
+              <th scope="col" class="th-fixed-width-small"></th>
+              <th scope="col">Product</th>
+              <th scope="col" class="th-fixed-width-small"></th>
+            </tr>
+          </table>
+          <div class="table-container scrollbar-thin">
+            <table class="table">
+              <tr th:each="product : ${products}">
+                <td th:text="${product.amount}" class="th-fixed-width-small text-align-right"></td>
+                <td th:text="${product.productDefinitionName}"></td>
+                <td class="text-center th-fixed-width-small">
+                  <button type="button"
+                          class="editButton"
+                          data-toggle="modal"
+                          data-target="#editRequiredProductModal"
+                          th:data-product-id="${product.id}"
+                          th:data-product-name="${product.productDefinitionName}"
+                          th:data-product-amount="${product.amount}">
+                    <span class="material-symbols-outlined">edit</span>
+                  </button>
+                </td>
+                <td class="text-center th-fixed-width-small">
+                  <button type="button"
+                          class="editButton"
+                          id="deletePantryProductBtn"
+                          data-toggle="modal"
+                          data-target="#deleteModal"
+                          th:data-product-id="${product.id}"
+                          th:data-pantry-id="${product.pantryId}">
+                    <span class="material-symbols-outlined">delete</span>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div th:unless="${products.size != 0}" class="border py-5">
+          <p class="text-center">This seems to be a bit empty... try to add some products!</p>
+        </div>
+
+      </div>
+
+      <div class="col"></div>
+
+      <form th:action="@{/pantry/{pantryId}/stock-requirements/editRequirement(pantryId=${pantry.id})}" method="post" th:object="${requiredProduct}">
+        <div class="modal fade" id="editRequiredProductModal" tabindex="-1" role="dialog" aria-labelledby="editRequiredProductModal?" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="confirmationTitle">Edit <span th:block id="productName"></span></h5>
+              </div>
+              <div class="modal-body width-medium">
+                <div class="row">
+                  <div class="col">
+                    <label for="productAmount">Amount:</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="input-group input-group-counter">
+                      <span class="input-group-prepend">
+                          <button type="button" class="btn btn-outline-secondary btn-number" disabled="disabled" data-type="minus" data-input="amount">
+                              <span class="fa fa-minus">-</span>
+                          </button>
+                      </span>
+                      <input id="productAmount" type="text" name="amount" class="form-control input-number text-center" value="1" min="1" max="10" th:field="*{amount}">
+                      <span class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-input="amount">
+                            <span class="fa fa-plus">+</span>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <input type="hidden" id="productId" th:field="*{id}" >
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="submitButton" type="submit" class="btn btn-primary btn-small float-right">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationTitle">Are you sure?</h5>
+        </div>
+        <div class="modal-body">
+          <p>
+            You are about to remove something. This cannot be undone!
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a id="deleteLink" class="btn btn-delete" href="#">
+            Confirm
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer th:replace="fragments/template :: footer"></footer>
+
+</body>
+
+<script type="text/javascript" src="/js/requiredProductEdit.js"></script>
+<script type="text/javascript" src="/js/modalButtons.js"></script>
+<script type="text/javascript" src="/js/deleteModal.js"></script>
+
+</html>

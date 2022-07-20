@@ -16,6 +16,10 @@ import javax.persistence.ManyToOne;
 @Entity @Getter @Setter
 public class RequiredProduct {
 
+    public static final long DEFAULT_ID = -1L;
+    public static final int DEFAULT_AMOUNT = 1;
+    public static final int MAX_AMOUNT = 100;
+
     @Id @GeneratedValue
     private Long id;
 
@@ -30,10 +34,15 @@ public class RequiredProduct {
     public RequiredProduct(Pantry pantry, ProductDefinition productDefinition) {
         this.pantry = pantry;
         this.productDefinition = productDefinition;
-        this.amount = 1;
+        this.amount = DEFAULT_AMOUNT;
     }
 
     public RequiredProduct() {
+        this.id = DEFAULT_ID;
+        this.amount = DEFAULT_AMOUNT;
+    }
 
+    public void addToAmount(int amount) {
+        this.amount += amount;
     }
 }

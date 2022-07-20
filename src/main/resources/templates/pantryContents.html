@@ -41,7 +41,9 @@
                             </td>
                             <td class="text-center" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
                             <td class="text-center">
-                                <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}"><span id="deletePantryProductBtn" class="material-symbols-outlined">delete </span></a>
+                                <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">
+                                    <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
+                                </a>
                             </td>
                         </tr>
                     </table>
@@ -72,7 +74,9 @@
             </div>
             <div class="col">
                 <div class="position-fixed sidebar-button-container">
-                        <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/stock-requirements(pantryId=${pantryId})}">Stock requirements</a>
+                        <a class="btn btn-outline-secondary"
+                           th:if="${userCanEditPantry}"
+                           th:href="@{/pantry/{pantryId}/stock-requirements(pantryId=${pantryId})}">Stock requirements</a>
                         <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/shopping-list(pantryId=${pantryId})}">Shopping list</a>
                         <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Pantry members</a>
                         <a class="btn btn-outline-secondary"

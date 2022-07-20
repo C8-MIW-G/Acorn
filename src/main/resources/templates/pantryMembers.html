@@ -54,7 +54,8 @@
                                 <td>
                                     <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"
                                        th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
-                                        remove</a>
+                                        <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
+                                    </a>
                                 </td>
                             </tr>
                 </tbody>
