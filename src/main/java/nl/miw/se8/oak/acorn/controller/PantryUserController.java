@@ -202,15 +202,15 @@ public class PantryUserController {
 
             if (pantryUserService.userIsTheOnlyPantryAdmin(formerAdmin.getUser().getId(), pantryId)) {
                 redirectAttributes.addFlashAttribute("errorMessage",
-                        "You cannot leave a pantry if you are the only pantry administrator.\n");
+                        "Admin rights could not be revoked, because you are the only admin for this pantry.\n");
                 return "redirect:/pantry/{pantryId}/members";
             }
             formerAdmin.setAdministrator(false);
             pantryUserService.save(formerAdmin);
             redirectAttributes.addFlashAttribute("errorMessage",
-                    "You have succesfully revoked your admin rights.");
+                    "You have successfully revoked your admin rights.");
         } else {
-        redirectAttributes.addFlashAttribute("errorMessage", "Your admin rights could not be revoked");
+        redirectAttributes.addFlashAttribute("errorMessage", "Your admin rights could not be revoked.");
     }
 
         return "redirect:/pantry/" + pantryId + "/members";

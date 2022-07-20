@@ -13,12 +13,11 @@ public class MapperTest {
     @DisplayName("Tests if, when we convert a pantry to a viewmodel, the ViewModel is in fact created. " +
             "Then tests if all attributes are inherited correctly")
     void pantryToPantryViewmodelIdName() {
-        Mapper mapper = new Mapper();
         Pantry testPantry = new Pantry();
         testPantry.setId(999L);
         testPantry.setName("Test");
 
-        PantryViewmodelIdName testPantryMV = mapper.pantryToPantryEditVM(testPantry);
+        PantryViewmodelIdName testPantryMV = Mapper.pantryToPantryEditVM(testPantry);
 
         assertNotNull(testPantryMV, "A pantryViewModel object should be present, but it is not");
         assertEquals(999L, testPantryMV.getId(),
@@ -61,7 +60,6 @@ public class MapperTest {
                 "but something else was returned");
         assertEquals("Test", testVM.getAcornUserName(), "The returned string should be 'Test', " +
                 "but something else was returned");
-
     }
 
     @Test
@@ -119,8 +117,7 @@ public class MapperTest {
         PantryProduct pantryProduct = new PantryProduct();
         pantryProduct.setId(-1L);
 
-        Mapper mapper = new Mapper();
-        PantryProductEditViewModel pantryProductEditViewModel = mapper.pantryProductToPantryProductEditViewModel(pantryProduct);
+        PantryProductEditViewModel pantryProductEditViewModel = Mapper.pantryProductToPantryProductEditViewModel(pantryProduct);
 
         assertInstanceOf(PantryProductEditViewModel.class, pantryProductEditViewModel);
         assertEquals(pantryProductEditViewModel.getId(), -1L,"Id is correct");
