@@ -25,11 +25,13 @@
                 <div th:if="${errorMessage}" class="alert alert-info" role="alert">
                     <span th:text="${errorMessage}">errorMessage</span>
                 </div>
+
                 <div class="row mb-3 px-3 d-flex flex-row-reverse btn-container">
                     <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
                 </div>
+
 <!--                <div class="table-container scrollbar-thin">-->
-                    <table  id="pantryContentsTable" th:if="${pantryProducts.size > 0}" class="table">
+                    <table id="pantryContentsTable" th:if="${pantryProducts.size > 0}" class="table">
                         <thead>
                             <tr>
                                 <th scope="col" style="cursor:pointer">Product</th>
