@@ -28,7 +28,7 @@
                 <div class="row mb-3 px-3 d-flex flex-row-reverse btn-container">
                     <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
                 </div>
-                <div class="table-container scrollbar-thin">
+                <div id="pantryProductTable" class="table-container scrollbar-thin">
                     <table th:if="${pantryProducts.size > 0}" class="table">
                         <tr>
                             <th scope="col">Product</th>
@@ -39,7 +39,8 @@
                             <td >
                                 <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
                             </td>
-                            <td class="text-center" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
+                            <td class="text-center expiration-date"
+                                th:text="${#temporals.format(pantryProduct.expirationDate,'dd/MM/yyyy')}"></td>
                             <td class="text-center">
                                 <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">
                                     <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
@@ -96,5 +97,7 @@
 <div th:replace="fragments/template :: bodyScripts"></div>
 
 </body>
+
+<script type="text/javascript" src="/js/expirationDates.js"></script>
 
 </html>
