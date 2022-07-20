@@ -23,18 +23,6 @@ public class WelcomeController {
 
     @GetMapping("/")
     protected String homepage(@AuthenticationPrincipal AcornUser acornUser) {
-        if (acornUser != null) {
-            System.out.println("Logged in user:");
-            System.out.printf("\t[id: %d]\n", acornUser.getId());
-            System.out.printf("\t[name: %s]\n", acornUser.getName());
-            System.out.printf("\t[email: %s]\n", acornUser.getEmail());
-            System.out.printf("\t[password: %s]\n", acornUser.getPassword());
-            for (Role role : acornUser.getRoles()) {
-                System.out.printf("\t[role: %s]\n", role.getName());
-            }
-            System.out.printf("\t[Authorities: %s]\n", acornUser.getAuthorities());
-        }
-
         return "home";
     }
 
