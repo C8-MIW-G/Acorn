@@ -25,6 +25,7 @@ public class DataLoader {
     private final RoleService roleService;
     private final PrivilegeService privilegeService;
     private final PasswordEncoder passwordEncoder;
+    private final RequiredProductService requiredProductService;
 
     public DataLoader(ProductDefinitionService productDefinitionService,
                       AcornUserService userService,
@@ -33,7 +34,8 @@ public class DataLoader {
                       PantryProductService pantryProductService,
                       RoleService roleService,
                       PrivilegeService privilegeService,
-                      PasswordEncoder passwordEncoder) {
+                      PasswordEncoder passwordEncoder,
+                      RequiredProductService requiredProductService) {
         this.productDefinitionService = productDefinitionService;
         this.userService = userService;
         this.pantryService = pantryService;
@@ -42,6 +44,7 @@ public class DataLoader {
         this.roleService = roleService;
         this.privilegeService = privilegeService;
         this.passwordEncoder = passwordEncoder;
+        this.requiredProductService = requiredProductService;
     }
 
     @EventListener

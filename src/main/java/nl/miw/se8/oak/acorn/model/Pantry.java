@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
@@ -30,6 +29,8 @@ public class Pantry {
     private List<PantryProduct> pantryProducts;
     @OneToMany(mappedBy = "pantry",  cascade = ALL)
     private List<PantryUser> pantryUsers;
+    @OneToMany(mappedBy = "pantry",  cascade = ALL)
+    private List<RequiredProduct> requiredProducts;
 
     public Pantry() {
         this.id = DEFAULT_ID;

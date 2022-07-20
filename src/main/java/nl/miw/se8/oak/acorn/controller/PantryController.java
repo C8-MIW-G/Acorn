@@ -5,7 +5,6 @@ import nl.miw.se8.oak.acorn.model.Pantry;
 import nl.miw.se8.oak.acorn.model.PantryUser;
 import nl.miw.se8.oak.acorn.service.*;
 import nl.miw.se8.oak.acorn.viewmodel.Mapper;
-import nl.miw.se8.oak.acorn.viewmodel.PantryProductEditViewModel;
 import nl.miw.se8.oak.acorn.viewmodel.PantryViewmodelIdName;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -91,8 +90,11 @@ public class PantryController {
         Optional<Pantry> pantry = pantryService.findById(pantryId);
         if (pantry.isPresent()) {
             model.addAttribute("pantryVM", Mapper.pantryToPantryEditVM(pantry.get()));
+            model.addAttribute("memberCount", pantry.get().getPantryUsers().size());
+            model.addAttribute("productCount", pantry.get().getPantryProducts().size());
+            return "pantryEdit";
         }
-        return "pantryEdit";
+        return "redirect:/pantry/{pantryId}";
     }
 
     @PostMapping("/pantry/edit")

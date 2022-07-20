@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/template :: head"></head>
+
+<body>
+
+<nav th:replace="fragments/template :: navbar"></nav>
+
+<main>
+    <div class = "container">
+        <div class="row">
+
+            <div class="col">
+                <div class="position-relative">
+                    <a class="returnDiv" th:href="@{/pantry/{pantryId}/stock-requirements(pantryId=${pantry.id})}">
+                        <span class="material-symbols-outlined returnIcon">arrow_back</span>
+                    </a>
+                    <span th:text="${pantry.name}"></span>
+                    <h2>Add requirement</h2>
+                </div>
+            </div>
+
+            <div class="col-5">
+
+                <form class="form-inline mb-4" id="searchForm">
+                    <input class="form-control mr-sm-2" id="searchInput" type="search" autocomplete="off" placeholder="Search..." autofocus/>
+                </form>
+
+                <form th:action="@{/pantry/{pantryId}/stock-requirements/add(pantryId=${pantry.id})}" method="post" th:object="${product}" id ="the-form">
+
+                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{pantryId}">
+
+                    <div id="buttonContainer" class="table-container scrollbar-thin">
+                        <div th:each="product : ${productDefinitions}">
+                            <button type="button"
+                                    class="pantryProductButton"
+                                    data-toggle="modal"
+                                    data-target="#productAddModal"
+                                    th:data-product-id="${product.id}"
+                                    th:data-product-name="${product.name}"
+                                    th:text="${product.name}">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="productAddModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmationTitle">Add <span th:block id="productName"></span></h5>
+                                </div>
+                                <div class="modal-body mx-5">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <label for="amount">Amount:</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="input-group input-group-counter">
+                                                <span class="input-group-prepend">
+                                                    <button type="button" class="btn btn-outline-secondary btn-number" disabled="disabled" data-type="minus" data-input="amount">
+                                                        <span class="fa fa-minus">-</span>
+                                                    </button>
+                                                </span>
+                                                <input id="amount" type="text" name="amount" class="form-control input-number text-center" value="1" min="1" max="100" th:field="*{amount}">
+                                                <span class="input-group-append">
+                                                    <button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-input="amount">
+                                                        <span class="fa fa-plus">+</span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <!--The productId is dynamically set in this hidden field using JavaScript-->
+                                    <input type="hidden" id="productId" th:value="-1" th:field="*{productDefinitionId}">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button id="submitButton" type="submit" class="btn btn-primary btn-small float-right">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="col"></div>
+
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/template :: footer"></footer>
+
+<script type="text/javascript" src="/js/pantryProductAdd.js"></script>
+<script type="text/javascript" src="/js/pantryProductAddAjax.js"></script>
+<script type="text/javascript" src="/js/modalButtons.js"></script>
+
+</body>
+
+</html>

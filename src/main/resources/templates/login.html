@@ -20,7 +20,7 @@
                 <div class="basket">
                     <h2>Log in</h2>
                     <form name="f" th:action="@{/login}" method="post">
-                        <div th:if="${param.error}" class="alert alert-error">
+                        <div th:if="${param.error}" class="alert alert-danger">
                             Invalid email and/or password.
                         </div>
                         <div th:if="${param.logout}" class="alert alert-success">

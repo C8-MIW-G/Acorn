@@ -130,10 +130,27 @@ public class Mapper {
     public static MakePantryAdminVM pantryUsertoMakePantryAdminVM(PantryUser pantryUser) {
         MakePantryAdminVM makePantryAdminVM = new MakePantryAdminVM();
         makePantryAdminVM.setPantryUserId(pantryUser.getId());
+        makePantryAdminVM.setAcornUserId(pantryUser.getUser().getId());
         makePantryAdminVM.setIsAdministrator(pantryUser.isAdministrator());
         makePantryAdminVM.setUserName((pantryUser.getUser().getName()));
         makePantryAdminVM.setPantryName(pantryUser.getPantry().getName());
        return makePantryAdminVM;
+    }
+
+    public static RequiredProductVM requiredProductToVM(RequiredProduct requiredProduct) {
+        RequiredProductVM requiredProductVM = new RequiredProductVM();
+        requiredProductVM.setId(requiredProduct.getId());
+        requiredProductVM.setAmount(requiredProduct.getAmount());
+        return requiredProductVM;
+    }
+
+    public static RequiredProductListVM requiredProductToListVM(RequiredProduct requiredProduct) {
+        RequiredProductListVM requiredProductListVM = new RequiredProductListVM();
+        requiredProductListVM.setId(requiredProduct.getId());
+        requiredProductListVM.setProductDefinitionName(requiredProduct.getProductDefinition().getName());
+        requiredProductListVM.setAmount(requiredProduct.getAmount());
+        requiredProductListVM.setPantryId(requiredProduct.getPantry().getId());
+        return requiredProductListVM;
     }
 
 }

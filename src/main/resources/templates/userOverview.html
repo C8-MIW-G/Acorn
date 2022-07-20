@@ -36,7 +36,9 @@
                                     </td>
                                     <td th:text="${user.name}"></td>
                                     <td class="text-center">
-                                        <a th:href="@{/admin/users/{userId}/delete(userId=${user.id})}">remove</a>
+                                        <a th:href="@{/admin/users/{userId}/delete(userId=${user.id})}">
+                                            <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
+                                        </a>
                                     </td>
                                 </tr>
                             </table>

@@ -39,27 +39,23 @@ function fillTable(result) {
     newButtonContainer.id = "buttonContainer";
     newButtonContainer.classList.add("table-container", "scrollbar-thin");
 
-    let counter = 0;
-    result.productDefinitionDTOS.forEach(productDefinitionDTO => {
+    for (let i = 0; i < result.productDefinitionDTOS.length; i++) {
         let newDiv = document.createElement("div");
         let button = document.createElement("button");
         button.classList.add("pantryProductButton");
-
-        if (counter === 0) {
-            button.id = "topProduct"
-        }
-
         button.type = "button";
         button.dataset.toggle = "modal";
         button.dataset.target = "#productAddModal";
-        button.setAttribute("data-product-id", productDefinitionDTO.id);
-        button.setAttribute("data-product-name", productDefinitionDTO.name);
-        button.textContent = productDefinitionDTO.name;
+        button.setAttribute("data-product-id", result.productDefinitionDTOS[i].id);
+        button.setAttribute("data-product-name", result.productDefinitionDTOS[i].name);
+        button.textContent = result.productDefinitionDTOS[i].name;
         newDiv.append(button);
         newButtonContainer.append(newDiv);
 
-        counter++;
-    });
+        if (i === 0) {
+            button.id = "topProduct"
+        }
+    }
 
     $("#buttonContainer").replaceWith(newButtonContainer);
 }

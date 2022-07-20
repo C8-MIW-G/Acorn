@@ -25,31 +25,32 @@
                 <div th:if="${errorMessage}" class="alert alert-info" role="alert">
                     <span th:text="${errorMessage}">errorMessage</span>
                 </div>
-                <div id="addProductInPantryBtn">
+                <div class="row mb-3 px-3 d-flex flex-row-reverse btn-container">
                     <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
                 </div>
-<!--                <div class="table-container scrollbar-thin">-->
-                    <table id="pantryContentsTable" th:if="${pantryProducts.size > 0}">
+                <div class="table-container scrollbar-thin">
+                    <table  id="pantryContentsTable" th:if="${pantryProducts.size > 0}" class="table">
                         <thead>
                             <tr>
-                                <th scope="col" class="th-fixed-width-med" style="cursor:pointer">Product</th>
-                                <th class="th-fixed-width-med text-center" style="cursor:pointer" scope="col">Expiration date</th>
+                                <th scope="col" style="cursor:pointer">Product</th>
+                                <th scope="col" class="th-fixed-width-med text-center" style="cursor:pointer">Expiration date</th>
                                 <th class="th-fixed-width-small text-center"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="pantryProduct : ${pantryProducts}">
-                                <td>
+                                <td >
                                     <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
                                 </td>
                                 <td class="text-center" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
                                 <td class="text-center">
-                                    <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}"><span id="deletePantryProductBtn" class="material-symbols-outlined">delete </span></a>
+                                    <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">
+                                        <span id="deletePantryProductBtn" class="material-symbols-outlined">delete </span></a>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-<!--                </div>-->
+                </div>
 
                 <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
 
@@ -99,13 +100,20 @@
             </div>
             <div class="col">
                 <div class="position-fixed sidebar-button-container">
-                        <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Pantry members</a>
-                        <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}">Edit pantry</a>
-                        <button class="btn btn-outline-secondary" th:if="${userCanEditPantry}" data-toggle="modal" data-target="#myModal">Delete pantry</button>
-                        <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
+                    <a class="btn btn-outline-secondary"
+                       th:if="${userCanEditPantry}"
+                       th:href="@{/pantry/{pantryId}/stock-requirements(pantryId=${pantryId})}">Stock requirements</a>
+                    <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/shopping-list(pantryId=${pantryId})}">Shopping list</a>
+                    <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Pantry members</a>
+                    <a class="btn btn-outline-secondary"
+                       th:if="${userCanEditPantry}"
+                       th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}">Edit pantry</a>
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
                 </div>
             </div>
         </div>
+
+
     </div>
 </main>
 
@@ -115,6 +123,5 @@
 
 </body>
 <script type="text/javascript" src="/js/pantryContents.js"></script>
-
 
 </html>

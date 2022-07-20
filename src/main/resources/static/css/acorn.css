@@ -357,12 +357,11 @@ input[type="date"] {
 #deletePantryProductBtn {
     color: indianred;
 }
-#addProductInPantryBtn {
-    padding-left: 425px;
-    position: relative;
-    padding-bottom: 20px;
-    padding-top: 17px;
+
+#deletePantryProductBtn:hover {
+    color: #e77a7a;
 }
+
 .returnDiv {
     position: absolute;
     left: -4.4rem;
@@ -387,4 +386,23 @@ input[type="date"] {
 
 #searchInput {
     width: 100%;
+}
+
+#expirationDate {
+    height: 38.4px;
+    padding: 0 2rem;
+}
+
+.editButton {
+    border: none;
+    background: none;
+    color: var(--primary-color);
+}
+
+.editButton:hover {
+    color: var(--primary-color-light);
+}
+
+.width-medium {
+    width: 10rem;
 }

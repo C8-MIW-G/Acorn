@@ -37,7 +37,9 @@
                                 <a th:href="@{/admin/products/{productId}/edit(productId=${product.id})}" th:text="${product.name}"></a>
                             </td>
                             <td>
-                                <a th:href="@{/admin/products/{productId}/delete(productId=${product.id})}">delete</a>
+                                <a th:href="@{/admin/products/{productId}/delete(productId=${product.id})}">
+                                    <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
+                                </a>
                             </td>
                         </tr>
                         </tbody>

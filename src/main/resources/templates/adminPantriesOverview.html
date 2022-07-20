@@ -32,7 +32,9 @@
                                 <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantry.id})}"><span class="material-symbols-outlined">edit</span></a>
                             </td>
                             <td>
-                                <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantry.id})}">delete</a>
+                                <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantry.id})}">
+                                    <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
+                                </a>
                             </td>
                         </tr>
                         </tbody>
