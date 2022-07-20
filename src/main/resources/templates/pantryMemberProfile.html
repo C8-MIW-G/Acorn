@@ -31,23 +31,26 @@
                 </div>
 
                 <div id="makeAdmin" class="basket form-group">
-
-
-
-                    <span th:if="${pantryMember.isAdministrator == true} and ${currentUserId == pantryMember.getAcornUserId}">
-                        you are an admin in this pantry.<br>
-                        <button th:if="${pantryMember.isAdministrator == true} and ${currentUserId == pantryMember.getAcornUserId}"
-                                class="btn btn-primary" type="button" data-toggle="modal" data-target="#unmakeAdminModal"> Revoke admin rights</button>
-                    </span>
-                    <span th:if="${pantryMember.isAdministrator == true} and ${currentUserId != pantryMember.getAcornUserId}"
-                        th:text="${pantryMember.getUserName()} + ' is an administrator in this pantry'">
-                    </span>
-                    <button th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
-                            class="btn btn-primary" type="button" data-toggle="modal" data-target="#adminModal">Make admin</button>
-                    <form th:action="@{/profile}" method="post" th:object="${pantryMember}">
-                        <input type ="hidden" th:field="*{pantryUserId}">
-                        <input type ="hidden" th:field="*{isAdministrator}">
-                    </form>
+                    <div class="row">
+                        <div class="col-8">
+                            <span th:if="${pantryMember.isAdministrator == true} and ${currentUserId == pantryMember.getAcornUserId}">
+                                You are an admin in this pantry.
+                            </span>
+                            <span th:if="${pantryMember.isAdministrator == true} and ${currentUserId != pantryMember.getAcornUserId}"
+                                  th:text="${pantryMember.getUserName()} + ' is an administrator in this pantry'">
+                            </span>
+                        </div>
+                        <div class="col-4">
+                            <button th:if="${pantryMember.isAdministrator == true} and ${currentUserId == pantryMember.getAcornUserId}"
+                                    class="btn btn-primary float-right" type="button" data-toggle="modal" data-target="#unmakeAdminModal">
+                                Resign as admin
+                            </button>
+                            <button th:if="${currentUserIsAdmin && pantryMember.isAdministrator == false}"
+                                    class="btn btn-primary float-right" type="button" data-toggle="modal" data-target="#adminModal">
+                                Make admin
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
