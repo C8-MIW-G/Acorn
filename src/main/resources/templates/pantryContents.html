@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:position="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head th:replace="fragments/template :: head"></head>
 
@@ -28,24 +28,28 @@
                 <div id="addProductInPantryBtn">
                     <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
                 </div>
-                <div class="table-container scrollbar-thin">
-                    <table th:if="${pantryProducts.size > 0}" class="table">
-                        <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col" class="th-fixed-width-med text-center">Expiration date</th>
-                            <th class="th-fixed-width-small text-center"></th>
-                        </tr>
-                        <tr th:each="pantryProduct : ${pantryProducts}">
-                            <td >
-                                <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
-                            </td>
-                            <td class="text-center" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
-                            <td class="text-center">
-                                <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}"><span id="deletePantryProductBtn" class="material-symbols-outlined">delete </span></a>
-                            </td>
-                        </tr>
+<!--                <div class="table-container scrollbar-thin">-->
+                    <table id="pantryContentsTable" th:if="${pantryProducts.size > 0}">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="th-fixed-width-med" style="cursor:pointer">Product</th>
+                                <th class="th-fixed-width-med text-center" style="cursor:pointer" scope="col">Expiration date</th>
+                                <th class="th-fixed-width-small text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="pantryProduct : ${pantryProducts}">
+                                <td>
+                                    <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
+                                </td>
+                                <td class="text-center" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
+                                <td class="text-center">
+                                    <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}"><span id="deletePantryProductBtn" class="material-symbols-outlined">delete </span></a>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
-                </div>
+<!--                </div>-->
 
                 <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
 
@@ -102,8 +106,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </main>
 
@@ -112,5 +114,7 @@
 <div th:replace="fragments/template :: bodyScripts"></div>
 
 </body>
+<script type="text/javascript" src="/js/pantryContents.js"></script>
+
 
 </html>
