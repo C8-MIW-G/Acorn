@@ -1,7 +1,15 @@
 // initializing datatables plugin and defining the style of the expiration date column
+// under construction
 $(document).ready( function () {
+    let numbersType = $.fn.dataTable.absoluteOrderNumber( [
+        { value: 'N/A', position: 'top' }
+    ] );
+
     $('#pantryContentsTable').DataTable( {
+        "paging":false,
+        "searching":false,
         "columnDefs": [
+            { type: numbersType, targets: 1 },
             { "orderable": false, "targets": 2 }
         ],
             "aoColumns": [
