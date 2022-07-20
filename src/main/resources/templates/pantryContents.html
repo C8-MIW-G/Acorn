@@ -25,10 +25,12 @@
                 <div th:if="${errorMessage}" class="alert alert-info" role="alert">
                     <span th:text="${errorMessage}">errorMessage</span>
                 </div>
+
                 <div class="row mb-3 px-3 d-flex flex-row-reverse btn-container">
                     <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
                 </div>
-                <div class="table-container scrollbar-thin">
+
+<!--                <div class="table-container scrollbar-thin">-->
                     <table  id="pantryContentsTable" th:if="${pantryProducts.size > 0}" class="table">
                         <thead>
                             <tr>
@@ -42,7 +44,7 @@
                                 <td >
                                     <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
                                 </td>
-                                <td class="text-center" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
+                                <td class="text-center expiration-date" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
                                 <td class="text-center">
                                     <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">
                                         <span id="deletePantryProductBtn" class="material-symbols-outlined">delete </span></a>
@@ -50,7 +52,7 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+<!--                </div>-->
 
                 <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
 
@@ -123,5 +125,6 @@
 
 </body>
 <script type="text/javascript" src="/js/pantryContents.js"></script>
+<script type="text/javascript" src="/js/expirationDates.js"></script>
 
 </html>
