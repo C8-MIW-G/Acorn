@@ -406,3 +406,20 @@ input[type="date"] {
 .width-medium {
     width: 10rem;
 }
+
+.expired {
+    color: indianred;
+    font-weight: bold;
+}
+
+.fa {
+    scale: 0.5;
+}
+
+.table.dataTable tbody th, table.dataTable tbody td {
+    padding: 0.1rem .75rem;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+    padding: 0.1rem .75rem;
+}

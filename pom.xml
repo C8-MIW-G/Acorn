@@ -12,7 +12,7 @@
 	<artifactId>acorn</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>acorn</name>
-	<description>An application that helps people keep track of food products in their pantry in order to minimize waste. </description>
+	<description>An application that helps people keep track of food _products in their pantry in order to minimize waste. </description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -87,6 +87,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.7.0</version>
 				<configuration>
 					<excludes>
 						<exclude>

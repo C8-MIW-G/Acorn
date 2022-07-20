@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:position="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head th:replace="fragments/template :: head"></head>
 
@@ -25,31 +25,59 @@
                 <div th:if="${errorMessage}" class="alert alert-info" role="alert">
                     <span th:text="${errorMessage}">errorMessage</span>
                 </div>
+
                 <div class="row mb-3 px-3 d-flex flex-row-reverse btn-container">
                     <a th:href="@{/pantry/{pantryId}/add(pantryId=${pantryId})}" class="btn btn-primary">Add product</a>
                 </div>
-                <div class="table-container scrollbar-thin">
-                    <table th:if="${pantryProducts.size > 0}" class="table">
-                        <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col" class="th-fixed-width-med text-center">Expiration date</th>
-                            <th class="th-fixed-width-small text-center"></th>
-                        </tr>
-                        <tr th:each="pantryProduct : ${pantryProducts}">
-                            <td >
-                                <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
-                            </td>
-                            <td class="text-center" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
-                            <td class="text-center">
-                                <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">
-                                    <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
 
-                <p th:unless="${pantryProducts.size != 0}" class="text-center my-5">This seems to be a bit empty... try to add some products!</p>
+<!--                <div class="table-container scrollbar-thin">-->
+                    <table id="pantryContentsTable" th:if="${pantryProducts.size > 0}" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="cursor:pointer">Product</th>
+                                <th scope="col" class="th-fixed-width-med text-center" style="cursor:pointer">Expiration date</th>
+                                <th class="th-fixed-width-small text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="pantryProduct : ${pantryProducts}">
+                                <td >
+                                    <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
+                                </td>
+                                <td class="text-center expiration-date" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
+                                <td class="text-center">
+                                    <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">
+                                        <span id="deletePantryProductBtn" class="material-symbols-outlined">delete </span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+<!--                </div>-->
+
+                <p th:unless="${pantryProducts.size != 0}" class="text-center">This seems to be a bit empty... try to add some products!</p>
+
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmationTitle">Are you sure?</h5>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    You are about to remove pantry <b><span th:block th:text="${pantryName}"></span></b>
+                                    that has <b><span th:block th:text="${pantryProducts.size}"></span> product(s)</b> in it,
+                                    and has <b><span th:block th:text="${memberCount}">memberCount</span> member(s).</b>
+                                    <br><br>
+                                    This action cannot be undone! Do you want to delete it anyway?
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantryId})}" class="btn btn-delete" data-pantry-id="${pantry.id}">Delete pantry</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -74,15 +102,15 @@
             </div>
             <div class="col">
                 <div class="position-fixed sidebar-button-container">
-                        <a class="btn btn-outline-secondary"
-                           th:if="${userCanEditPantry}"
-                           th:href="@{/pantry/{pantryId}/stock-requirements(pantryId=${pantryId})}">Stock requirements</a>
-                        <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/shopping-list(pantryId=${pantryId})}">Shopping list</a>
-                        <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Pantry members</a>
-                        <a class="btn btn-outline-secondary"
-                           th:if="${userCanEditPantry}"
-                           th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}">Edit pantry</a>
-                        <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
+                    <a class="btn btn-outline-secondary"
+                       th:if="${userCanEditPantry}"
+                       th:href="@{/pantry/{pantryId}/stock-requirements(pantryId=${pantryId})}">Stock requirements</a>
+                    <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/shopping-list(pantryId=${pantryId})}">Shopping list</a>
+                    <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Pantry members</a>
+                    <a class="btn btn-outline-secondary"
+                       th:if="${userCanEditPantry}"
+                       th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}">Edit pantry</a>
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
                 </div>
             </div>
         </div>
@@ -96,5 +124,7 @@
 <div th:replace="fragments/template :: bodyScripts"></div>
 
 </body>
+<script type="text/javascript" src="/js/pantryContents.js"></script>
+<script type="text/javascript" src="/js/expirationDates.js"></script>
 
 </html>
