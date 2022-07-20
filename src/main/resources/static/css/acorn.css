@@ -409,4 +409,9 @@ input[type="date"] {
 
 .expired {
     color: indianred;
+    font-weight: bold;
+}
+
+.fa {
+    scale: 0.5;
 }

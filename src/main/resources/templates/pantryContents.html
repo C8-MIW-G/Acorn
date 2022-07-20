@@ -42,7 +42,7 @@
                                 <td >
                                     <a th:href="@{/pantry/{pantryId}/edit/{pantryProductId}(pantryId=${pantryId}, pantryProductId=${pantryProduct.id})}" th:text="${pantryProduct.productDefinition.name}"></a>
                                 </td>
-                                <td class="text-center" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
+                                <td class="text-center expiration-date" th:text="${#temporals.format(pantryProduct.expirationDate,'dd-MM-yyyy')}"></td>
                                 <td class="text-center">
                                     <a th:href="@{/pantryProduct/{pantryProductId}/delete(pantryProductId=${pantryProduct.id})}">
                                         <span id="deletePantryProductBtn" class="material-symbols-outlined">delete </span></a>
