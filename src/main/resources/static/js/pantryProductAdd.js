@@ -15,4 +15,4 @@ modal.on('show.bs.modal', function (event) {
 // After the modal is shown
 modal.on('shown.bs.modal', function () {
     modal.find('#submitButton').focus();
-})
+}) 
