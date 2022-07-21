@@ -33,7 +33,8 @@
                             <span th:text="${error}">errorMessage</span>
                         </div>
                         <div class="">
-                            <a th:href="@{/pantry/{pantryId}(pantryId=${pantryVM.id})}" class="btn btn-secondary">Cancel</a>
+                            <a th:if="${pantryVM.id != -1}" th:href="@{/pantry/{pantryId}(pantryId=${pantryVM.id})}" class="btn btn-secondary">Cancel</a>
+                            <a th:unless="${pantryVM.id != -1}" th:href="@{/pantrySelection}" class="btn btn-secondary">Cancel</a>
                             <button type="submit" class="btn btn-primary float-right">Save</button>
                         </div>
                     </form>
