@@ -136,12 +136,12 @@ public class PantryUserController {
             if (!pantryUserService.pantryHasMoreThanOneMember(pantryId)) {
                 redirectAttributes.addFlashAttribute("errorMessage",
                         "You cannot leave a pantry if you are the only member. You can delete the pantry instead.");
-                return "redirect:/pantry/" + pantryId;
+                return "redirect:/pantry/" + pantryId + "/members";
             // Cannot leave a pantry where you are the only pantry administrator.
             } else if (authorizationService.currentUserIsAdminOfPantry(pantryId) && pantryUserService.userIsTheOnlyPantryAdmin(userId, pantryId)) {
                 redirectAttributes.addFlashAttribute("errorMessage",
                         "You cannot leave a pantry if you are the only pantry administrator.\n");
-                return "redirect:/pantry/" + pantryId;
+                return "redirect:/pantry/" + pantryId + "/members";
             }
             pantryUserService.deleteById(pantryUser.get().getId());
         }

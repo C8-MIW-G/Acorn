@@ -423,3 +423,11 @@ input[type="date"] {
 table.dataTable thead th, table.dataTable thead td {
     padding: 0.1rem .75rem;
 }
+
+li {
+    list-style-type: none;
+}
+
+ul {
+    padding-left: 0;
+}
