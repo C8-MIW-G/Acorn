@@ -98,6 +98,64 @@ public class DataLoader {
                 user.setName("user");
                 user.setRoles(List.of(userRole));
                 userService.save(user);
+
+                // Presentation user for Wicher
+                AcornUser toby = new AcornUser();
+                toby.setEmail("toby@acorn.com");
+                toby.setPassword(passwordEncoder.encode("Toby"));
+                toby.setName("Toby");
+                toby.setRoles(List.of(userRole));
+                userService.save(toby);
+
+                AcornUser rynaert = new AcornUser();
+                rynaert.setEmail("rynaert@rijntje.nl");
+                rynaert.setPassword(passwordEncoder.encode("Rynaert"));
+                rynaert.setName("Rynaert");
+                rynaert.setRoles(List.of(userRole));
+                userService.save(rynaert);
+
+                AcornUser ishmail = new AcornUser();
+                ishmail.setEmail("ishmail@acorn.com");
+                ishmail.setPassword(passwordEncoder.encode("Ishmail"));
+                ishmail.setName("Ishmail");
+                ishmail.setRoles(List.of(userRole));
+                userService.save(ishmail);
+
+                AcornUser derk = new AcornUser();
+                derk.setEmail("derk52@hotmail.com");
+                derk.setPassword(passwordEncoder.encode("Derk"));
+                derk.setName("Derk");
+                derk.setRoles(List.of(userRole));
+                userService.save(derk);
+
+                AcornUser merel = new AcornUser();
+                merel.setEmail("merel@twitter.com");
+                merel.setPassword(passwordEncoder.encode("Merel"));
+                merel.setName("Merel");
+                merel.setRoles(List.of(userRole));
+                userService.save(merel);
+
+                AcornUser aurelie = new AcornUser();
+                aurelie.setEmail("aurelie@gmail.fr");
+                aurelie.setPassword(passwordEncoder.encode("Aurelie"));
+                aurelie.setName("Aurelie");
+                aurelie.setRoles(List.of(userRole));
+                userService.save(aurelie);
+
+                AcornUser maria = new AcornUser();
+                maria.setEmail("maria@hotmail.com");
+                maria.setPassword(passwordEncoder.encode("Maria"));
+                maria.setName("Maria");
+                maria.setRoles(List.of(userRole));
+                userService.save(maria);
+
+                AcornUser guus = new AcornUser();
+                guus.setEmail("guus@gmail.com");
+                guus.setPassword(passwordEncoder.encode("Guus"));
+                guus.setName("Guus");
+                guus.setRoles(List.of(userRole));
+                userService.save(guus);
+
             }
     }
 
@@ -115,7 +173,16 @@ public class DataLoader {
                     "Bridgeclub Harde Schoppen",
                     "Dansvereniging Blue Toes",
                     "Liminoid",
-                    "Huize Ill Castello"
+                    "Huize Ill Castello",
+                    "VV Oostlaren",
+                    "Toby's Pantry",
+                    "Rynaert's Pantry",
+                    "Ishmail's Pantry",
+                    "Derk's Pantry",
+                    "Merel's Pantry",
+                    "Aurelie's Pantry",
+                    "Maria's Pantry",
+                    "Guus' Pantry"
             };
 
             Pantry pantry = new Pantry();
@@ -141,6 +208,25 @@ public class DataLoader {
             pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Liminoid").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
             pantryUserService.save(new PantryUser(userService.findByEmail("Sylvia").get(), pantryService.findByName("Wicher's Pantry").get(), false));      // Added for testing purposes for pantruUsers List in Pantry
             pantryUserService.save(new PantryUser(userService.findByEmail("user@user.com").get(), pantryService.findByName("Wicher's Pantry").get(), false));      // Added for testing purposes for pantruUsers List in Pantry
+            pantryUserService.save(new PantryUser(userService.findByEmail("toby@acorn.com").get(), pantryService.findByName("VV Oostlaren").get(), true));      // Added demmo pantryUsers for demo pantry
+            pantryUserService.save(new PantryUser(userService.findByEmail("Wicher").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("Sylvia").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("rynaert@rijntje.nl").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("ishmail@acorn.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("derk52@hotmail.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("merel@twitter.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("aurelie@gmail.fr").get(), pantryService.findByName("VV Oostlaren").get(), false));
+
+            pantryUserService.save(new PantryUser(userService.findByEmail("toby@acorn.com").get(), pantryService.findByName("Toby's Pantry").get(), true));  // underneath personal pantries foreach demo user
+            pantryUserService.save(new PantryUser(userService.findByEmail("rynaert@rijntje.nl").get(), pantryService.findByName("Rynaert's Pantry").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("ishmail@acorn.com").get(), pantryService.findByName("Ishmail's Pantry").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("derk52@hotmail.com").get(), pantryService.findByName("Derk's Pantry").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("merel@twitter.com").get(), pantryService.findByName("Merel's Pantry").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("aurelie@gmail.fr").get(), pantryService.findByName("Aurelie's Pantry").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("maria@hotmail.com").get(), pantryService.findByName("Maria's Pantry").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("guus@gmail.com").get(), pantryService.findByName("Guus' Pantry").get(), true));
+
         }
     }
 

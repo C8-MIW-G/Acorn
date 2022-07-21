@@ -59,20 +59,21 @@ h2 {
     top: 0;
     margin-bottom: 2rem;
     z-index: 9;
-    padding: 0 1rem;
+    padding: .2rem 1rem 0;
 }
 
 .bg-light {
-    background-color: var(--light-grey) !important;
+    background-color: var(--body) !important;
+    box-shadow: 0 1rem 1rem var(--light-grey);
 }
 
 .navbar-brand-custom {
-    font-family: 'Lobster', cursive;
+    font-family: 'Almarai', sans-serif;
     padding: 0 1rem;
-    font-size: 1.6rem;
-    color: #65A603;
+    font-size: 2.4rem;
+    color: var(--primary-color);
     letter-spacing: .1rem;
-    transition: .2s;
+    transition: .1s;
 }
 
 .navbar-brand-custom:hover {
@@ -88,11 +89,24 @@ h2 {
 }
 
 .admin-nav {
-    background-color: var(--primary-color-extralight);
+    /*background-color: var(--primary-color-extralight);*/
 }
 
 .nav-item {
+    display: inline-block;
     padding: .2rem;
+    border-radius: 2rem .2rem 2rem 0.2rem;
+    transition: background-color 1s cubic-bezier(.23,1,.32,1);
+    margin-left: .3rem;
+}
+
+.nav-item:hover {
+    background-color: #e2964e;
+    color: white;
+}
+
+.nav-item:hover .nav-link {
+    color: white !important;
 }
 
 /* --------------------------------------- Buttons */
@@ -259,7 +273,7 @@ input[type="date"] {
 }
 
 .brand-custom {
-    font-family: 'Lobster', cursive;
+    font-family: 'Almarai', sans-serif;
     font-size: 4rem;
     color: var(--primary-color);
     letter-spacing: .1rem;
@@ -423,7 +437,18 @@ input[type="date"] {
 table.dataTable thead th, table.dataTable thead td {
     padding: 0.1rem .75rem;
 }
+li {
+    list-style-type: none;
+}
 
+ul {
+    padding-left: 0;
+}
+
+.explainerText {
+    color: #828282;
+    font-size: .9rem;
+}
 .hero-image {
     background-image: url("../images/vintageVeg.png");
     background-color: #E2964E;
