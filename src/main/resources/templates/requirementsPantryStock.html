@@ -98,11 +98,11 @@
                   <div class="col">
                     <div class="input-group input-group-counter">
                       <span class="input-group-prepend">
-                          <button type="button" class="btn btn-outline-secondary btn-number" disabled="disabled" data-type="minus" data-input="amount">
+                          <button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-input="amount">
                               <span class="fa fa-minus"></span>
                           </button>
                       </span>
-                      <input id="productAmount" type="text" name="amount" class="form-control input-number text-center" value="1" min="1" max="10" th:field="*{amount}">
+                      <input id="productAmount" type="text" name="amount" class="form-control input-number text-center" min="1" max="10" th:field="*{amount}">
                       <span class="input-group-append">
                         <button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-input="amount">
                             <span class="fa fa-plus"></span>
