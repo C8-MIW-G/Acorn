@@ -431,3 +431,8 @@ li {
 ul {
     padding-left: 0;
 }
+
+.explainerText {
+    color: #828282;
+    font-size: .9rem;
+}

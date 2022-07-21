@@ -13,14 +13,11 @@
 
       <div class="col">
         <div class="position-relative">
-          <a class="returnDiv" th:href="@{/pantry/{pantryId}(pantryId=${pantry.id})}">
+          <a class="returnDiv" th:href="@{/pantry/{pantryId}/shopping-list(pantryId=${pantry.id})}">
             <span class="material-symbols-outlined returnIcon">arrow_back</span>
           </a>
           <span th:text="${pantry.name}"></span>
-          <h2>Stock requirements</h2>
-          <p>Here you can set the products that your pantry should have at all times.</p>
-          <p>Your shopping list will be automatically generated based on what you put on this list and what you have in your pantry.</p>
-          <p>Add products that you always want to have in stock in order to have us generate convenient shopping lists!</p>
+          <h2>Minimal Stock</h2>
         </div>
       </div>
 
@@ -74,7 +71,10 @@
         </div>
 
         <div th:unless="${products.size != 0}" class="border py-5">
-          <p class="text-center">This seems to be a bit empty... try to add some products!</p>
+          <p class="text-center m-0">
+            This seems to be a bit empty...<br>
+            Add some products to start using the shopping list!
+          </p>
         </div>
 
       </div>

@@ -55,6 +55,7 @@ public class ShoppingListController {
 
         model.addAttribute("pantry", Mapper.pantryToPantryEditVM(pantry.get()));
         model.addAttribute("shoppingList", shoppingList);
+        model.addAttribute("userCanEditPantry", authorizationService.userCanEditPantry(pantryId));
         return "ShoppingList";
     }
 
