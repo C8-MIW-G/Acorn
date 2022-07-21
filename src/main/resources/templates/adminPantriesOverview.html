@@ -32,9 +32,15 @@
                                 <a th:href="@{/pantry/{pantryId}/edit(pantryId=${pantry.id})}"><span class="material-symbols-outlined">edit</span></a>
                             </td>
                             <td>
-                                <a th:href="@{/pantry/{pantryId}/delete(pantryId=${pantry.id})}">
-                                    <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
-                                </a>
+                                <button type="button"
+                                        class="editButton"
+                                        id="deletePantryProductBtn"
+                                        data-toggle="modal"
+                                        data-target="#deleteModal"
+                                        th:data-id="${pantry.id}"
+                                        th:data-name="${pantry.name}">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -42,14 +48,40 @@
 
                     <p th:unless="${pantries.size != 0}" class="text-center">You do not seem to have any pantries...</p>
             </div>
+
             <div class="col">
             </div>
+
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmationTitle">Deleting <span class="nameSpan">pantryName</span></h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                You are about to remove pantry <b><span class="nameSpan">pantryName</span></b>.<br>
+                                This cannot be undone! Are you sure you want to continue?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a id="deleteLink" class="btn btn-delete" href="#">
+                                Confirm
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
 </main>
 
 <footer th:replace="fragments/template :: footer"></footer>
+
+<script type="text/javascript" src="/js/deletePantryModal.js"></script>
 
 </body>
 

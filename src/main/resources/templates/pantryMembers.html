@@ -24,52 +24,76 @@
 
             <div class="col-5">
                 <div class="table-container scrollbar-thin">
-
-                        <div class="d-flex flex-row-reverse btn-container mb-3">
-                            <a th:href="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}"
-                               th:if="${currentUserIsAdmin}" class="btn btn-primary ml-2">Add member</a>
-                        </div>
-
-                        <div th:if="${errorMessage}" class="alert alert-info" role="alert">
-                            <span th:text="${errorMessage}">errorMessage</span>
-                        </div>
-
-                        <table th:if="${pantryMembers.size > 0}" class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th class="th-fixed-width-small"></th>
-                                <th class="th-fixed-width-small"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="pantryMember : ${pantryMembers}">
-                                <td>
-                                    <a th:href="@{/pantry/{pantryId}/members/{pantryUserId}/pantryUserProfile(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}"th:text="${pantryMember.acornUserName}">userName</a>
-                                    <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
-                                </td>
-                                <td>
-                                    <span th:if="${pantryMember.isAdministrator}" class="material-symbols-outlined">manage_accounts</span>
-                                </td>
-                                <td>
-                                    <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"
-                                       th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
-                                        <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
-                                    </a>
-                                </td>
-                            </tr>
-                </tbody>
-
-            </table>
-
+                    <div class="d-flex flex-row-reverse btn-container mb-3">
+                        <a th:href="@{/pantry/{pantryId}/members/addMember(pantryId=${pantryId})}"
+                           th:if="${currentUserIsAdmin}" class="btn btn-primary ml-2">Add member</a>
                     </div>
+
+                    <div th:if="${errorMessage}" class="alert alert-info" role="alert">
+                        <span th:text="${errorMessage}">errorMessage</span>
+                    </div>
+
+                    <table th:if="${pantryMembers.size > 0}" class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th class="th-fixed-width-small"></th>
+                            <th class="th-fixed-width-small"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pantryMember : ${pantryMembers}">
+                            <td>
+                                <a th:href="@{/pantry/{pantryId}/members/{pantryUserId}/pantryUserProfile(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}"th:text="${pantryMember.acornUserName}">userName</a>
+                                <span th:if="${pantryMember.getUserId() == currentUserId}"> (you)</span>
+                            </td>
+                            <td>
+                                <span th:if="${pantryMember.isAdministrator}" class="material-symbols-outlined">manage_accounts</span>
+                            </td>
+                            <td>
+                                <a th:if="${currentUserIsAdmin && pantryMember.getUserId() != currentUserId}"
+                                   th:href="@{/pantry/{pantryId}/members/{pantryUserId}/delete(pantryId=${pantryId}, pantryUserId=${pantryMember.getPantryUserId()})}">
+                                    <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="col">
+                <div class="position-fixed sidebar-button-container">
+                    <ul>
+                        <li>
+                            <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Are you sure?</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                You are about to leave pantry <span th:block th:text="${pantryName}"></span>.
+                                <br>
+                                Are you sure to want to leave?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a th:href="@{/pantry/{pantryId}/leave(pantryId=${pantryId})}" class="btn btn-leave">Leave pantry</a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
-
     </div>
 </main>
 

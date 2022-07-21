@@ -78,43 +78,19 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="modal fade" id="leaveModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Are you sure?</h5>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    You are about to leave pantry <span th:block th:text="${pantryName}"></span>.
-                                    <br>
-                                    Are you sure to want to leave?
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <a th:href="@{/pantry/{pantryId}/leave(pantryId=${pantryId})}" class="btn btn-leave">Leave pantry</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
+
             <div class="col">
                 <div class="position-fixed sidebar-button-container">
-                    <a class="btn btn-outline-secondary"
-                       th:if="${userCanEditPantry}"
-                       th:href="@{/pantry/{pantryId}/stock-requirements(pantryId=${pantryId})}">Stock requirements</a>
                     <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/shopping-list(pantryId=${pantryId})}">Shopping list</a>
-                    <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Pantry members</a>
+                    <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Members</a>
                     <a class="btn btn-outline-secondary"
                        th:if="${userCanEditPantry}"
                        th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}">Edit pantry</a>
-                    <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#leaveModal">Leave pantry</button>
                 </div>
             </div>
-        </div>
 
+        </div>
 
     </div>
 </main>

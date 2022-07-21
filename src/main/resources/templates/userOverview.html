@@ -36,9 +36,15 @@
                                     </td>
                                     <td th:text="${user.name}"></td>
                                     <td class="text-center">
-                                        <a th:href="@{/admin/users/{userId}/delete(userId=${user.id})}">
-                                            <span id="deletePantryProductBtn" class="material-symbols-outlined">delete</span>
-                                        </a>
+                                        <button type="button"
+                                                class="editButton"
+                                                id="deletePantryProductBtn"
+                                                data-toggle="modal"
+                                                data-target="#deleteModal"
+                                                th:data-id="${user.id}"
+                                                th:data-name="${user.name}">
+                                            <span class="material-symbols-outlined">delete</span>
+                                        </button>
                                     </td>
                                 </tr>
                             </table>
@@ -48,11 +54,35 @@
                 <div class="col">
                 </div>
 
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="areYouSure?" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmationTitle">Deleting <span class="nameSpan">userName</span></h5>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    You are about to remove user <b><span class="nameSpan">userName</span></b>.<br>
+                                    This cannot be undone! Are you sure you want to continue?
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a id="deleteLink" class="btn btn-delete" href="#">
+                                    Confirm
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
 
     <footer th:replace="fragments/template :: footer"></footer>
+
+    <script type="text/javascript" src="/js/deleteUserModal.js"></script>
 
 </body>
 
