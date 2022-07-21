@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
-<head th:replace="fragments/template :: head">
-</head>
+<head th:replace="fragments/template :: head"></head>
 
-<body>
+<body id="homepageBackground">
 
-    <nav th:replace="fragments/template :: navbar"></nav>
+<nav th:replace="fragments/template :: navbar"></nav>
 
-    <main>
+<div class="hero-image">
 
-    </main>
+    <div class="hero-text">
+        <h1 style="font-size:80px">Acorn</h1>
+        <p>
+            Acorn helps you manage your pantry
+            and reduce food waste
+        </p>
+        <a th:href="@{/register}" sec:authorize="isAnonymous()"><button id="signUpBtn" style="cursor:pointer">Sign up to start using Acorn</button></a>
+    </div>
+</div>
 
-    <footer th:replace="fragments/template :: footer"></footer>
-
+<footer th:replace="fragments/template :: footer"></footer>
+<div th:replace="fragments/template :: bodyScripts"></div>
 </body>
 
 </html>
