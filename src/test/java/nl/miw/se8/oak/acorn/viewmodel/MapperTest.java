@@ -3,6 +3,9 @@ package nl.miw.se8.oak.acorn.viewmodel;
 import nl.miw.se8.oak.acorn.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -122,4 +125,18 @@ public class MapperTest {
         assertInstanceOf(PantryProductEditViewModel.class, pantryProductEditViewModel);
         assertEquals(pantryProductEditViewModel.getId(), -1L,"Id is correct");
     }
+
+    @Test
+    @DisplayName("Tests the mapper function that converts a productDefinition VM back a product definition")
+    void productDefinitionVMToProductDefinition() {
+        ProductsDefinitionOverviewViewModel testProductDefVm = new ProductsDefinitionOverviewViewModel();
+        testProductDefVm.setId(-1L);
+        testProductDefVm.setName("Test");
+        Mapper mapper = new Mapper();
+        ProductDefinition  testProduct = mapper.productDefinitionVMToProductDefinition(testProductDefVm);
+
+        assertNotNull(testProduct);
+        assertEquals(-1L, testProduct.getId());
+    }
+
 }
