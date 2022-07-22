@@ -43,7 +43,7 @@
 
             <div class="col">
                 <div class="position-fixed sidebar-button-container">
-                    <button class="btn btn-delete" data-toggle="modal" data-target="#deleteModal">Delete pantry</button>
+                    <button class="btn btn-delete" data-toggle="modal" data-target="#deleteModal" th:if="${pantryVM.id != -1}">Delete pantry</button>
                 </div>
             </div>
 

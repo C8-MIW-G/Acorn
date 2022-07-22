@@ -82,9 +82,9 @@
 
             <div class="col">
                 <div class="position-fixed sidebar-button-container">
-                    <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/shopping-list(pantryId=${pantryId})}">Shopping list</a>
-                    <a class="btn btn-outline-secondary" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Members</a>
-                    <a class="btn btn-outline-secondary"
+                    <a class="btn btn-pantryContents" th:href="@{/pantry/{pantryId}/shopping-list(pantryId=${pantryId})}">Shopping list</a>
+                    <a class="btn btn-pantryContents" th:href="@{/pantry/{pantryId}/members(pantryId=${pantryId})}">Members</a>
+                    <a class="btn btn-pantryContents"
                        th:if="${userCanEditPantry}"
                        th:href="@{/pantry/{pantryId}/edit(pantryId=${pantryId})}">Edit pantry</a>
                 </div>
