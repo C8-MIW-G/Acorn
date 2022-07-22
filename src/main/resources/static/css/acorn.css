@@ -109,6 +109,11 @@ h2 {
     color: white !important;
 }
 
+.nav-link {
+    color: #181818 !important;
+}
+
+
 /* --------------------------------------- Buttons */
 .btn-container {
     gap: 1rem;
@@ -450,27 +455,34 @@ ul {
     font-size: .9rem;
 }
 #homepageImage {
+    position: fixed;
     max-width: 100%;
     height: auto;
+    top: -4rem;
+    width: 50rem;
+    left: 0;
 }
 
 #acornText {
     text-align: center;
-    top: 30%;
-    color:white;
-    background:orangered;
-    padding: 70px;
-    max-width: 100%;
+    top: 20rem;
+    color: white;
+    background: orangered;
+    padding: 2rem 2rem;
+    width: 35rem;
+    border-radius: 0.8rem;
+    position: fixed;
+    left: 38rem;
 }
 
 #signUpBtn {
     border: 2px solid #6350a9;
     background-color: white;
-    transition-duration:0.4s;
+    transition-duration:0.2s;
     margin-bottom: 2rem;
     color: black;
     border-radius: 12px;
-
+    cursor:pointer
 }
 
 #signUpBtn:hover {
@@ -490,4 +502,18 @@ ul {
 }
 #logInHomepage:hover {
     color: mediumpurple;
+}
+
+.noShadow {
+    box-shadow: none;
+}
+
+.btn-pantryContents {
+    background-color: #e2964e;
+    color: white;
+}
+
+.btn-pantryContents:hover {
+    color: white;
+    background-color: #ffb877;
 }

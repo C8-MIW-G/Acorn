@@ -25,14 +25,12 @@
                     <table th:if="${products.size > 0}" class="table">
                         <thead>
                         <tr>
-                            <th class="th-fixed-width-small text-align-right" scope="col">Id</th>
                             <th scope="col">Product</th>
                             <th class="th-fixed-width-small"></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="product : ${products}">
-                            <td th:text="${product.id}" class="text-align-right"></td>
                             <td>
                                 <a th:href="@{/admin/products/{productId}/edit(productId=${product.id})}" th:text="${product.name}"></a>
                             </td>
