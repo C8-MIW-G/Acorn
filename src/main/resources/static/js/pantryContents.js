@@ -2,10 +2,11 @@
 // under construction
 $(document).ready( function () {
     let numbersType = $.fn.dataTable.absoluteOrderNumber( [
-        { value: 'N/A', position: 'top' }
+        { value: null, position: 'top' }
     ] );
 
     $('#pantryContentsTable').DataTable( {
+        order: [[1,"asc"]],
         "paging":false,
         "searching":false,
         "columnDefs": [
@@ -27,11 +28,12 @@ jQuery.extend( jQuery.fn.dataTableExt.oSort, {
         return (ukDateA[2] + ukDateA[1] + ukDateA[0]) * 1;
     },
 
-    "date-uk-asc": function ( a, b ) {
-        return ((a < b) ? -1 : ((a > b) ? 1 : 0));
-    },
-
     "date-uk-desc": function ( a, b ) {
         return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+    },
+
+    "date-uk-asc": function ( a, b ) {
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0));
     }
+
 } );
