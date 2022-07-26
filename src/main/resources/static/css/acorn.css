@@ -498,10 +498,8 @@ ul {
     background-size: cover;
 }
 #logInHomepage {
-    color: #6350a9;
-}
-#logInHomepage:hover {
-    color: mediumpurple;
+    color: yellow;
+    font-weight: bold;
 }
 
 .noShadow {
