@@ -24,7 +24,7 @@
 
             <div class="col-6">
                 <div class="row mb-3 px-3 d-flex flex-row-reverse btn-container">
-                    <a class="btn btn-outline-secondary" th:if="${userCanEditPantry}" th:href="@{/pantry/{pantryId}/stock-requirements(pantryId=${pantry.id})}">Minimal stock</a>
+                    <a class="btn btn-pantryContents" th:if="${userCanEditPantry}" th:href="@{/pantry/{pantryId}/stock-requirements(pantryId=${pantry.id})}">Minimal stock</a>
                 </div>
 
                 <div th:if="${shoppingList.size > 0}" class="table-container scrollbar-thin">

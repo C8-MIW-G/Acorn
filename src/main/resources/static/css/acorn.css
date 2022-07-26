@@ -142,12 +142,12 @@ h2 {
 
 .btn-delete {
     color: var(--white);
-    background-color: #d54f5c;
+    background-color: indianred;
 }
 
 .btn-delete:hover {
     color: var(--white);
-    background-color: #fd6a79;
+    background-color: #f38484;
 }
 
 .btn-secondary {
