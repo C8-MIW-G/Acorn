@@ -65,92 +65,85 @@ public class DataLoader {
                 Role userRole = createRoleIfNotFound("ROLE_USER", List.of(readPrivilege));
 
                 AcornUser admin = new AcornUser();
-                admin.setEmail("admin@admin.com");
-                admin.setPassword(passwordEncoder.encode("admin"));
+                admin.setEmail("admin@acorn.com");
+                admin.setPassword(passwordEncoder.encode("Admin"));
                 admin.setName("Admininstrator");
                 admin.setRoles(List.of(adminRole));
                 userService.save(admin);
 
-                AcornUser sylvia = new AcornUser();
-                sylvia.setEmail("Sylvia");
-                sylvia.setPassword(passwordEncoder.encode("Sylvia"));
-                sylvia.setName("Sylvia");
-                sylvia.setRoles(List.of(adminRole));
-                userService.save(sylvia);
-
-                AcornUser wicher = new AcornUser();
-                wicher.setEmail("Wicher");
-                wicher.setPassword(passwordEncoder.encode("Wicher"));
-                wicher.setName("Wicher");
-                wicher.setRoles(List.of(adminRole));
-                userService.save(wicher);
-
-                AcornUser thijs = new AcornUser();
-                thijs.setEmail("Thijs");
-                thijs.setPassword(passwordEncoder.encode("Thijs"));
-                thijs.setName("Thijs");
-                thijs.setRoles(List.of(adminRole));
-                userService.save(thijs);
-
                 AcornUser user = new AcornUser();
-                user.setEmail("user@user.com");
-                user.setPassword(passwordEncoder.encode("user"));
+                user.setEmail("user@acorn.com");
+                user.setPassword(passwordEncoder.encode("User"));
                 user.setName("user");
                 user.setRoles(List.of(userRole));
                 userService.save(user);
 
+                AcornUser wicher = new AcornUser();
+                wicher.setEmail("wicher@acorn.com");
+                wicher.setPassword(passwordEncoder.encode("Wicher"));
+                wicher.setName("Wicher");
+                wicher.setRoles(List.of(userRole));
+                userService.save(wicher);
+
+                AcornUser thijs = new AcornUser();
+                thijs.setEmail("thijs@acorn.com");
+                thijs.setPassword(passwordEncoder.encode("Thijs"));
+                thijs.setName("Thijs");
+                thijs.setRoles(List.of(userRole));
+                userService.save(thijs);
+
                 // Presentation user for Wicher
                 AcornUser toby = new AcornUser();
-                toby.setEmail("toby@acorn.com");
+                toby.setEmail("toby@email.com");
                 toby.setPassword(passwordEncoder.encode("Toby"));
                 toby.setName("Toby");
                 toby.setRoles(List.of(userRole));
                 userService.save(toby);
 
                 AcornUser rynaert = new AcornUser();
-                rynaert.setEmail("rynaert@rijntje.nl");
+                rynaert.setEmail("rynaert@email.com");
                 rynaert.setPassword(passwordEncoder.encode("Rynaert"));
                 rynaert.setName("Rynaert");
                 rynaert.setRoles(List.of(userRole));
                 userService.save(rynaert);
 
                 AcornUser ishmail = new AcornUser();
-                ishmail.setEmail("ishmail@acorn.com");
+                ishmail.setEmail("ishmail@email.com");
                 ishmail.setPassword(passwordEncoder.encode("Ishmail"));
                 ishmail.setName("Ishmail");
                 ishmail.setRoles(List.of(userRole));
                 userService.save(ishmail);
 
                 AcornUser derk = new AcornUser();
-                derk.setEmail("derk52@hotmail.com");
+                derk.setEmail("derk@email.com");
                 derk.setPassword(passwordEncoder.encode("Derk"));
                 derk.setName("Derk");
                 derk.setRoles(List.of(userRole));
                 userService.save(derk);
 
                 AcornUser merel = new AcornUser();
-                merel.setEmail("merel@twitter.com");
+                merel.setEmail("merel@email.com");
                 merel.setPassword(passwordEncoder.encode("Merel"));
                 merel.setName("Merel");
                 merel.setRoles(List.of(userRole));
                 userService.save(merel);
 
                 AcornUser aurelie = new AcornUser();
-                aurelie.setEmail("aurelie@gmail.fr");
+                aurelie.setEmail("aurelie@email.com");
                 aurelie.setPassword(passwordEncoder.encode("Aurelie"));
                 aurelie.setName("Aurelie");
                 aurelie.setRoles(List.of(userRole));
                 userService.save(aurelie);
 
                 AcornUser maria = new AcornUser();
-                maria.setEmail("maria@hotmail.com");
+                maria.setEmail("maria@email.com");
                 maria.setPassword(passwordEncoder.encode("Maria"));
                 maria.setName("Maria");
                 maria.setRoles(List.of(userRole));
                 userService.save(maria);
 
                 AcornUser guus = new AcornUser();
-                guus.setEmail("guus@gmail.com");
+                guus.setEmail("guus@email.com");
                 guus.setPassword(passwordEncoder.encode("Guus"));
                 guus.setName("Guus");
                 guus.setRoles(List.of(userRole));
@@ -162,31 +155,13 @@ public class DataLoader {
     private void seedPantries() {
         if (pantryService.findAll().size() == 0) {
             String[] pantryNames = {
-                    "Sylvia's Pantry",
-                    "Wicher's Pantry",
-                    "Thijs' Pantry",
-                    "Sportclub Rijssen",
-                    "Korfbalvereniging SDO",
-                    "OBS De Cirkel",
-                    "GLV Idun",
-                    "Keukentje MIW",
-                    "Bridgeclub Harde Schoppen",
-                    "Dansvereniging Blue Toes",
-                    "Liminoid",
-                    "Huize Ill Castello",
-                    "VV Oostlaren",
-                    "Toby's Pantry",
-                    "Rynaert's Pantry",
-                    "Ishmail's Pantry",
-                    "Derk's Pantry",
-                    "Merel's Pantry",
-                    "Aurelie's Pantry",
-                    "Maria's Pantry",
-                    "Guus' Pantry"
+                "Wicher's Pantry",
+                "Thijs' Pantry",
+                "VV Oostlaren",
+                "MIW Keukentje"
             };
 
             Pantry pantry = new Pantry();
-
             for (String name : pantryNames) {
                 pantry.setName(name);
                 pantryService.save(pantry);
@@ -196,62 +171,133 @@ public class DataLoader {
 
     private void seedPantryUsers() {
         if (pantryUserService.findAll().size() == 0) {
-            pantryUserService.save(new PantryUser(userService.findByEmail("Sylvia").get(), pantryService.findByName("Sylvia's Pantry").get(), true));
-            pantryUserService.save(new PantryUser(userService.findByEmail("Wicher").get(), pantryService.findByName("Wicher's Pantry").get(), true));
-            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Thijs' Pantry").get(), true));
-            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Sylvia's Pantry").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
-            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Wicher's Pantry").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
-            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Sportclub Rijssen").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
-            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Korfbalvereniging SDO").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
-            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("GLV Idun").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
-            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Keukentje MIW").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
-            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("Liminoid").get(), false));       // Added for testing purposes for pantruUsers List in Pantry
-            pantryUserService.save(new PantryUser(userService.findByEmail("Sylvia").get(), pantryService.findByName("Wicher's Pantry").get(), false));      // Added for testing purposes for pantruUsers List in Pantry
-            pantryUserService.save(new PantryUser(userService.findByEmail("user@user.com").get(), pantryService.findByName("Wicher's Pantry").get(), false));      // Added for testing purposes for pantruUsers List in Pantry
-            pantryUserService.save(new PantryUser(userService.findByEmail("toby@acorn.com").get(), pantryService.findByName("VV Oostlaren").get(), true));      // Added demmo pantryUsers for demo pantry
-            pantryUserService.save(new PantryUser(userService.findByEmail("Wicher").get(), pantryService.findByName("VV Oostlaren").get(), false));
-            pantryUserService.save(new PantryUser(userService.findByEmail("Thijs").get(), pantryService.findByName("VV Oostlaren").get(), false));
-            pantryUserService.save(new PantryUser(userService.findByEmail("Sylvia").get(), pantryService.findByName("VV Oostlaren").get(), false));
-            pantryUserService.save(new PantryUser(userService.findByEmail("rynaert@rijntje.nl").get(), pantryService.findByName("VV Oostlaren").get(), false));
-            pantryUserService.save(new PantryUser(userService.findByEmail("ishmail@acorn.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
-            pantryUserService.save(new PantryUser(userService.findByEmail("derk52@hotmail.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
-            pantryUserService.save(new PantryUser(userService.findByEmail("merel@twitter.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
-            pantryUserService.save(new PantryUser(userService.findByEmail("aurelie@gmail.fr").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("wicher@acorn.com").get(), pantryService.findByName("Wicher's Pantry").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("wicher@acorn.com").get(), pantryService.findByName("VV Oostlaren").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("wicher@acorn.com").get(), pantryService.findByName("MIW Keukentje").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("thijs@acorn.com").get(), pantryService.findByName("Thijs' Pantry").get(), true));
+            pantryUserService.save(new PantryUser(userService.findByEmail("thijs@acorn.com").get(), pantryService.findByName("MIW Keukentje").get(), true));
 
-            pantryUserService.save(new PantryUser(userService.findByEmail("toby@acorn.com").get(), pantryService.findByName("Toby's Pantry").get(), true));  // underneath personal pantries foreach demo user
-            pantryUserService.save(new PantryUser(userService.findByEmail("rynaert@rijntje.nl").get(), pantryService.findByName("Rynaert's Pantry").get(), true));
-            pantryUserService.save(new PantryUser(userService.findByEmail("ishmail@acorn.com").get(), pantryService.findByName("Ishmail's Pantry").get(), true));
-            pantryUserService.save(new PantryUser(userService.findByEmail("derk52@hotmail.com").get(), pantryService.findByName("Derk's Pantry").get(), true));
-            pantryUserService.save(new PantryUser(userService.findByEmail("merel@twitter.com").get(), pantryService.findByName("Merel's Pantry").get(), true));
-            pantryUserService.save(new PantryUser(userService.findByEmail("aurelie@gmail.fr").get(), pantryService.findByName("Aurelie's Pantry").get(), true));
-            pantryUserService.save(new PantryUser(userService.findByEmail("maria@hotmail.com").get(), pantryService.findByName("Maria's Pantry").get(), true));
-            pantryUserService.save(new PantryUser(userService.findByEmail("guus@gmail.com").get(), pantryService.findByName("Guus' Pantry").get(), true));
-
+            pantryUserService.save(new PantryUser(userService.findByEmail("toby@email.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("rynaert@email.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("ishmail@email.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("derk@email.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("merel@email.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
+            pantryUserService.save(new PantryUser(userService.findByEmail("aurelie@email.com").get(), pantryService.findByName("VV Oostlaren").get(), false));
         }
     }
 
     private void seedProductDefinitions() {
         if (productDefinitionService.findAll().size() == 0) {
-            productDefinitionService.save( new ProductDefinition("Bread"));
-            productDefinitionService.save( new ProductDefinition("Beans"));
-            productDefinitionService.save( new ProductDefinition("Patatas"));
-            productDefinitionService.save( new ProductDefinition("Tomato paste"));
-            productDefinitionService.save( new ProductDefinition("Peas"));
-            productDefinitionService.save( new ProductDefinition("Chips"));
-            productDefinitionService.save( new ProductDefinition("Chocolate"));
-            productDefinitionService.save( new ProductDefinition("Salsa"));
-            productDefinitionService.save( new ProductDefinition("Pepitas"));
-            productDefinitionService.save( new ProductDefinition("Roquefort"));
-            productDefinitionService.save( new ProductDefinition("Brie"));
-            productDefinitionService.save( new ProductDefinition("Paprika"));
-            productDefinitionService.save( new ProductDefinition("Almond yoghurt"));
-            productDefinitionService.save( new ProductDefinition("Rice crackers"));
-            productDefinitionService.save( new ProductDefinition("Tagliatelle"));
-            productDefinitionService.save( new ProductDefinition("Sun dried tomatoes"));
-            productDefinitionService.save( new ProductDefinition("Kalamata olives"));
-            productDefinitionService.save( new ProductDefinition("Ntolmadakia"));
-            productDefinitionService.save( new ProductDefinition("Peanut butter"));
-            productDefinitionService.save( new ProductDefinition("Jam"));
+            String[] products = {
+                    "Aardbeien 500g",
+                    "Blauwe Bessen 300g",
+                    "Druiven Wit Pitloos 500g",
+                    "Galia Meloen",
+                    "Ananas",
+                    "Frambozen 125g",
+                    "Mandarijnen 1kg",
+                    "Appels Jonagold 1kg",
+                    "Watermeloen",
+                    "Gold Kiwifruit 6x",
+                    "Mini Krieltjes Bistro 600g",
+                    "Aardappelen Kruimig 1kg",
+                    "Aardappelen Kruimig 3kg",
+                    "Aardappelen Vastkokend 1kg",
+                    "Aardappelen Vastkokend 3kg",
+                    "Aardappelschijfjes 600g",
+                    "Zilvervliesrijst 400g",
+                    "Verse Gnocchi 500g",
+                    "Fusili 500g",
+                    "Fusili 500g volkoren",
+                    "Tomatenblokjes 400g",
+                    "Tomatenpuree 70g",
+                    "Pesto alla Genovese 185g",
+                    "Kroepoek Cassave 75g",
+                    "Kruidige Ketchup 580g",
+                    "Fijne Augurk Zoetzuur 370g",
+                    "Zilver Uitjes Zoetzuur 320g",
+                    "Mayonaise 650ml",
+                    "Ketchup 400ml",
+                    "Olijfolie Classico 1L",
+                    "Zonnebloemolie 1L",
+                    "Bruin Tijgerbrood",
+                    "Bruin Tijgerbrood (half)",
+                    "Roomboter Croissants",
+                    "Brood Fijn Volkoren",
+                    "Brood Fijn Volkoren (half)",
+                    "Smeuïge Pindakaas 350g",
+                    "Duo Hagelslag 600g",
+                    "Aardbei Extra Jam 440g",
+                    "Nutella 400g",
+                    "Pindakaas 400g",
+                    "Pindakaas 600g",
+                    "Appelstroop 450g",
+                    "Bier 6x300ml",
+                    "Bier krat 12x300ml",
+                    "Bier krat 24x300ml",
+                    "Bier 6x300ml 0.0% Alcoholvrij",
+                    "Bier krat 12x300ml 0.0% Alcoholvrij",
+                    "Bier krat 24x300ml 0.0% Alcoholvrij",
+                    "Wijn Merlot 750ml",
+                    "Wijn Cabernet Sauvignon 750ml",
+                    "Wijn Chardonnay 750ml",
+                    "Wijn Pinot Grigio 750ml",
+                    "Appelsap 1,5L",
+                    "Suiker 1kg",
+                    "Sinaasappelsap 1,5L",
+                    "Ice Tea 1,5L",
+                    "Filterkoffie 500g",
+                    "Siroop 1L",
+                    "Koffiemelk 500ml",
+                    "Koffiepads 36 stuks",
+                    "Thee 20 stuks",
+                    "Frisdrank 1L",
+                    "Diepvries",
+                    "Frambozen bevroren 1 kilo",
+                    "Spinazie á la crème",
+                    "Frikadellen 20x",
+                    "Gehaktballen 8x",
+                    "Tricolore Roomijs 1L",
+                    "Friet 2kg",
+                    "Bitterballen 100 stuks",
+                    "Gemengd fruit bevroren 1kg",
+                    "Perenijsjes 10 stuks",
+                    "IJstaart 800g",
+                    "Paprika chips 250g",
+                    "Naturel chips 250g",
+                    "Ketchup chips 200g",
+                    "Borrelnoten 300g",
+                    "Pistachenoten 150g",
+                    "Gevulde koeken 8x",
+                    "Stroopwafels 12 stuks",
+                    "Appeltaart 600g",
+                    "Slagroomtaart 550g",
+                    "Mokkagebak 550g",
+                    "Droge worsten 6 stuks",
+                    "Champignons 250g",
+                    "Snoeptomaatjes 200g",
+                    "Paprika",
+                    "Maaltijsalade 400g",
+                    "Witte bonen 360g",
+                    "Bruine bonen 340g",
+                    "Kikkererwten 400g",
+                    "Linzen 200g",
+                    "Portobello",
+                    "Gehakt half-om-half 500g",
+                    "Braadworsten 4 stuks",
+                    "Kipfilet 1kg",
+                    "Kip Krokant Schnitzels 2x",
+                    "Chipolata Worstjes 6x",
+                    "Zigeunerschnitzels 2x",
+                    "Shaormavlees (kip) 500g",
+                    "Slavinken 4x",
+                    "Rundervinken 4x",
+                    "Speklappen 600gr"
+            };
+
+            for (String product : products) {
+                productDefinitionService.save(new ProductDefinition(product));
+            }
         }
     }
 
@@ -271,6 +317,18 @@ public class DataLoader {
                     pantryProductService.save(pantryProduct);
                 }
             }
+
+            Pantry VVOostlaren = pantryService.findByName("VV Oostlaren").get();
+            for (int i = 0; i < 3; i++) {
+                int randomProduct2 = (int) (Math.random() * productDefinitions.size());
+                int randomDate2 = (int) (Math.random() * 31);
+                PantryProduct pantryProduct2 = new PantryProduct(
+                        VVOostlaren,
+                        productDefinitions.get(randomProduct2),
+                        LocalDate.now().minusDays(randomDate2));
+                pantryProductService.save(pantryProduct2);
+            }
+
         }
     }
 
